@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="数据结构,">
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="zzq&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="数据结构之二叉树    在学习Java集合类的时候，我们学习了树形结构，树形结构是一类重要的非线性数据结构，其中以树和二叉树最为常用，下面我们简单来介绍下二叉树的抽象数据类型以及二叉排序树的算法。 一 定义：二叉树是一种树形结构，它的特点是每个结点至多只有两棵子树（即二叉树不存在度  大于2的结点），并且，二叉树的子树有左右之分，其次序不能任意颠倒。 二 性质：  性质1：二叉树第i层上的结点数目">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构之二叉树">
+<meta property="og:url" content="http://yoursite.com/2019/04/16/数据结构之二叉树/index.html">
 <meta property="og:site_name" content="zzq&#39;s blog">
+<meta property="og:description" content="数据结构之二叉树    在学习Java集合类的时候，我们学习了树形结构，树形结构是一类重要的非线性数据结构，其中以树和二叉树最为常用，下面我们简单来介绍下二叉树的抽象数据类型以及二叉排序树的算法。 一 定义：二叉树是一种树形结构，它的特点是每个结点至多只有两棵子树（即二叉树不存在度  大于2的结点），并且，二叉树的子树有左右之分，其次序不能任意颠倒。 二 性质：  性质1：二叉树第i层上的结点数目">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-16T13:46:10.809Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zzq&#39;s blog">
+<meta name="twitter:title" content="数据结构之二叉树">
+<meta name="twitter:description" content="数据结构之二叉树    在学习Java集合类的时候，我们学习了树形结构，树形结构是一类重要的非线性数据结构，其中以树和二叉树最为常用，下面我们简单来介绍下二叉树的抽象数据类型以及二叉排序树的算法。 一 定义：二叉树是一种树形结构，它的特点是每个结点至多只有两棵子树（即二叉树不存在度  大于2的结点），并且，二叉树的子树有左右之分，其次序不能任意颠倒。 二 性质：  性质1：二叉树第i层上的结点数目">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/16/数据结构之二叉树/">
 
 
 
 
 
-  <title>zzq's blog</title>
+  <title>数据结构之二叉树 | zzq's blog</title>
   
 
 
@@ -140,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-right 
-  page-home">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 	<a href="https://github.com/zqnh"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1" style="
     margin-left: 1114px;
@@ -227,9 +231,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -259,9 +263,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/16/数据结构之二叉树/" itemprop="url">数据结构之二叉树</a></h1>
+          <h1 class="post-title" itemprop="name headline">数据结构之二叉树</h1>
         
 
         <div class="post-meta">
@@ -311,9 +313,7 @@
       
 
       
-        
-          
-            <pre><code>数据结构之二叉树
+        <pre><code>数据结构之二叉树
 </code></pre><p>   在学习Java集合类的时候，我们学习了树形结构，树形结构是一类重要的非线性数据结构，其中以树和二叉树最为常用，下面我们简单来介绍下二叉树的抽象数据类型以及二叉排序树的算法。</p>
 <p><strong>一 定义</strong>：二叉树是一种树形结构，它的特点是每个结点至多只有两棵子树（即二叉树不存在度  大于2的结点），并且，二叉树的子树有左右之分，其次序不能任意颠倒。</p>
 <p><strong>二 性质</strong>：<br>  性质1：二叉树第i层上的结点数目最多为 2{i-1} (i≥1)。<br>         证明：下面用”数学归纳法”进行证明。<br>        (01) 当i=1时，第i层的节点数目为2{i-1}=2{0}=1。因为第1层上只有一个根结点，所以命题成立。<br>        (02) 假设当i&gt;1，第i层的节点数目为2{i-1}。这个是根据(01)推断出来的！<br>               下面根据这个假设，推断出”第(i+1)层的节点数目为2{i}”即可。<br>                由于二叉树的每个结点至多有两个孩子，故”第(i+1)层上的结点数目” 最多是 “第i层的结点数目的2倍”。即，第(i+1)层上的结点数目最大值=2×2{i-1}=2{i}。<br>                故假设成立，原命题得证！</p>
@@ -326,8 +326,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">中序遍历</span><br><span class="line"></span><br><span class="line">public void printNode()</span><br><span class="line">&#123;</span><br><span class="line"> 	if(this.left!=null)</span><br><span class="line">	 &#123;</span><br><span class="line">	  this.left.printNode();</span><br><span class="line"> 	&#125;</span><br><span class="line">	 System.out.print(this.data+&quot;-&gt;&quot;);</span><br><span class="line">	 if(this.right!=null)</span><br><span class="line"> 	&#123;</span><br><span class="line">	  this.right.printNode();</span><br><span class="line">	 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">后序遍历</span><br><span class="line"></span><br><span class="line">public void printNode()</span><br><span class="line"> &#123;   </span><br><span class="line">   	 if(this.left!=null)</span><br><span class="line"> 	 &#123; </span><br><span class="line">  	    this.left.printNode();</span><br><span class="line"> 	   &#125; </span><br><span class="line">    	 if(this.right!=null)</span><br><span class="line">     	   &#123; </span><br><span class="line">      	    this.right.printNode(); </span><br><span class="line">       	  &#125;</span><br><span class="line">           System.out.print(this.data+&quot;-&gt;&quot;);</span><br><span class="line">       &#125; </span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
-          
-        
       
     </div>
     
@@ -342,14 +340,20 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -359,10 +363,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -370,6 +375,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -591,6 +600,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
