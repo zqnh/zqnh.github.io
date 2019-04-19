@@ -333,7 +333,7 @@
       
         
           
-            <pre><code>**java连接mysql-8.0.11出现的问题**
+            <pre><code>Java连接mysql-8.0.11出现的问题
 </code></pre><p>今天学习数据库JDBC连接，写好程序运行出现以下警告：<br>WARN: Establishing SSL connection without server’s identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by default if explicit option isn’t set. For compliance with existing applications not using SSL the verifyServerCertificate property is set to ‘false’. You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true and provide truststore for server certificate verification.</p>
 <p><img src="https://img-blog.csdnimg.cn/20190418223513613.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzg1MzI1NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p>百度后发现原因是MySQL在高版本需要指明是否进行SSL连接<br>解决方案：<br>在url中添加&amp;useSSL=false或者添加&amp;useSSL=true<br>“jdbc:mysql://localhost:3306/ 数据库名 ?useSSL=false&amp;serverTimezone=UTC”, “root”, “root”<br>问题解决</p>
