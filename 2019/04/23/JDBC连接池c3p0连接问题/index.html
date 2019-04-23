@@ -79,20 +79,21 @@
 
 
 
-<meta name="description" content="Java连接mysql-8.0.11出现的问题 今天学习数据库JDBC连接，写好程序运行出现以下警告：WARN: Establishing SSL connection without server’s identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requireme">
+<meta name="description" content="JDBC——c3p0连接问题 今天，在学习JDBC——c3p0连接池时，写好c3p0-config.xml文件后运行测试类出现以下错误： 经过百度发现出错行：1&amp;lt;properties  name=&amp;quot;jdbcUrl&amp;quot;&amp;gt;jdbc:mysql://localhost:3306/school?useSSL=false&amp;amp;serverTimezone=UTC&amp;lt;/p">
 <meta name="keywords" content="web开发">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JDBC连接问题">
-<meta property="og:url" content="http://yoursite.com/2019/04/18/JDBC连接问题/index.html">
+<meta property="og:title" content="JDBC连接池c3p0连接问题[C">
+<meta property="og:url" content="http://yoursite.com/2019/04/23/JDBC连接池c3p0连接问题/index.html">
 <meta property="og:site_name" content="zzq&#39;s blog">
-<meta property="og:description" content="Java连接mysql-8.0.11出现的问题 今天学习数据库JDBC连接，写好程序运行出现以下警告：WARN: Establishing SSL connection without server’s identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requireme">
+<meta property="og:description" content="JDBC——c3p0连接问题 今天，在学习JDBC——c3p0连接池时，写好c3p0-config.xml文件后运行测试类出现以下错误： 经过百度发现出错行：1&amp;lt;properties  name=&amp;quot;jdbcUrl&amp;quot;&amp;gt;jdbc:mysql://localhost:3306/school?useSSL=false&amp;amp;serverTimezone=UTC&amp;lt;/p">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/04/18/JDBC连接问题/img/exception.png">
-<meta property="og:updated_time" content="2019-04-22T14:54:39.882Z">
+<meta property="og:image" content="http://yoursite.com/2019/04/23/JDBC连接池c3p0连接问题/img/c3p0.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/23/JDBC连接池c3p0连接问题/img/c3p01.png">
+<meta property="og:updated_time" content="2019-04-23T14:43:53.680Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JDBC连接问题">
-<meta name="twitter:description" content="Java连接mysql-8.0.11出现的问题 今天学习数据库JDBC连接，写好程序运行出现以下警告：WARN: Establishing SSL connection without server’s identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requireme">
-<meta name="twitter:image" content="http://yoursite.com/2019/04/18/JDBC连接问题/img/exception.png">
+<meta name="twitter:title" content="JDBC连接池c3p0连接问题[C">
+<meta name="twitter:description" content="JDBC——c3p0连接问题 今天，在学习JDBC——c3p0连接池时，写好c3p0-config.xml文件后运行测试类出现以下错误： 经过百度发现出错行：1&amp;lt;properties  name=&amp;quot;jdbcUrl&amp;quot;&amp;gt;jdbc:mysql://localhost:3306/school?useSSL=false&amp;amp;serverTimezone=UTC&amp;lt;/p">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/23/JDBC连接池c3p0连接问题/img/c3p0.png">
 
 
 
@@ -122,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/18/JDBC连接问题/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/23/JDBC连接池c3p0连接问题/">
 
 
 
 
 
-  <title>JDBC连接问题 | zzq's blog</title>
+  <title>JDBC连接池c3p0连接问题[C | zzq's blog</title>
   
 
 
@@ -268,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/18/JDBC连接问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/23/JDBC连接池c3p0连接问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZZQ">
@@ -285,7 +286,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JDBC连接问题</h1>
+          <h1 class="post-title" itemprop="name headline">JDBC连接池c3p0连接问题[C</h1>
         
 
         <div class="post-meta">
@@ -297,8 +298,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-18T22:51:23+08:00">
-                2019-04-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-23T22:39:27+08:00">
+                2019-04-23
               </time>
             
 
@@ -335,11 +336,14 @@
       
 
       
-        <pre><code>Java连接mysql-8.0.11出现的问题
-</code></pre><p>今天学习数据库JDBC连接，写好程序运行出现以下警告：<br>WARN: Establishing SSL connection without server’s identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by default if explicit option isn’t set. For compliance with existing applications not using SSL the verifyServerCertificate property is set to ‘false’. You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true and provide truststore for server certificate verification.</p>
-<p><img src="img/exception.png" alt="在这里插入图片描述"></p>
-<p>百度后发现原因是MySQL在高版本需要指明是否进行SSL连接<br>解决方案：<br>在url中添加&amp;useSSL=false或者添加&amp;useSSL=true<br>“jdbc:mysql://localhost:3306/ 数据库名 ?useSSL=false&amp;serverTimezone=UTC”, “root”, “root”<br>问题解决</p>
-<p>mysql-8.0.11连接驱动：com.mysql.cj.jdbc.Driver<br>代码部分：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd.login; import java.sql.Connection;</span><br><span class="line">import java.sql.DriverManager;</span><br><span class="line">import java.sql.ResultSet;</span><br><span class="line">import java.sql.SQLException;</span><br><span class="line">import java.sql.Statement;</span><br><span class="line">import java.util.Scanner;public class LoginDemo </span><br><span class="line">&#123; public static void main(String[] args) &#123;</span><br><span class="line">  Scanner input = new Scanner(System.in);</span><br><span class="line">  System.out.println(&quot;请输入用户名：&quot;);</span><br><span class="line">  String username = input.nextLine();</span><br><span class="line">  System.out.println(&quot;请输入密码：&quot;);</span><br><span class="line">  String pass = input.nextLine();</span><br><span class="line">  </span><br><span class="line">  //连接对象</span><br><span class="line">  Connection connection = null;</span><br><span class="line">  //命令对象</span><br><span class="line">  Statement stat = null;</span><br><span class="line">  //结果集</span><br><span class="line">  ResultSet rs = null;</span><br><span class="line">  </span><br><span class="line">  //操作数据库</span><br><span class="line">  //1.注册驱动</span><br><span class="line">  try &#123;</span><br><span class="line">   Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span><br><span class="line">   //2获取连接</span><br><span class="line">   connection=DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/school?useSSL=false&amp;serverTimezone=UTC&quot;, &quot;root&quot;, &quot;root&quot;);</span><br><span class="line">   System.out.println(&quot;-------------------------------------&quot;);</span><br><span class="line">   //3创建命令</span><br><span class="line">   stat = connection.createStatement();</span><br><span class="line">   //执行命令</span><br><span class="line">   rs = stat.executeQuery(&quot;select * from user where username=&apos;&quot;+username+&quot;&apos; and password=&apos;&quot;+pass+&quot;&apos;&quot;);</span><br><span class="line">   </span><br><span class="line">   if(rs.next())</span><br><span class="line">   &#123;</span><br><span class="line">    //有数据</span><br><span class="line">    System.out.println(&quot;登陆成功&quot;);</span><br><span class="line">   &#125;</span><br><span class="line">   else</span><br><span class="line">   &#123;</span><br><span class="line">    System.out.println(&quot;账号或密码错误&quot;);</span><br><span class="line">   &#125;</span><br><span class="line">  &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">   </span><br><span class="line">   e.printStackTrace();</span><br><span class="line">  &#125; catch (SQLException e) &#123;</span><br><span class="line">   </span><br><span class="line">   e.printStackTrace();</span><br><span class="line">  &#125;finally </span><br><span class="line">  &#123;</span><br><span class="line">   if(rs!=null)</span><br><span class="line">   &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">     rs.close();</span><br><span class="line">    &#125; catch (SQLException e) &#123;</span><br><span class="line">    </span><br><span class="line">     e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   if(stat!=null)</span><br><span class="line">   &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">     stat.close();</span><br><span class="line">    &#125; catch (SQLException e) &#123;</span><br><span class="line">     </span><br><span class="line">     e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   if(connection!=null)</span><br><span class="line">   &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">     connection.close();</span><br><span class="line">    &#125; catch (SQLException e) &#123;</span><br><span class="line">     </span><br><span class="line">     e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <pre><code>JDBC——c3p0连接问题
+</code></pre><p>今天，在学习JDBC——c3p0连接池时，写好c3p0-config.xml文件后运行测试类出现以下错误：</p>
+<p><img src="img\c3p0.png" alt>经过百度发现出错行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties  name=&quot;jdbcUrl&quot;&gt;jdbc:mysql://localhost:3306/school?useSSL=false&amp;serverTimezone=UTC&lt;/properties &gt;</span><br></pre></td></tr></table></figure></p>
+<p>原因是因为在xml中要显示  &amp;  符号需要用 &amp;amp；实体名称来代替</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties  name=&quot;jdbcUrl&quot;&gt;jdbc:mysql://localhost:3306/school?useSSL=false&amp;amp;serverTimezone=UTC&lt;/properties &gt;</span><br></pre></td></tr></table></figure>
+<p>然后运行后又发现问题：<br><img src="img\c3p01.png" alt="在这里插入图片描述"> 在网上找了很多错误解决方案：<br> 1，驱动配置有误：driver=com.mysql.jdbc.Driver<br> 2，数据库连接地址有误：url=jdbc:mysql://localhost:3306/test?    3useUnicode=true&amp;characterEncoding=utf8 3，密码或帐号有误：username=root       password=root<br> 4，数据库未启动或无权访问<br> 5，项目未引入对应的驱动jar包mysql-connector-java-5.1.6-bin.jar6,mysql root没有远程访问的权限，需要增加权限，增加权限的步骤如下：<br>进入mysql数据库：<br>grant all privileges on <em>.</em> to ‘root‘@’%’ identified by ‘root’ with grant option;<br>flush privileges；<br>但都没解决，后来发现有的xml代码标签是properties，还有的是property，<br>将properties都换了property以后,运行代码，ok</p>
+<p>完美解决，暂时不知道什么原因<br>附加代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;c3p0-config&gt;</span><br><span class="line"> &lt;!-- 默认配置，如果没有指定使用这个配置 --&gt;</span><br><span class="line"> &lt;default-config&gt;</span><br><span class="line"> &lt;!-- 基本配置 --&gt;</span><br><span class="line"> &lt;property  name=&quot;driverClass&quot;&gt;com.mysql.cj.jdbc.Driver&lt;/property &gt;</span><br><span class="line"> &lt;property  name=&quot;jdbcUrl&quot;&gt;jdbc:mysql://localhost:3306/school?useSSL=false&amp;amp;serverTimezone=UTC&lt;/property &gt;</span><br><span class="line"> &lt;property  name=&quot;user&quot;&gt;root&lt;/property &gt;</span><br><span class="line"> &lt;property  name=&quot;password&quot;&gt;root&lt;/property &gt;</span><br><span class="line"> &lt;!-- 初始大小 --&gt;</span><br><span class="line"> &lt;property  name=&quot;initialPoolSize&quot;&gt;10&lt;/property &gt;</span><br><span class="line"> &lt;!-- 30秒不适用丢弃 --&gt;</span><br><span class="line"> &lt;property  name=&quot;maxIdleTime&quot;&gt;30&lt;/property &gt;</span><br><span class="line"> &lt;property  name=&quot;maxPoolSize&quot;&gt;100&lt;/property &gt;</span><br><span class="line"> &lt;property  name=&quot;minPoolSize&quot;&gt;10&lt;/property &gt;</span><br><span class="line"> &lt;/default-config&gt;</span><br><span class="line"> &lt;!-- 命名的配置 --&gt;</span><br><span class="line"> &lt;name-config name=&quot;myc3p0&quot;&gt;</span><br><span class="line"> &lt;property name=&quot;driverClass&quot;&gt;com.mysql.cj.jdbc.Driver&lt;/property&gt;</span><br><span class="line"> &lt;property name=&quot;jdbcUrl&quot;&gt;jdbc:mysql://localhost:3306/school?useSSL=false&amp;amp;serverTimezone=UTC&lt;/property&gt;</span><br><span class="line"> &lt;property name=&quot;user&quot;&gt;root&lt;/property&gt;</span><br><span class="line"> &lt;property name=&quot;password&quot;&gt;root&lt;/property&gt;</span><br><span class="line"> &lt;!-- 如果池中连接不够时一次增长多少个 --&gt;</span><br><span class="line"> &lt;property name=&quot;acquireIncrement&quot;&gt;5&lt;/property&gt;</span><br><span class="line"> &lt;property name=&quot;initialPoolSize&quot;&gt;20&lt;/property&gt;</span><br><span class="line"> &lt;property name=&quot;minPoolSize&quot;&gt;10&lt;/property&gt;</span><br><span class="line"> &lt;property name=&quot;maxPoolSize&quot;&gt;40&lt;/property&gt;</span><br><span class="line"> &lt;/name-config&gt;</span><br><span class="line">&lt;/c3p0-config&gt;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -370,8 +374,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/16/数据结构之二叉树/" rel="next" title="数据结构之二叉树">
-                <i class="fa fa-chevron-left"></i> 数据结构之二叉树
+              <a href="/2019/04/22/设计模式———DAO设计模式/" rel="next" title="设计模式———DAO设计模式">
+                <i class="fa fa-chevron-left"></i> 设计模式———DAO设计模式
               </a>
             
           </div>
@@ -379,10 +383,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/22/设计模式———DAO设计模式/" rel="prev" title="设计模式———DAO设计模式">
-                设计模式———DAO设计模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
