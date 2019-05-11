@@ -1935,7 +1935,7 @@ img:hover {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #b6287c;
+  background: #7455c9;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3102,7 +3102,4 @@ img:hover {
   .post-body {
     text-align: justify;
   }
-}
-body {
-  background: url("/images/bgi.jpg") no-repeat fixed;
 }
