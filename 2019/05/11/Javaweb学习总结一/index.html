@@ -79,21 +79,18 @@
 
 
 
-<meta name="description" content="JDBC——c3p0连接问题 今天，在学习JDBC——c3p0连接池时，写好c3p0-config.xml文件后运行测试类出现以下错误： 经过百度发现出错行：1&amp;lt;properties  name=&amp;quot;jdbcUrl&amp;quot;&amp;gt;jdbc:mysql://localhost:3306/school?useSSL=false&amp;amp;serverTimezone=UTC&amp;lt;/p">
+<meta name="description" content="一、Get和Post有什么区别GET和POST本质上都是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。1.在浏览器端，Get通过URL提交数据，数据可以在URL中可以看到；Post数据放置Body中.2.Get和Post的URL长度，都没有限制，出于安全和稳定性，性能方面等，浏览器和服务器会对URL长度做限制，3.安全问题，Post比Get">
 <meta name="keywords" content="web开发">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JDBC——连接池c3p0连接问题">
-<meta property="og:url" content="http://yoursite.com/2019/04/23/JDBC——连接池c3p0连接问题/index.html">
+<meta property="og:title" content="Javaweb学习总结一">
+<meta property="og:url" content="http://yoursite.com/2019/05/11/Javaweb学习总结一/index.html">
 <meta property="og:site_name" content="zzq&#39;s blog">
-<meta property="og:description" content="JDBC——c3p0连接问题 今天，在学习JDBC——c3p0连接池时，写好c3p0-config.xml文件后运行测试类出现以下错误： 经过百度发现出错行：1&amp;lt;properties  name=&amp;quot;jdbcUrl&amp;quot;&amp;gt;jdbc:mysql://localhost:3306/school?useSSL=false&amp;amp;serverTimezone=UTC&amp;lt;/p">
+<meta property="og:description" content="一、Get和Post有什么区别GET和POST本质上都是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。1.在浏览器端，Get通过URL提交数据，数据可以在URL中可以看到；Post数据放置Body中.2.Get和Post的URL长度，都没有限制，出于安全和稳定性，性能方面等，浏览器和服务器会对URL长度做限制，3.安全问题，Post比Get">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/04/23/JDBC——连接池c3p0连接问题/img/c3p0.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/04/23/img/c3p01.jpg">
-<meta property="og:updated_time" content="2019-04-26T14:54:09.816Z">
+<meta property="og:updated_time" content="2019-05-11T10:34:19.422Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JDBC——连接池c3p0连接问题">
-<meta name="twitter:description" content="JDBC——c3p0连接问题 今天，在学习JDBC——c3p0连接池时，写好c3p0-config.xml文件后运行测试类出现以下错误： 经过百度发现出错行：1&amp;lt;properties  name=&amp;quot;jdbcUrl&amp;quot;&amp;gt;jdbc:mysql://localhost:3306/school?useSSL=false&amp;amp;serverTimezone=UTC&amp;lt;/p">
-<meta name="twitter:image" content="http://yoursite.com/2019/04/23/JDBC——连接池c3p0连接问题/img/c3p0.jpg">
+<meta name="twitter:title" content="Javaweb学习总结一">
+<meta name="twitter:description" content="一、Get和Post有什么区别GET和POST本质上都是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。1.在浏览器端，Get通过URL提交数据，数据可以在URL中可以看到；Post数据放置Body中.2.Get和Post的URL长度，都没有限制，出于安全和稳定性，性能方面等，浏览器和服务器会对URL长度做限制，3.安全问题，Post比Get">
 
 
 
@@ -123,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/23/JDBC——连接池c3p0连接问题/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/11/Javaweb学习总结一/">
 
 
 
 
 
-  <title>JDBC——连接池c3p0连接问题 | zzq's blog</title>
+  <title>Javaweb学习总结一 | zzq's blog</title>
   
 
 
@@ -269,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/23/JDBC——连接池c3p0连接问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/Javaweb学习总结一/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZZQ">
@@ -286,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JDBC——连接池c3p0连接问题</h1>
+          <h1 class="post-title" itemprop="name headline">Javaweb学习总结一</h1>
         
 
         <div class="post-meta">
@@ -298,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-23T22:59:57+08:00">
-                2019-04-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-11T18:32:59+08:00">
+                2019-05-11
               </time>
             
 
@@ -336,14 +333,16 @@
       
 
       
-        <pre><code>JDBC——c3p0连接问题
-</code></pre><p>今天，在学习JDBC——c3p0连接池时，写好c3p0-config.xml文件后运行测试类出现以下错误：</p>
-<p><img src="/2019/04/23/JDBC——连接池c3p0连接问题/img/c3p0.jpg" alt>经过百度发现出错行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties  name=&quot;jdbcUrl&quot;&gt;jdbc:mysql://localhost:3306/school?useSSL=false&amp;serverTimezone=UTC&lt;/properties &gt;</span><br></pre></td></tr></table></figure></p>
-<p>原因是因为在xml中要显示  &amp;  符号需要用 &amp;amp；实体名称来代替</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties  name=&quot;jdbcUrl&quot;&gt;jdbc:mysql://localhost:3306/school?useSSL=false&amp;amp;serverTimezone=UTC&lt;/properties &gt;</span><br></pre></td></tr></table></figure>
-<p>然后运行后又发现问题：<br><img src="/2019/04/23/JDBC——连接池c3p0连接问题/../img/c3p01.jpg" alt="在这里插入图片描述"> 在网上找了很多错误解决方案：<br> 1，驱动配置有误：driver=com.mysql.jdbc.Driver<br> 2，数据库连接地址有误：url=jdbc:mysql://localhost:3306/test?    3useUnicode=true&amp;characterEncoding=utf8 3，密码或帐号有误：username=root       password=root<br> 4，数据库未启动或无权访问<br> 5，项目未引入对应的驱动jar包mysql-connector-java-5.1.6-bin.jar6,mysql root没有远程访问的权限，需要增加权限，增加权限的步骤如下：<br>进入mysql数据库：<br>grant all privileges on <em>.</em> to ‘root‘@’%’ identified by ‘root’ with grant option;<br>flush privileges；<br>但都没解决，后来发现有的xml代码标签是properties，还有的是property，<br>将properties都换了property以后,运行代码，ok</p>
-<p>完美解决，暂时不知道什么原因<br>附加代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;c3p0-config&gt;</span><br><span class="line"> &lt;!-- 默认配置，如果没有指定使用这个配置 --&gt;</span><br><span class="line"> &lt;default-config&gt;</span><br><span class="line"> &lt;!-- 基本配置 --&gt;</span><br><span class="line"> &lt;property  name=&quot;driverClass&quot;&gt;com.mysql.cj.jdbc.Driver&lt;/property &gt;</span><br><span class="line"> &lt;property  name=&quot;jdbcUrl&quot;&gt;jdbc:mysql://localhost:3306/school?useSSL=false&amp;amp;serverTimezone=UTC&lt;/property &gt;</span><br><span class="line"> &lt;property  name=&quot;user&quot;&gt;root&lt;/property &gt;</span><br><span class="line"> &lt;property  name=&quot;password&quot;&gt;root&lt;/property &gt;</span><br><span class="line"> &lt;!-- 初始大小 --&gt;</span><br><span class="line"> &lt;property  name=&quot;initialPoolSize&quot;&gt;10&lt;/property &gt;</span><br><span class="line"> &lt;!-- 30秒不适用丢弃 --&gt;</span><br><span class="line"> &lt;property  name=&quot;maxIdleTime&quot;&gt;30&lt;/property &gt;</span><br><span class="line"> &lt;property  name=&quot;maxPoolSize&quot;&gt;100&lt;/property &gt;</span><br><span class="line"> &lt;property  name=&quot;minPoolSize&quot;&gt;10&lt;/property &gt;</span><br><span class="line"> &lt;/default-config&gt;</span><br><span class="line"> &lt;!-- 命名的配置 --&gt;</span><br><span class="line"> &lt;name-config name=&quot;myc3p0&quot;&gt;</span><br><span class="line"> &lt;property name=&quot;driverClass&quot;&gt;com.mysql.cj.jdbc.Driver&lt;/property&gt;</span><br><span class="line"> &lt;property name=&quot;jdbcUrl&quot;&gt;jdbc:mysql://localhost:3306/school?useSSL=false&amp;amp;serverTimezone=UTC&lt;/property&gt;</span><br><span class="line"> &lt;property name=&quot;user&quot;&gt;root&lt;/property&gt;</span><br><span class="line"> &lt;property name=&quot;password&quot;&gt;root&lt;/property&gt;</span><br><span class="line"> &lt;!-- 如果池中连接不够时一次增长多少个 --&gt;</span><br><span class="line"> &lt;property name=&quot;acquireIncrement&quot;&gt;5&lt;/property&gt;</span><br><span class="line"> &lt;property name=&quot;initialPoolSize&quot;&gt;20&lt;/property&gt;</span><br><span class="line"> &lt;property name=&quot;minPoolSize&quot;&gt;10&lt;/property&gt;</span><br><span class="line"> &lt;property name=&quot;maxPoolSize&quot;&gt;40&lt;/property&gt;</span><br><span class="line"> &lt;/name-config&gt;</span><br><span class="line">&lt;/c3p0-config&gt;</span><br></pre></td></tr></table></figure>
+        <p>一、Get和Post有什么区别<br>GET和POST本质上都是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。<br>1.在浏览器端，Get通过URL提交数据，数据可以在URL中可以看到；Post数据放置Body中.<br>2.Get和Post的URL长度，都没有限制，出于安全和稳定性，性能方面等，浏览器和服务器会对URL长度做限制，<br>3.安全问题，Post比Get安全一点点，都是明文传输（如果抓包的话两者都不安全）。<br>4.Get在浏览器回退时是无害的，Post则会再次提交请求<br>5.GET产生一个TCP数据包；POST产生两个TCP数据包。<br>6.Get比Post效率高</p>
+<p>二、前端和后端如何交互数据<br>1.通过Form表单，分为Post和Get，通过submit直接提交(非Ajax)，后台返回一个html页面或其他内容。<br>2.href页面跳转模式，前端通过url访问Servlet(服务器小程序)，后台返回数据。<br>3.利用Ajax进行异步数据请求<br>用jquery来写Ajax的话，需要五个参数，url：传输的地址，通常我们为了及时刷新，防止缓存，我们需要带一个对值不影响的参数，<br>method：发出参数的请求方法<br>datatype：值返回数据类型<br>data：指发出的参数<br>success：参数传送出去后，得到相应处理并且成功返回时所执行的代码块</p>
+<p>三、Get请求怎么提交中文数据<br>1.浏览器发送文字编码和页面编码保持一致，并且和服务器编码一致，可以都为utf-8<br>2.如果不想在服务器上指定编码方式，可以在页面Get请求提交时对中文进行url转码，<br>URLDecoder.decode(request.getParameter(“取到的加密字符串”), “utf-8”）；</p>
+<p>四、filter和servlet有什么区别<br>1.servlet：servlet是一种运行服务器端的java应用程序，具有独立于平台和协议的特性，并且可以动态的生成web页面，它工作在客户端请求与服务器响应的中间层.<br>filter: filter是一个可以复用的代码片段，可以用来转换HTTP请求、响应和头信息。Filter不像Servlet，它不能产生一个请求或者响应，它只是修改对某一资源的请求，或者修改从某一的响应<br>2.生命周期<br>servlet：装入-&gt;初始化-&gt;调用-&gt;销毁<br>filter：启动服务器时加载，并调用init方法初始化，每一次请求都只调用doFilter方法进行处理，销毁<br>3.作用<br>servlet：创建并返回一个包含基于客户请求性质的动态内容的完整的html页面；<br>创建可嵌入到现有的html页面中的一部分html页面（html片段）；<br>读取客户端发来的隐藏和显示数据；<br>与其他服务器资源（包括数据库和java的应用程序）进行通信；<br>通过状态代码和响应头向客户端发送隐藏数据。<br>filter：filter能够在一个请求到达servlet之前预处理用户请求，也可以在离开servlet时处理http响应：<br>在执行servlet之前，首先执行filter程序，并为之做一些预处理工作；<br>根据程序需要修改请求和响应；<br>在servlet被调用之后截获servlet的执行<br>4.servlet流程是短的，url传来就进行处理，之后返回或转向到某一自己指定的页面，主要用来业务处理之前进行控制<br>filter是线性的，url传来之后，检查过后，可保持原来流程继续向下执行，<br>filter可用来进行字符编码的过滤，检测用户是否登陆的过滤，禁止页面缓存等</p>
+<p>五、servlet是单例的吗<br>servlet究竟有几个实例，受以下原因影响，是否在分布式环境中部署，<br>是否实现了SingleThreadModer，如果实现最多会创建20个实例，<br>在web.xml中声明了几次，如果声明多次，也会生成多个实例</p>
+<p>六、如何让服务器支持多线程下载<br>原理：先使用head方法查询得到对应文件的Content-Length，然后拆分成多个部分，交由多个线程去处理，使用”Range”, “bytes=” + start + “-“ + end这个header来指定下载文件的哪个部分。</p>
+<p>七、session有什么作用<br>在计算机中，尤其是在网络应用中，称为“会话”，Session是由应用服务器维持的一个服务器端的存储空间，用户在连接服务器时，会由服务器生成一个唯一的SessionID,用该SessionID为标识符来存取服务器端的Session存储空间。而SessionID这一数据则是保存到客户端，用Cookie保存的，用户提交页面时，会将这一SessionID提交到服务器端，来存取Session数据。这一过程，是不用开发人员干预的。所以一旦客户端禁用Cookie，那么Session也会失效。</p>
+<p>八、session和cookie的区别<br>1、cookie数据存放在客户的浏览器上，session数据放在服务器上。<br>2、cookie不是很安全，别人可以分析存放在本地的cookie并进行cookie欺骗，考虑到安全应当使用session。<br>3、session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能，考虑到减轻服务器性能方面，应当使用cookie。<br>4、单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。<br>5、可以考虑将登陆信息等重要信息存放为session，其他信息如果需要保留，可以放在cookie中。</p>
+<p>九、页面重定向和转发<br>1.转发是服务器行为，重定向是客户端行为<br>2.转发过程：客户浏览器发送http请求—&gt;web服务器接受此请求—&gt;调用内部的一个方法在容器内部完成请求处理和转发动作—&gt;将目标资源发送给客户；在这里，转发的路径必须是同一个web容器下的url，其不能转向到其他的web路径上去，中间传递的是自己的容器内的request。 在客户浏览器路径栏显示的仍然是其第一次访问的路径，也就是说客户是感觉不到服务器做了转发的。转发行为是浏览器只做了一次访问请求。<br>3.重定向过程：客户浏览器发送http请求—&gt;web服务器接受后发送302状态码响应及对应新的location给客户浏览器—&gt;客户浏览器发现是302响应， 则自动再发送一个新的http请求，请求url是新的location地址——》服务器根据此请求寻找资源并发送给客户。在这里location可以重定向到任意URL，重定向行为是浏览器做了至少两次的访问请求的。</p>
+<p>十、JSP和Servlet有什么关系<br>1.不同之处:Servlet在Java代码中通过HttpServletResponse对象动态输出HTML内容JSP在静态HTML内容中嵌入Java代码，Java代码被动态执行后生成HTML内容<br>2.各自特点：Servlet能够很好地组织业务逻辑代码，但是在Java源文件中通过字符串拼接的方式生成动态HTML内容会导致代码维护困难、可读性差JSP虽然规避了Servlet在生成HTML内容方面的劣势，但是在HTML中混入大量、复杂的业务逻辑同样也是不可取的<br>3.通过MVC设计模式联系起来<br>Controller——负责转发请求，对请求进行处理<br>View——负责界面显示<br>Model——业务功能编写（例如算法实现）、数据库设计以及数据存取操作实现<br>4.MVC设计模式：<br>Web浏览器发送HTTP请求到服务端，被Controller(Servlet)获取并进行处理（例如参数解析、请求转发）Controller(Servlet)调用核心业务逻辑——Model部分，获得结果Controller(Servlet)将逻辑处理结果交给View（JSP），动态输出HTML内容动态生成的HTML内容返回到浏览器显示<br>MVC模式在Web开发中的好处是非常明显，它规避了JSP与Servlet各自的短板，Servlet只负责业务逻辑而不会通过out.append()动态生成HTML代码；JSP中也不会充斥着大量的业务代码。这大大提高了代码的可读性和可维护性。</p>
 
       
     </div>
@@ -374,8 +373,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/22/设计模式———DAO设计模式/" rel="next" title="设计模式———DAO设计模式">
-                <i class="fa fa-chevron-left"></i> 设计模式———DAO设计模式
+              <a href="/2019/04/23/JDBC——连接池c3p0连接问题/" rel="next" title="JDBC——连接池c3p0连接问题">
+                <i class="fa fa-chevron-left"></i> JDBC——连接池c3p0连接问题
               </a>
             
           </div>
@@ -383,10 +382,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/11/Javaweb学习总结一/" rel="prev" title="Javaweb学习总结一">
-                Javaweb学习总结一 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
