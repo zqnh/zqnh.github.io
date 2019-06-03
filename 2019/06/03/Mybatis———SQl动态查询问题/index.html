@@ -87,10 +87,12 @@
 <meta property="og:site_name" content="Aemon Zhu">
 <meta property="og:description" content="Mybatis————动态SQl查询问题 今天学习Mybatis框架时，动态SQL查询报如下异常： 12org.apache.ibatis.exceptions.PersistenceException: ### Error querying database.  Cause: org.apache.ibatis.executor.ExecutorException: A query was ru">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-03T10:41:00.059Z">
+<meta property="og:image" content="http://yoursite.com/2019/06/03/Mybatis———SQl动态查询问题/my.jpg">
+<meta property="og:updated_time" content="2019-06-03T10:46:39.846Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mybatis————动态SQl查询问题">
 <meta name="twitter:description" content="Mybatis————动态SQl查询问题 今天学习Mybatis框架时，动态SQL查询报如下异常： 12org.apache.ibatis.exceptions.PersistenceException: ### Error querying database.  Cause: org.apache.ibatis.executor.ExecutorException: A query was ru">
+<meta name="twitter:image" content="http://yoursite.com/2019/06/03/Mybatis———SQl动态查询问题/my.jpg">
 
 
 
@@ -373,12 +375,12 @@
         <p>Mybatis————动态SQl查询问题</p>
 <p>今天学习Mybatis框架时，动态SQL查询报如下异常：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">org.apache.ibatis.exceptions.PersistenceException: </span><br><span class="line">### Error querying database.  Cause: org.apache.ibatis.executor.ExecutorException: A query was run and no Result Maps were found for the Mapped Statement &apos;net.zzqd.mybatis.mapper.UserMapper.selectStateUserName&apos;.  It&apos;s likely that neither a Result Type nor a Result Map was specified.</span><br></pre></td></tr></table></figure>
-<p>！<a href="Mybatis框架中遇到的问题/my.jpg"></a></p>
-<p>经过万能的百度，原来是mapper.xml里没加parameterType和resultType属性，前面的语句没加这两个属性也能执行，不知道为什么。</p>
+<p><img src="/2019/06/03/Mybatis———SQl动态查询问题/my.jpg" alt></p>
+<p>经过万能的百度，了解到原来是mapper.xml里没加parameterType和resultType属性，前面的语句没加这两个属性也能执行，暂时不知道是为什么。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">	异常代码</span><br><span class="line">	&lt;!--     动态sql --&gt;</span><br><span class="line">	&lt;select id=&quot;selectStateUserName&quot; &gt;</span><br><span class="line">			select * from user </span><br><span class="line">			where state=1</span><br><span class="line">		&lt;if test=&quot;value !=null and value != &apos;&apos;&quot;&gt;</span><br><span class="line">		 	AND name like &apos;%$&#123;value&#125;%&apos;</span><br><span class="line">		&lt;/if&gt; </span><br><span class="line">		</span><br><span class="line">&lt;!-- 		&lt;if test=&quot;value !=null and value != &apos;&apos;&quot;&gt; --&gt;</span><br><span class="line">&lt;!-- 		 	AND name like #&#123;name&#125; --&gt;</span><br><span class="line">&lt;!-- 		&lt;/if&gt;  --&gt;</span><br><span class="line">	&lt;/select&gt;</span><br></pre></td></tr></table></figure>
-<p>添加属性后</p>
+<p>添加属性后就ok了</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">	&lt;!--     动态sql --&gt;</span><br><span class="line">	&lt;select id=&quot;selectStateUserName&quot; resultType=&quot;User&quot; parameterType=&quot;string&quot;&gt;</span><br><span class="line">			select * from user </span><br><span class="line">			where state=1</span><br><span class="line">		&lt;if test=&quot;value !=null and value != &apos;&apos;&quot;&gt;</span><br><span class="line">		 	AND name like &apos;%$&#123;value&#125;%&apos;</span><br><span class="line">		&lt;/if&gt; </span><br><span class="line">		</span><br><span class="line">&lt;!-- 		&lt;if test=&quot;value !=null and value != &apos;&apos;&quot;&gt; --&gt;</span><br><span class="line">&lt;!-- 		 	AND name like #&#123;name&#125; --&gt;</span><br><span class="line">&lt;!-- 		&lt;/if&gt;  --&gt;</span><br><span class="line">	&lt;/select&gt;</span><br></pre></td></tr></table></figure>
-<p>经过了解下Mybatis开发几点规范：</p>
+<p>经过了解Mybatis开发以下几点规范：</p>
 <p>1、在mapper.xml中namespace等于mapper接口地址  </p>
 <p>2、mapper.java接口中的方法名和mapper.xml中statement的id一致  </p>
 <p>3、mapper.java接口中的方法输入参数类型和mapper.xml中statement的parameterType指定的类型一致。  </p>
