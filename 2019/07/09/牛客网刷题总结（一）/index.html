@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="nowcoder,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="牛客网刷题总结（一） 1.运动员排名1234567一架飞机载着5位运动员从奥林匹克运动会归来，这5位运动员在某个项目中排名第一到第五。他们说了下面这些话：A:”我不是最后一名。”B:”C是第三名。”C：”A的排名在E后面。”D:”E是第二名。”E:”D不是第一名。”处于谦虚或其他什么原因，金牌和银牌的得主都说了谎。那三个成绩相对较差的运动员倒说了真话。 他们的排名到底怎样？ 解析： 1234567">
+<meta name="keywords" content="nowcoder">
+<meta property="og:type" content="article">
+<meta property="og:title" content="牛客网刷题总结（一）">
+<meta property="og:url" content="http://yoursite.com/2019/07/09/牛客网刷题总结（一）/index.html">
+<meta property="og:site_name" content="Aemon Zhu">
+<meta property="og:description" content="牛客网刷题总结（一） 1.运动员排名1234567一架飞机载着5位运动员从奥林匹克运动会归来，这5位运动员在某个项目中排名第一到第五。他们说了下面这些话：A:”我不是最后一名。”B:”C是第三名。”C：”A的排名在E后面。”D:”E是第二名。”E:”D不是第一名。”处于谦虚或其他什么原因，金牌和银牌的得主都说了谎。那三个成绩相对较差的运动员倒说了真话。 他们的排名到底怎样？ 解析： 1234567">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-09T13:56:22.939Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="牛客网刷题总结（一）">
+<meta name="twitter:description" content="牛客网刷题总结（一） 1.运动员排名1234567一架飞机载着5位运动员从奥林匹克运动会归来，这5位运动员在某个项目中排名第一到第五。他们说了下面这些话：A:”我不是最后一名。”B:”C是第三名。”C：”A的排名在E后面。”D:”E是第二名。”E:”D不是第一名。”处于谦虚或其他什么原因，金牌和银牌的得主都说了谎。那三个成绩相对较差的运动员倒说了真话。 他们的排名到底怎样？ 解析： 1234567">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/09/牛客网刷题总结（一）/">
+
+
+
+
+
+  <title>牛客网刷题总结（一） | Aemon Zhu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zqnh"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1" style="
+    margin-left: 1114px;
+    margin-right: 0px;
+"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aemon Zhu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习使我快乐 敲代码使我充实</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/牛客网刷题总结（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZZQ">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aemon Zhu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">牛客网刷题总结（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-09T21:55:03+08:00">
+                2019-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nowcoder/" itemprop="url" rel="index">
+                    <span itemprop="name">nowcoder</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/09/牛客网刷题总结（一）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/07/09/牛客网刷题总结（一）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>牛客网刷题总结（一）</p>
+<h5 id="1-运动员排名"><a href="#1-运动员排名" class="headerlink" title="1.运动员排名"></a>1.运动员排名</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">一架飞机载着5位运动员从奥林匹克运动会归来，这5位运动员在某个项目中排名第一到第五。他们说了下面这些话：</span><br><span class="line">A:”我不是最后一名。”</span><br><span class="line">B:”C是第三名。”</span><br><span class="line">C：”A的排名在E后面。”</span><br><span class="line">D:”E是第二名。”</span><br><span class="line">E:”D不是第一名。”</span><br><span class="line">处于谦虚或其他什么原因，金牌和银牌的得主都说了谎。那三个成绩相对较差的运动员倒说了真话。 他们的排名到底怎样？</span><br></pre></td></tr></table></figure>
+<p>解析：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">A分析：</span><br><span class="line">    A说本人不是最后一名，假如A说了假话，则A是最后一名，但是最后一名说的是真话，矛盾。所以A说的是真话，排在3-5位。</span><br><span class="line"></span><br><span class="line">再分析相互纠缠的D和E：</span><br><span class="line">    假设D说了真话，那么E就是第二名，E就是说的假话，那么D就是第一名，但是第一名应该说假话，矛盾。所以D说了假话，D应该排在1-2位。</span><br><span class="line"></span><br><span class="line">再来分析B和C：</span><br><span class="line">    假设B说了真话，那么C就是第三名，C说的就是真话，由于A也是说的真话，那么3-5位的排序只能是 C E A，但是A不是最后一位，矛盾。所以B说的是假话，排位在1-2位。</span><br><span class="line"></span><br><span class="line">综合来看：</span><br><span class="line">    D B说了假话，那么A C E就是说了真话，对A C E进行排序就是：E A C。由E 对 D B进行排序就是：B D。所以真正的排名就是：B D E A C。</span><br></pre></td></tr></table></figure>
+<h5 id="2-集合特性"><a href="#2-集合特性" class="headerlink" title="2.集合特性"></a>2.集合特性</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">说出ArrayList,Vector, LinkedList的存储性能和特性？</span><br></pre></td></tr></table></figure>
+<p>解析</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayList和Vector都是使用数组方式存储数据，此数组元素数大于实际存储的数据以便增加和插入元素，它们都允许直接按序号索引元素，但是插入元素要涉及数组元素移动等内存操作，所以索引数据快而插入数据慢，Vector由于使用了synchronized方法（线程安全），通常性能上较ArrayList差，而LinkedList使用双向链表实现存储，按序号索引数据需要进行前向或后向遍历，但是插入数据时只需要记录本项的前后项即可，所以插入速度较快。</span><br></pre></td></tr></table></figure>
+<h5 id="3-说明errorPage的作用"><a href="#3-说明errorPage的作用" class="headerlink" title="3.说明errorPage的作用"></a>3.说明errorPage的作用</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">正常页面中&lt;%@page errorpage=”error.jsp”%&gt;</span><br><span class="line"></span><br><span class="line">错误页面&lt;%@page iserrorpage=”true”%&gt;</span><br><span class="line"></span><br><span class="line">有一内置对象:exception</span><br></pre></td></tr></table></figure>
+<h5 id="4-sleep-和-wait-有什么区别"><a href="#4-sleep-和-wait-有什么区别" class="headerlink" title="4.sleep( ) 和 wait( ) 有什么区别?"></a>4.sleep( ) 和 wait( ) 有什么区别?</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sleep是线程类（Thread）的方法，导致此线程暂停执行指定时间，给执行机会给其他线程，但是监控状态依然保持，到时后会自动恢复。调用sleep不会释放对象锁。</span><br><span class="line">wait是Object类的方法，对此对象调用wait方法导致本线程放弃对象锁，进入等待此对象的等待锁定池，只有针对此对象发出notify方法（或notifyAll）后本线程才进入对象锁定池准备获得对象锁进入运行状态。</span><br></pre></td></tr></table></figure>
+<h5 id="5-forward和redirect的区别？"><a href="#5-forward和redirect的区别？" class="headerlink" title="5.forward和redirect的区别？"></a>5.forward和redirect的区别？</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">forward: 转发，在下一个页面中,request保留上一个页面中的request的所有值</span><br><span class="line"></span><br><span class="line">redirect: 跳转，不传递request对象。</span><br></pre></td></tr></table></figure>
+<h5 id="6-矩阵判断数字"><a href="#6-矩阵判断数字" class="headerlink" title="6.矩阵判断数字"></a>6.矩阵判断数字</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">给定如下的n*n的数字矩阵，每行从左到右是严格递增， 每列的数据也是严格递增</span><br><span class="line"></span><br><span class="line">1  2  3</span><br><span class="line"></span><br><span class="line">3  5  6</span><br><span class="line"></span><br><span class="line">4  8  9</span><br><span class="line"></span><br><span class="line">现在要求设计一个算法， 给定一个数k 判断出k是否在这个矩阵中。描述算法并且给出时间复杂度（不考虑载入矩阵的消耗）</span><br></pre></td></tr></table></figure>
+<p>解析</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">答案：算法思想：沿着对角线查找，获得i,使得k位于a[i][i]与a[i+1][i+1]之间。k只可能存在于a[i][i]对应的右上角矩阵 和a[i+1][i+1]对应的左下角矩阵。使用递归法继续查找即可。</span><br><span class="line">时间复杂度 O(n)</span><br><span class="line">int searchK(int_arr[][], int n, int startlow, int startclm, int k) &#123;</span><br><span class="line"> int downtemp=0;</span><br><span class="line"> int i=0;</span><br><span class="line"> while(int_arr[startlow+i][startclm+i]&lt;k||i&lt;n)</span><br><span class="line"> i++;</span><br><span class="line"> if (i==n)</span><br><span class="line"> return 0;</span><br><span class="line"> else if(arr[i][i]==k)</span><br><span class="line"> reuturn 1;</span><br><span class="line"> else</span><br><span class="line">return searchK(int_arr,n,startlow,startclm+i,k)+searchK(int_arr,n,startlow+i,startclm,k); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="7-数据库"><a href="#7-数据库" class="headerlink" title="7.数据库"></a>7.数据库</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">问题描述:</span><br><span class="line"></span><br><span class="line">已知关系模式:S (SNO,SNAME) 学生关系。SNO 为学号，SNAME 为姓名</span><br><span class="line"></span><br><span class="line">C (CNO,CNAME,CTEACHER) 课程关系。CNO 为课程号，CNAME 为课程名，CTEACHER 为任课教师</span><br><span class="line"></span><br><span class="line">SC(SNO,CNO,SCGRADE) 选课关系。SCGRADE 为成绩</span><br><span class="line"></span><br><span class="line">1.      找出没有选修过“李明”老师讲授课程的所有学生姓名</span><br><span class="line">2.      列出“1”号课成绩比“2”号课成绩高的所有学生的学号及其“1”号课和“2”号课的成绩</span><br></pre></td></tr></table></figure>
+<p>解析</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> Select SNAME FROM S Where NOT</span><br><span class="line">EXISTS( Select * FROM SC,C Where SC.CNO=C.CNO AND CNAME=&apos;李明&apos;   AND SC.SNO=S.SNO)</span><br><span class="line"></span><br><span class="line">Select S.SNO,S.SNAME,SC.[1号课成绩],SC.[2号课成绩]  FROM S,( Select SC1.SNO,[1号课成绩]=SC1.SCGRADE,[2号课成绩]=SC2.SCGRADE   FROM SC SC1,C C1,SC SC2,C C2 Where</span><br><span class="line">SC1.CNO=C1.CNO AND C1.NAME=&apos;1&apos; AND SC2.CNO=C2.CNO AND C2.NAME=&apos;2&apos;   AND SC1.SCGRADE&gt;SC2.SCGRADE  )SC Where S.SNO=SC.SNO</span><br></pre></td></tr></table></figure>
+<h5 id="8-请使用内部类实现线程设计4个线程，其中两个线程每次对j增加1，另外两个线程对j每次减少1。"><a href="#8-请使用内部类实现线程设计4个线程，其中两个线程每次对j增加1，另外两个线程对j每次减少1。" class="headerlink" title="8.请使用内部类实现线程设计4个线程，其中两个线程每次对j增加1，另外两个线程对j每次减少1。"></a>8.请使用内部类实现线程设计4个线程，其中两个线程每次对j增加1，另外两个线程对j每次减少1。</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">public class Solution &#123;</span><br><span class="line">     </span><br><span class="line">     </span><br><span class="line">    class InnerSolu&#123;</span><br><span class="line">        int j = 5;</span><br><span class="line">         </span><br><span class="line">        void fun()&#123;</span><br><span class="line">            int[] var = &#123;0&#125;;</span><br><span class="line">            var[0] = j;</span><br><span class="line">             </span><br><span class="line">            for(int i=0; i&lt; 4; i++)&#123;</span><br><span class="line">                int[] index = &#123;0&#125;;</span><br><span class="line">                index[0] = i;</span><br><span class="line">                if (i&lt;2)&#123;</span><br><span class="line">                    new Thread(() -&gt; &#123;</span><br><span class="line">                        var[0] = var[0] + 1;</span><br><span class="line">                        System.out.println(index[0]+&quot; &quot;+var[0]);</span><br><span class="line">                    &#125;).start();</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    new Thread(() -&gt; &#123;</span><br><span class="line">                        var[0] = var[0] - 1;</span><br><span class="line">                        System.out.println(index[0]+&quot; &quot;+var[0]);</span><br><span class="line">                    &#125;).start();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        Solution solution = new Solution();</span><br><span class="line">        Solution.InnerSolu innerSolu = solution.new InnerSolu();</span><br><span class="line">        innerSolu.fun();</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="9-请你说明一下TreeMap的底层实现？"><a href="#9-请你说明一下TreeMap的底层实现？" class="headerlink" title="9.请你说明一下TreeMap的底层实现？"></a>9.请你说明一下TreeMap的底层实现？</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TreeMap是一个有序的key-value集合，基于红黑树(Red-Black tree)实现。该映射根据其键的自然顺序进行排序，或者根据创建时提供的Comparator进行排序</span><br></pre></td></tr></table></figure>
+<h5 id="10"><a href="#10" class="headerlink" title="10."></a>10.</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</span><br></pre></td></tr></table></figure>
+<p>解析</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool Find(vector&lt;vector&lt;int&gt; &gt; array,int target) &#123;</span><br><span class="line">        bool flag=false;</span><br><span class="line">        int row=0;</span><br><span class="line">        int col=array.size()-1;</span><br><span class="line">        if(row&lt;array.size() &amp;&amp; col&gt;0)&#123;</span><br><span class="line">            while(row&lt;array.size() &amp;&amp; col&gt;=0)&#123;</span><br><span class="line">                if(array[row][col]==target)&#123;</span><br><span class="line">                    flag=true;</span><br><span class="line">                     break;</span><br><span class="line">                &#125;</span><br><span class="line">                else if (array[row][col]&gt;target)</span><br><span class="line">                    col--;</span><br><span class="line">                    else</span><br><span class="line">                    row++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return flag;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nowcoder/" rel="tag"># nowcoder</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/08/SSM整合三———整合SpringMVC/" rel="next" title="SSM整合三———整合SpringMVC">
+                <i class="fa fa-chevron-left"></i> SSM整合三———整合SpringMVC
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="ZZQ">
+            
+              <p class="site-author-name" itemprop="name">ZZQ</p>
+              <p class="site-description motion-element" itemprop="description">坦坦荡荡 一身正气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-运动员排名"><span class="nav-number">1.</span> <span class="nav-text">1.运动员排名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-集合特性"><span class="nav-number">2.</span> <span class="nav-text">2.集合特性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-说明errorPage的作用"><span class="nav-number">3.</span> <span class="nav-text">3.说明errorPage的作用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-sleep-和-wait-有什么区别"><span class="nav-number">4.</span> <span class="nav-text">4.sleep( ) 和 wait( ) 有什么区别?</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-forward和redirect的区别？"><span class="nav-number">5.</span> <span class="nav-text">5.forward和redirect的区别？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-矩阵判断数字"><span class="nav-number">6.</span> <span class="nav-text">6.矩阵判断数字</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-数据库"><span class="nav-number">7.</span> <span class="nav-text">7.数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-请使用内部类实现线程设计4个线程，其中两个线程每次对j增加1，另外两个线程对j每次减少1。"><span class="nav-number">8.</span> <span class="nav-text">8.请使用内部类实现线程设计4个线程，其中两个线程每次对j增加1，另外两个线程对j每次减少1。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-请你说明一下TreeMap的底层实现？"><span class="nav-number">9.</span> <span class="nav-text">9.请你说明一下TreeMap的底层实现？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10"><span class="nav-number">10.</span> <span class="nav-text">10.</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZZQ</span>
+
+  
+</div>
+
+
+ <!-- 
+ 
+ <div class="powered-by">世界是美好的</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">是值得我们去奋斗的 &mdash;  v</div>
+
+-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+	 
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv"></span>
+        </span>
+        <span class="post-meta-divider"></span>
+        <span id="busuanzi_container_site_uv" style="display:none">
+                <span id="busuanzi_value_site_uv"></span>
+        </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v="></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+		<link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: "<%=page.date%>", 
+            owner: 'zqnh',
+            repo: 'zqnh.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd9c922b4c4a7b4458ba55aa5673db78556aa9d1f',
+            
+                client_id: 'ca41c1f6c6585b630f16'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
