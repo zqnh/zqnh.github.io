@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Aemon Zhu">
 <meta property="og:description" content="SpringBoot———整合Mybatis-xml方式 1.创建Maven工程1.1pom.xml123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475&amp;lt;proje">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-13T07:43:00.935Z">
+<meta property="og:updated_time" content="2019-07-13T07:44:18.168Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringBoot———整合Mybatis-xml方式">
 <meta name="twitter:description" content="SpringBoot———整合Mybatis-xml方式 1.创建Maven工程1.1pom.xml123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475&amp;lt;proje">
@@ -383,6 +383,7 @@
 <h4 id="4-运行"><a href="#4-运行" class="headerlink" title="4.运行"></a>4.运行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd.app;</span><br><span class="line"></span><br><span class="line">import org.mybatis.spring.annotation.MapperScan;</span><br><span class="line">import org.springframework.boot.SpringApplication;</span><br><span class="line">import org.springframework.boot.autoconfigure.EnableAutoConfiguration;</span><br><span class="line">import org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line">import org.springframework.context.annotation.ComponentScan;</span><br><span class="line"></span><br><span class="line">//@EnableAutoConfiguration</span><br><span class="line">//@ComponentScan(&quot;net.zzqd.controller&quot;)</span><br><span class="line">//默认情况下扫描的是当前包以及当前包的子包</span><br><span class="line">@SpringBootApplication(scanBasePackages= &#123;&quot;net.zzqd&quot;&#125;)//组合注解</span><br><span class="line">@MapperScan(&quot;net.zzqd.mapper&quot;)</span><br><span class="line">public class SpringApplications &#123;</span><br><span class="line">	public static void main(String[] args)</span><br><span class="line">	&#123;</span><br><span class="line">		SpringApplication.run(SpringApplications.class, args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>附加：遇到异常：Cannot determine embedded database driver class for database type NONE</p>
 <p>暂时未解决</p>
+<p>修改后异常：org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name ‘customerController’: Unsatisfied dependency expressed through field ‘customerService’; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name ‘customerServiceImpl’: Unsatisfied dependency expressed through field ‘customerMapper’; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name ‘customerMapper’ defined in file [C:\DevelopTools\JavaFramework\SpringBoot_Parent\SpringBoot-Child10\target\classes\net\zzqd\mapper\CustomerMapper.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: Property ‘sqlSessionFactory’ or ‘sqlSessionTemplate’ are required</p>
 
       
     </div>
@@ -422,6 +423,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/13/SpringBoot———整合Mybatis-注解形式/" rel="prev" title="SpringBoot———整合Mybatis-注解形式">
+                SpringBoot———整合Mybatis-注解形式 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -507,7 +512,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
