@@ -79,21 +79,18 @@
 
 
 
-<meta name="description" content="代码上传到GitHub步骤 一、首次上传    1.安装Git(安装成功后右击文件目录会显示两个Git操作)    2.配置身份    git config –global user.name “用户的名字”    git config –golbal user.email “邮箱”    3.在项目目录下右击Git Bash Here 如图：        4.输入git init 命令  命令">
+<meta name="description" content="代码上传到GitHub步骤 首次上传1.安装Git(安装成功后右击文件目录会显示两个Git操作) 2.配置身份 git config --global user.name &amp;quot;用户的名字&amp;quot; git config --golbal user.email &amp;quot;邮箱&amp;quot; 3.在项目目录下右击Git Bash Here 如图： ![在这里插入图片描述](Git上传代码步骤">
 <meta name="keywords" content="Git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git上传代码步骤">
 <meta property="og:url" content="http://yoursite.com/2019/05/27/Git上传代码步骤/index.html">
 <meta property="og:site_name" content="Aemon Zhu">
-<meta property="og:description" content="代码上传到GitHub步骤 一、首次上传    1.安装Git(安装成功后右击文件目录会显示两个Git操作)    2.配置身份    git config –global user.name “用户的名字”    git config –golbal user.email “邮箱”    3.在项目目录下右击Git Bash Here 如图：        4.输入git init 命令  命令">
+<meta property="og:description" content="代码上传到GitHub步骤 首次上传1.安装Git(安装成功后右击文件目录会显示两个Git操作) 2.配置身份 git config --global user.name &amp;quot;用户的名字&amp;quot; git config --golbal user.email &amp;quot;邮箱&amp;quot; 3.在项目目录下右击Git Bash Here 如图： ![在这里插入图片描述](Git上传代码步骤">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/05/27/Git上传代码步骤/git1.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/05/27/Git上传代码步骤/git2.jpg">
-<meta property="og:updated_time" content="2019-05-27T14:53:41.610Z">
+<meta property="og:updated_time" content="2019-07-13T08:34:02.338Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git上传代码步骤">
-<meta name="twitter:description" content="代码上传到GitHub步骤 一、首次上传    1.安装Git(安装成功后右击文件目录会显示两个Git操作)    2.配置身份    git config –global user.name “用户的名字”    git config –golbal user.email “邮箱”    3.在项目目录下右击Git Bash Here 如图：        4.输入git init 命令  命令">
-<meta name="twitter:image" content="http://yoursite.com/2019/05/27/Git上传代码步骤/git1.jpg">
+<meta name="twitter:description" content="代码上传到GitHub步骤 首次上传1.安装Git(安装成功后右击文件目录会显示两个Git操作) 2.配置身份 git config --global user.name &amp;quot;用户的名字&amp;quot; git config --golbal user.email &amp;quot;邮箱&amp;quot; 3.在项目目录下右击Git Bash Here 如图： ![在这里插入图片描述](Git上传代码步骤">
 
 
 
@@ -374,8 +371,26 @@
 
       
         <pre><code>代码上传到GitHub步骤
-</code></pre><p>一、首次上传<br>    1.安装Git(安装成功后右击文件目录会显示两个Git操作)<br>    2.配置身份<br>    git config –global user.name “用户的名字”<br>    git config –golbal user.email “邮箱”<br>    3.在项目目录下右击Git Bash Here 如图：<br>    <img src="/2019/05/27/Git上传代码步骤/git1.jpg" alt="在这里插入图片描述"><br>    4.输入git init 命令  命令的意思是:使之成为本地git仓库<br>    5.git add . 把本地项目里的所有文件添加到刚刚生成的本地git仓库<br>    6.git commit -m “这里是提交时候添加的注释”<br>    7.git remote add origin <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>(你刚创建项目后的SSH地址)<br>    8.git pull origin maser //把本地仓库更新和远程仓库一样<br>    9.git push -u origin master提交文件<br>    10.等几秒会提示叫你输入密码：Enter passphrase for key ‘/Users/renpeng/.ssh/id_rsa’: 就是安装Git时的密码<br>    最后:我们在github上的项目文件就可以看见我们上传的文件了.<br>    11.如果以前连接过，从第三步开始<br>    12.如果首次连接会提示连接SSH进行<br>    打开GitHub——&gt;点击头像Setting——&gt;SSH and GPG keys——&gt;New SSH key<br>    <img src="/2019/05/27/Git上传代码步骤/git2.jpg" alt="在这里插入图片描述"><br>    title随便填写，key是在C盘用户目录里找到id_rsa.pub文件，用记事本打开，然后复制内容。保持就ok了</p>
-
+</code></pre><h5 id="首次上传"><a href="#首次上传" class="headerlink" title="首次上传"></a>首次上传</h5><pre><code>1.安装Git(安装成功后右击文件目录会显示两个Git操作)
+2.配置身份
+git config --global user.name &quot;用户的名字&quot;
+git config --golbal user.email &quot;邮箱&quot;
+3.在项目目录下右击Git Bash Here 如图：
+![在这里插入图片描述](Git上传代码步骤/git1.jpg)
+4.输入git init 命令  命令的意思是:使之成为本地git仓库 
+5.git add . 把本地项目里的所有文件添加到刚刚生成的本地git仓库
+6.git commit -m &quot;这里是提交时候添加的注释&quot;
+7.git remote add origin git@github.com(你刚创建项目后的SSH地址)
+8.git pull origin maser //把本地仓库更新和远程仓库一样
+9.git push -u origin master提交文件
+10.等几秒会提示叫你输入密码：Enter passphrase for key ‘/Users/renpeng/.ssh/id_rsa’: 就是安装Git时的密码
+最后:我们在github上的项目文件就可以看见我们上传的文件了.
+11.如果以前连接过，从第三步开始
+12.如果首次连接会提示连接SSH进行
+打开GitHub——&gt;点击头像Setting——&gt;SSH and GPG keys——&gt;New SSH key
+![在这里插入图片描述](Git上传代码步骤/git2.jpg)
+title随便填写，key是在C盘用户目录里找到id_rsa.pub文件，用记事本打开，然后复制内容。保持就ok了
+</code></pre>
       
     </div>
     
@@ -476,8 +491,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -539,6 +563,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#首次上传"><span class="nav-number">1.</span> <span class="nav-text">首次上传</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

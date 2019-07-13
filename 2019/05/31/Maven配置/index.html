@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="Maven配置 一、安装准备1.下载maven下载地址：http://maven.apache.org/download.cgi2.解压到磁盘某个文件目录下3.配置环境变量，和配置Java一样在系统属性——&amp;gt;环境变量——&amp;gt;新建变量名：MAVEN_HOME变量值：C:\DevelopTools\apache-maven-3.6.1变量值就是你解压的那个路径，保存。4.配置PATH点击编辑">
+<meta name="description" content="Maven配置 安装准备1.下载maven下载地址：http://maven.apache.org/download.cgi2.解压到磁盘某个文件目录下3.配置环境变量，和配置Java一样在系统属性——&amp;gt;环境变量——&amp;gt;新建变量名：MAVEN_HOME变量值：C:\DevelopTools\apache-maven-3.6.1变量值就是你解压的那个路径，保存。4.配置PATH点击编辑在最">
 <meta name="keywords" content="Maven">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Maven配置">
 <meta property="og:url" content="http://yoursite.com/2019/05/31/Maven配置/index.html">
 <meta property="og:site_name" content="Aemon Zhu">
-<meta property="og:description" content="Maven配置 一、安装准备1.下载maven下载地址：http://maven.apache.org/download.cgi2.解压到磁盘某个文件目录下3.配置环境变量，和配置Java一样在系统属性——&amp;gt;环境变量——&amp;gt;新建变量名：MAVEN_HOME变量值：C:\DevelopTools\apache-maven-3.6.1变量值就是你解压的那个路径，保存。4.配置PATH点击编辑">
+<meta property="og:description" content="Maven配置 安装准备1.下载maven下载地址：http://maven.apache.org/download.cgi2.解压到磁盘某个文件目录下3.配置环境变量，和配置Java一样在系统属性——&amp;gt;环境变量——&amp;gt;新建变量名：MAVEN_HOME变量值：C:\DevelopTools\apache-maven-3.6.1变量值就是你解压的那个路径，保存。4.配置PATH点击编辑在最">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/05/31/Maven配置/mvn1.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/05/31/Maven配置/mvn2.jpg">
@@ -96,10 +96,10 @@
 <meta property="og:image" content="http://yoursite.com/2019/05/31/Maven配置/mvn7.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/05/31/Maven配置/mvn8.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/05/31/Maven配置/mvn9.jpg">
-<meta property="og:updated_time" content="2019-05-31T05:06:14.562Z">
+<meta property="og:updated_time" content="2019-07-13T08:38:47.991Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Maven配置">
-<meta name="twitter:description" content="Maven配置 一、安装准备1.下载maven下载地址：http://maven.apache.org/download.cgi2.解压到磁盘某个文件目录下3.配置环境变量，和配置Java一样在系统属性——&amp;gt;环境变量——&amp;gt;新建变量名：MAVEN_HOME变量值：C:\DevelopTools\apache-maven-3.6.1变量值就是你解压的那个路径，保存。4.配置PATH点击编辑">
+<meta name="twitter:description" content="Maven配置 安装准备1.下载maven下载地址：http://maven.apache.org/download.cgi2.解压到磁盘某个文件目录下3.配置环境变量，和配置Java一样在系统属性——&amp;gt;环境变量——&amp;gt;新建变量名：MAVEN_HOME变量值：C:\DevelopTools\apache-maven-3.6.1变量值就是你解压的那个路径，保存。4.配置PATH点击编辑在最">
 <meta name="twitter:image" content="http://yoursite.com/2019/05/31/Maven配置/mvn1.jpg">
 
 
@@ -381,9 +381,9 @@
 
       
         <pre><code>Maven配置
-</code></pre><h5 id="一、安装准备"><a href="#一、安装准备" class="headerlink" title="一、安装准备"></a>一、安装准备</h5><p>1.下载maven<br>下载地址：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a><br><img src="/2019/05/31/Maven配置/mvn1.jpg" alt><br>2.解压到磁盘某个文件目录下<br><img src="/2019/05/31/Maven配置/mvn2.jpg" alt><br>3.配置环境变量，和配置Java一样<br>在系统属性——&gt;环境变量——&gt;新建<br>变量名：MAVEN_HOME<br>变量值：C:\DevelopTools\apache-maven-3.6.1<br>变量值就是你解压的那个路径，保存。<br><img src="/2019/05/31/Maven配置/mvn3.jpg" alt><br>4.配置PATH点击编辑在最后新建输入 %MAVEN_HOME%\bin\ 点击确定。<br><img src="/2019/05/31/Maven配置/mvn4.jpg" alt><br>5.测试配置cmd——&gt;mvn -version表示成功<br><img src="/2019/05/31/Maven配置/mvn5.jpg" alt></p>
-<h5 id="二、新建仓库"><a href="#二、新建仓库" class="headerlink" title="二、新建仓库"></a>二、新建仓库</h5><p>1.创建maven——&gt;创建repository<br><img src="/2019/05/31/Maven配置/mvn6.jpg" alt><br>2.打开下载的maven包——&gt;conf——&gt;settings.xml<br>3.将<code>&lt;localRepository&gt;&lt;/localRepository&gt;</code>拉到注释外，里面填写创建repository的路径C:\DevelopTools\maven\repository<br><img src="/2019/05/31/Maven配置/mvn7.jpg" alt><br>4.复制settings.xml到repository的同级目录下<br><img src="/2019/05/31/Maven配置/mvn8.jpg" alt></p>
-<h5 id="三、Eclipse配置"><a href="#三、Eclipse配置" class="headerlink" title="三、Eclipse配置"></a>三、Eclipse配置</h5><p>1.window——&gt;preferences——&gt;Maven——&gt;User Setting<br>2.一个是全局配置，一个是用户配置，前者路径为安装Maven包settings.xml的路径，后者为仓库settings.xml的路径<br>3.保存。<br><img src="/2019/05/31/Maven配置/mvn9.jpg" alt></p>
+</code></pre><h5 id="安装准备"><a href="#安装准备" class="headerlink" title="安装准备"></a>安装准备</h5><p>1.下载maven<br>下载地址：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a><br><img src="/2019/05/31/Maven配置/mvn1.jpg" alt><br>2.解压到磁盘某个文件目录下<br><img src="/2019/05/31/Maven配置/mvn2.jpg" alt><br>3.配置环境变量，和配置Java一样<br>在系统属性——&gt;环境变量——&gt;新建<br>变量名：MAVEN_HOME<br>变量值：C:\DevelopTools\apache-maven-3.6.1<br>变量值就是你解压的那个路径，保存。<br><img src="/2019/05/31/Maven配置/mvn3.jpg" alt><br>4.配置PATH点击编辑在最后新建输入 %MAVEN_HOME%\bin\ 点击确定。<br><img src="/2019/05/31/Maven配置/mvn4.jpg" alt><br>5.测试配置cmd——&gt;mvn -version表示成功<br><img src="/2019/05/31/Maven配置/mvn5.jpg" alt></p>
+<h5 id="新建仓库"><a href="#新建仓库" class="headerlink" title="新建仓库"></a>新建仓库</h5><p>1.创建maven——&gt;创建repository<br><img src="/2019/05/31/Maven配置/mvn6.jpg" alt><br>2.打开下载的maven包——&gt;conf——&gt;settings.xml<br>3.将<code>&lt;localRepository&gt;&lt;/localRepository&gt;</code>拉到注释外，里面填写创建repository的路径C:\DevelopTools\maven\repository<br><img src="/2019/05/31/Maven配置/mvn7.jpg" alt><br>4.复制settings.xml到repository的同级目录下<br><img src="/2019/05/31/Maven配置/mvn8.jpg" alt></p>
+<h5 id="Eclipse配置"><a href="#Eclipse配置" class="headerlink" title="Eclipse配置"></a>Eclipse配置</h5><p>1.window——&gt;preferences——&gt;Maven——&gt;User Setting<br>2.一个是全局配置，一个是用户配置，前者路径为安装Maven包settings.xml的路径，后者为仓库settings.xml的路径<br>3.保存。<br><img src="/2019/05/31/Maven配置/mvn9.jpg" alt></p>
 
       
     </div>
@@ -567,7 +567,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、安装准备"><span class="nav-number">1.</span> <span class="nav-text">一、安装准备</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、新建仓库"><span class="nav-number">2.</span> <span class="nav-text">二、新建仓库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三、Eclipse配置"><span class="nav-number">3.</span> <span class="nav-text">三、Eclipse配置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装准备"><span class="nav-number">1.</span> <span class="nav-text">安装准备</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#新建仓库"><span class="nav-number">2.</span> <span class="nav-text">新建仓库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Eclipse配置"><span class="nav-number">3.</span> <span class="nav-text">Eclipse配置</span></a></li></ol></div>
             
 
           </div>
