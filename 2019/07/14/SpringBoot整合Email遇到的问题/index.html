@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="web开发,">
+  <meta name="keywords" content="SpringBoot,">
 
 
 
@@ -79,20 +79,21 @@
 
 
 
-<meta name="description" content="Java连接mysql-8.0.11出现的问题 今天学习数据库JDBC连接，写好程序运行出现以下警告：WARN: Establishing SSL connection without server’s identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requireme">
-<meta name="keywords" content="web开发">
+<meta name="description" content="今天，在学习SpringBoot整合Email时，遇到一个异常：java.net.UnknownHostException: smtp.qq.com ，Couldn’t connect to host, port: smtp.qq.com , 25; timeout -1;用的是QQ邮箱的POP3/SMTP服务。  分析问题：显示不能连接主机，端口：smtp.qq.com 25,代码没问题。一访问">
+<meta name="keywords" content="SpringBoot">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JDBC连接问题">
-<meta property="og:url" content="http://yoursite.com/2019/04/18/JDBC连接问题/index.html">
+<meta property="og:title" content="SpringBoot整合Email遇到的问题">
+<meta property="og:url" content="http://yoursite.com/2019/07/14/SpringBoot整合Email遇到的问题/index.html">
 <meta property="og:site_name" content="Aemon Zhu">
-<meta property="og:description" content="Java连接mysql-8.0.11出现的问题 今天学习数据库JDBC连接，写好程序运行出现以下警告：WARN: Establishing SSL connection without server’s identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requireme">
+<meta property="og:description" content="今天，在学习SpringBoot整合Email时，遇到一个异常：java.net.UnknownHostException: smtp.qq.com ，Couldn’t connect to host, port: smtp.qq.com , 25; timeout -1;用的是QQ邮箱的POP3/SMTP服务。  分析问题：显示不能连接主机，端口：smtp.qq.com 25,代码没问题。一访问">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/04/18/JDBC连接问题/exception.jpg">
-<meta property="og:updated_time" content="2019-05-26T09:47:31.494Z">
+<meta property="og:image" content="http://yoursite.com/2019/07/14/SpringBoot整合Email遇到的问题/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/07/14/SpringBoot整合Email遇到的问题/2.jpg">
+<meta property="og:updated_time" content="2019-07-14T03:17:46.684Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JDBC连接问题">
-<meta name="twitter:description" content="Java连接mysql-8.0.11出现的问题 今天学习数据库JDBC连接，写好程序运行出现以下警告：WARN: Establishing SSL connection without server’s identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requireme">
-<meta name="twitter:image" content="http://yoursite.com/2019/04/18/JDBC连接问题/exception.jpg">
+<meta name="twitter:title" content="SpringBoot整合Email遇到的问题">
+<meta name="twitter:description" content="今天，在学习SpringBoot整合Email时，遇到一个异常：java.net.UnknownHostException: smtp.qq.com ，Couldn’t connect to host, port: smtp.qq.com , 25; timeout -1;用的是QQ邮箱的POP3/SMTP服务。  分析问题：显示不能连接主机，端口：smtp.qq.com 25,代码没问题。一访问">
+<meta name="twitter:image" content="http://yoursite.com/2019/07/14/SpringBoot整合Email遇到的问题/1.jpg">
 
 
 
@@ -122,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/18/JDBC连接问题/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/14/SpringBoot整合Email遇到的问题/">
 
 
 
 
 
-  <title>JDBC连接问题 | Aemon Zhu</title>
+  <title>SpringBoot整合Email遇到的问题 | Aemon Zhu</title>
   
 
 
@@ -268,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/18/JDBC连接问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/14/SpringBoot整合Email遇到的问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZZQ">
@@ -285,7 +286,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JDBC连接问题</h1>
+          <h1 class="post-title" itemprop="name headline">SpringBoot整合Email遇到的问题</h1>
         
 
         <div class="post-meta">
@@ -297,8 +298,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-18T22:51:23+08:00">
-                2019-04-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-14T09:34:17+08:00">
+                2019-07-14
               </time>
             
 
@@ -320,8 +321,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringBoot</span>
                   </a>
                 </span>
 
@@ -338,8 +339,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/04/18/JDBC连接问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/04/18/JDBC连接问题/" itemprop="commentsCount"></span>
+                <a href="/2019/07/14/SpringBoot整合Email遇到的问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/07/14/SpringBoot整合Email遇到的问题/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -372,11 +373,28 @@
       
 
       
-        <pre><code>Java连接mysql-8.0.11出现的问题
-</code></pre><p>今天学习数据库JDBC连接，写好程序运行出现以下警告：<br>WARN: Establishing SSL connection without server’s identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by default if explicit option isn’t set. For compliance with existing applications not using SSL the verifyServerCertificate property is set to ‘false’. You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true and provide truststore for server certificate verification.</p>
-<p><img src="/2019/04/18/JDBC连接问题/exception.jpg" alt></p>
-<p>百度后发现原因是MySQL在高版本需要指明是否进行SSL连接<br>解决方案：<br>在url中添加&amp;useSSL=false或者添加&amp;useSSL=true<br>“jdbc:mysql://localhost:3306/ 数据库名 ?useSSL=false&amp;serverTimezone=UTC”, “root”, “root”<br>问题解决</p>
-<p>mysql-8.0.11连接驱动：com.mysql.cj.jdbc.Driver<br>代码部分：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd.login; import java.sql.Connection;</span><br><span class="line">import java.sql.DriverManager;</span><br><span class="line">import java.sql.ResultSet;</span><br><span class="line">import java.sql.SQLException;</span><br><span class="line">import java.sql.Statement;</span><br><span class="line">import java.util.Scanner;public class LoginDemo </span><br><span class="line">&#123; public static void main(String[] args) &#123;</span><br><span class="line">  Scanner input = new Scanner(System.in);</span><br><span class="line">  System.out.println(&quot;请输入用户名：&quot;);</span><br><span class="line">  String username = input.nextLine();</span><br><span class="line">  System.out.println(&quot;请输入密码：&quot;);</span><br><span class="line">  String pass = input.nextLine();</span><br><span class="line">  </span><br><span class="line">  //连接对象</span><br><span class="line">  Connection connection = null;</span><br><span class="line">  //命令对象</span><br><span class="line">  Statement stat = null;</span><br><span class="line">  //结果集</span><br><span class="line">  ResultSet rs = null;</span><br><span class="line">  </span><br><span class="line">  //操作数据库</span><br><span class="line">  //1.注册驱动</span><br><span class="line">  try &#123;</span><br><span class="line">   Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span><br><span class="line">   //2获取连接</span><br><span class="line">   connection=DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/school?useSSL=false&amp;serverTimezone=UTC&quot;, &quot;root&quot;, &quot;root&quot;);</span><br><span class="line">   System.out.println(&quot;-------------------------------------&quot;);</span><br><span class="line">   //3创建命令</span><br><span class="line">   stat = connection.createStatement();</span><br><span class="line">   //执行命令</span><br><span class="line">   rs = stat.executeQuery(&quot;select * from user where username=&apos;&quot;+username+&quot;&apos; and password=&apos;&quot;+pass+&quot;&apos;&quot;);</span><br><span class="line">   </span><br><span class="line">   if(rs.next())</span><br><span class="line">   &#123;</span><br><span class="line">    //有数据</span><br><span class="line">    System.out.println(&quot;登陆成功&quot;);</span><br><span class="line">   &#125;</span><br><span class="line">   else</span><br><span class="line">   &#123;</span><br><span class="line">    System.out.println(&quot;账号或密码错误&quot;);</span><br><span class="line">   &#125;</span><br><span class="line">  &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">   </span><br><span class="line">   e.printStackTrace();</span><br><span class="line">  &#125; catch (SQLException e) &#123;</span><br><span class="line">   </span><br><span class="line">   e.printStackTrace();</span><br><span class="line">  &#125;finally </span><br><span class="line">  &#123;</span><br><span class="line">   if(rs!=null)</span><br><span class="line">   &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">     rs.close();</span><br><span class="line">    &#125; catch (SQLException e) &#123;</span><br><span class="line">    </span><br><span class="line">     e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   if(stat!=null)</span><br><span class="line">   &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">     stat.close();</span><br><span class="line">    &#125; catch (SQLException e) &#123;</span><br><span class="line">     </span><br><span class="line">     e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   if(connection!=null)</span><br><span class="line">   &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">     connection.close();</span><br><span class="line">    &#125; catch (SQLException e) &#123;</span><br><span class="line">     </span><br><span class="line">     e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <p>今天，在学习SpringBoot整合Email时，遇到一个异常：java.net.UnknownHostException: smtp.qq.com ，Couldn’t connect to host, port: smtp.qq.com , 25; timeout -1;用的是QQ邮箱的POP3/SMTP服务。</p>
+<p><img src="/2019/07/14/SpringBoot整合Email遇到的问题/1.jpg" alt></p>
+<p>分析问题：显示不能连接主机，端口：smtp.qq.com 25,代码没问题。一访问Controller就显示500错误。可能情况:</p>
+<p>1.要在邮件设置中把POP3/SMTP服务开启。</p>
+<p>2.ping或者telnet下smtp.qq.com，看是否接通</p>
+<p>3.改变下端口号</p>
+<p>4.如有安装要杀毒软件或防火墙，比如：McAFee 要在控制台-&gt;访问保护(右键)-&gt;属性-&gt;防病毒标准保护-&gt;禁止群发邮件蠕虫发送邮件-&gt;前面没有打钩</p>
+<p>更改前配置代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spring.mail.host=smtp.qq.com </span><br><span class="line">spring.mail.username=719196335@qq.com</span><br><span class="line">spring.mail.password=yxkcobqdkhmjbcac</span><br><span class="line">spring.mail.properties.mail.smtp.auth=true</span><br><span class="line">spring.mail.properties.mail.smtp.starttls.enable=true</span><br><span class="line">spring.mail.properties.mail.smtp.starttls.required=true</span><br></pre></td></tr></table></figure>
+<p>更改后如下代码：</p>
+<p>配置文件代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">spring.mail.host=smtp.qq.com</span><br><span class="line">spring.mail.username=719196335@qq.com</span><br><span class="line">spring.mail.password=qhimjcetrjmbbdhb</span><br><span class="line">spring.mail.properties.mail.smtp.ssl.enable=true</span><br><span class="line">spring.mail.properties.mail.smtp.ssl.trust=smtp.qq.com</span><br><span class="line">spring.mail.properties.mail.socketFactory.class=javax.net.ssl.SSLSocketFactory</span><br><span class="line">spring.mail.properties.mail.smtp.socketFactory.port=465</span><br><span class="line">spring.mail.properties.mail.smtp.port=465</span><br><span class="line">spring.mail.properties.mail.smtp.auth=true</span><br><span class="line">spring.mail.properties.mail.smtp.starttls.enable=true</span><br><span class="line">spring.mail.properties.mail.smtp.starttls.required=true</span><br></pre></td></tr></table></figure>
+<p>EmialConfig代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd.email;</span><br><span class="line"></span><br><span class="line">import org.springframework.beans.factory.annotation.Value;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">public class EmailConfig &#123;</span><br><span class="line">	@Value(&quot;$&#123;spring.mail.username&#125;&quot;)</span><br><span class="line">	private String emailForm;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	public String getEmailForm() &#123;</span><br><span class="line">		return emailForm;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setEmailForm(String emailForm) &#123;</span><br><span class="line">		this.emailForm = emailForm;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>EmialController</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd.email;</span><br><span class="line"></span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line">@Controller</span><br><span class="line">public class EmailController &#123;</span><br><span class="line">	@Autowired</span><br><span class="line">	private EmailService emailService;</span><br><span class="line">	</span><br><span class="line">	@RequestMapping(&quot;/simple&quot;)</span><br><span class="line">	@ResponseBody</span><br><span class="line">	public String sendSimpleEmail()</span><br><span class="line">	&#123;</span><br><span class="line">		emailService.sendSimpleMail(&quot;719196335@qq.com&quot;, &quot;你好&quot;,&quot;明天找你玩&quot;);</span><br><span class="line">		return &quot;success&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>EmailService</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd.email;</span><br><span class="line"></span><br><span class="line">public interface EmailService &#123;</span><br><span class="line">	//发送简单的邮件</span><br><span class="line">	void sendSimpleMail(String sendTo, String title, String content);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>EmailServiceImpl</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd.email;</span><br><span class="line"></span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.mail.SimpleMailMessage;</span><br><span class="line">import org.springframework.mail.javamail.JavaMailSender;</span><br><span class="line">import org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line">@Service</span><br><span class="line">public class EmailServiceImpl implements EmailService&#123;</span><br><span class="line"></span><br><span class="line">	@Autowired</span><br><span class="line">	private EmailConfig emailConfig;</span><br><span class="line">	</span><br><span class="line">	@Autowired</span><br><span class="line">	private JavaMailSender mailSender;</span><br><span class="line">	</span><br><span class="line">	@Override</span><br><span class="line">	public void sendSimpleMail(String sendTo,String title,String content) &#123;</span><br><span class="line">		//简单邮件的发送</span><br><span class="line">		SimpleMailMessage message = new SimpleMailMessage();</span><br><span class="line">		message.setFrom(emailConfig.getEmailForm());</span><br><span class="line">		message.setTo(sendTo);</span><br><span class="line">		message.setSubject(title);</span><br><span class="line">		message.setText(content);</span><br><span class="line">		</span><br><span class="line">		mailSender.send(message);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>附加：经过上述一切判断发现都没问题，有将端口号改为465，发现出现501错误码，了解以后发现是从application.properties获取的账号和Message中设置的不一致造成的，在ServiceImpl中添加控制台打印发现是null，仔细观察了代码，发现注解写错位置了。如下图，完美解决。</p>
+<p><img src="/2019/07/14/SpringBoot整合Email遇到的问题/2.jpg" alt></p>
 
       
     </div>
@@ -394,7 +412,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/web开发/" rel="tag"># web开发</a>
+            <a href="/tags/SpringBoot/" rel="tag"># SpringBoot</a>
           
         </div>
       
@@ -407,8 +425,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/16/数据结构之二叉树/" rel="next" title="数据结构之二叉树">
-                <i class="fa fa-chevron-left"></i> 数据结构之二叉树
+              <a href="/2019/07/13/牛客网刷题总结（二）/" rel="next" title="牛客网刷题总结（二）">
+                <i class="fa fa-chevron-left"></i> 牛客网刷题总结（二）
               </a>
             
           </div>
@@ -416,10 +434,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/22/设计模式———DAO设计模式/" rel="prev" title="设计模式———DAO设计模式">
-                设计模式———DAO设计模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
