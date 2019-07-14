@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Shiro,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.权限管理1.1什么是权限管理基本上涉及到用户参与的系统都要进行权限管理，权限管理属于系统安全的范畴，权限管理实现对用户访问系统的控制，按照安全规则或者安全策略控制用户可以访问而且只能访问自己被授权的资源。 权限管理包括用户身份认证和授权两部分，简称认证授权。对于需要访问控制的资源用户首先经过身份认证，认证通过后用户具有该资源的访问权限方可访问。 1.2用户身份认证身份认证，就是判断一个用户是否">
+<meta name="keywords" content="Shiro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shiro———权限管理（一）">
+<meta property="og:url" content="http://yoursite.com/2019/07/14/Shiro———权限管理（一）/index.html">
+<meta property="og:site_name" content="Aemon Zhu">
+<meta property="og:description" content="1.权限管理1.1什么是权限管理基本上涉及到用户参与的系统都要进行权限管理，权限管理属于系统安全的范畴，权限管理实现对用户访问系统的控制，按照安全规则或者安全策略控制用户可以访问而且只能访问自己被授权的资源。 权限管理包括用户身份认证和授权两部分，简称认证授权。对于需要访问控制的资源用户首先经过身份认证，认证通过后用户具有该资源的访问权限方可访问。 1.2用户身份认证身份认证，就是判断一个用户是否">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-14T11:04:30.777Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Shiro———权限管理（一）">
+<meta name="twitter:description" content="1.权限管理1.1什么是权限管理基本上涉及到用户参与的系统都要进行权限管理，权限管理属于系统安全的范畴，权限管理实现对用户访问系统的控制，按照安全规则或者安全策略控制用户可以访问而且只能访问自己被授权的资源。 权限管理包括用户身份认证和授权两部分，简称认证授权。对于需要访问控制的资源用户首先经过身份认证，认证通过后用户具有该资源的访问权限方可访问。 1.2用户身份认证身份认证，就是判断一个用户是否">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/14/Shiro———权限管理（一）/">
+
+
+
+
+
+  <title>Shiro———权限管理（一） | Aemon Zhu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zqnh"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1" style="
+    margin-left: 1114px;
+    margin-right: 0px;
+"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aemon Zhu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习使我快乐 敲代码使我充实</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/14/Shiro———权限管理（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZZQ">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aemon Zhu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Shiro———权限管理（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-14T18:50:42+08:00">
+                2019-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Shiro/" itemprop="url" rel="index">
+                    <span itemprop="name">Shiro</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/14/Shiro———权限管理（一）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/07/14/Shiro———权限管理（一）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1-权限管理"><a href="#1-权限管理" class="headerlink" title="1.权限管理"></a>1.权限管理</h4><h5 id="1-1什么是权限管理"><a href="#1-1什么是权限管理" class="headerlink" title="1.1什么是权限管理"></a>1.1什么是权限管理</h5><p>基本上涉及到用户参与的系统都要进行权限管理，权限管理属于系统安全的范畴，权限管理实现对用户访问系统的控制，按照安全规则或者安全策略控制用户可以访问而且只能访问自己被授权的资源。</p>
+<p>权限管理包括用户身份认证和授权两部分，简称认证授权。对于需要访问控制的资源用户首先经过身份认证，认证通过后用户具有该资源的访问权限方可访问。</p>
+<h5 id="1-2用户身份认证"><a href="#1-2用户身份认证" class="headerlink" title="1.2用户身份认证"></a>1.2用户身份认证</h5><p>身份认证，就是判断一个用户是否为合法用户的处理过程。最常用的简单身份认证方式是系统通过核对用户输入的用户名和口令，看其是否与系统中存储的该用户的用户名和口令一致，来判断用户身份是否正确。对于采用指纹等系统，则出示指纹；对于硬件Key等刷卡系统，则需要刷卡。</p>
+<h5 id="1-3用户授权"><a href="#1-3用户授权" class="headerlink" title="1.3用户授权"></a>1.3用户授权</h5><p>用户授权，简单理解为访问控制，在用户认证通过后，系统对用户访问资源进行控制，用户具有资源的访问权限方可访问。用户授权的流程到达了用户授权环节，当然是需要用户认证之后了用户访问资源，系统判断该用户是否有权限去操作该资源，如果该用户有权限才能够访问，如果没有权限就不能访问了</p>
+<h5 id="1-4权限管理"><a href="#1-4权限管理" class="headerlink" title="1.4权限管理"></a>1.4权限管理</h5><p>一般地，我们可以抽取出这么几个模型：</p>
+<p>主体（账号、密码）<br>资源（资源名称、访问地址）<br>权限（权限名称、资源id）<br>角色（角色名称）<br>角色和权限关系（角色id、权限id）<br>主体和角色关系（主体id、角色id）</p>
+<p>通常企业开发中将资源和权限表合并为一张权限表，如下：</p>
+<p>资源（资源名称、访问地址）<br>权限（权限名称、资源id）<br>合并为：</p>
+<p>权限（权限名称、资源名称、资源访问地址）</p>
+<h4 id="2-简单应用"><a href="#2-简单应用" class="headerlink" title="2.简单应用"></a>2.简单应用</h4><p><strong>maven项目添加依赖</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;</span><br><span class="line">         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line"></span><br><span class="line">    &lt;groupId&gt;net.zzqd&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;shiro-demo1&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.shiro&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;shiro-core&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.2.3&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">&lt;!--        日志工具包--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.slf4j&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;slf4j-log4j12&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.6.1&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">    &lt;/dependencies&gt;</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>shiro.ini</strong></p>
+<p>users下面是用户名，密码；roles下面是角色名，权限，*代表所有权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[users]</span><br><span class="line">root=123456,admin</span><br><span class="line">test=000000,test</span><br><span class="line"></span><br><span class="line">[roles]</span><br><span class="line">admin=*</span><br><span class="line">test=search,add,update</span><br></pre></td></tr></table></figure>
+<p><strong>ShiroTest</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd.shrio.test;</span><br><span class="line"></span><br><span class="line">import org.apache.shiro.SecurityUtils;</span><br><span class="line">import org.apache.shiro.authc.AuthenticationException;</span><br><span class="line">import org.apache.shiro.authc.UsernamePasswordToken;</span><br><span class="line">import org.apache.shiro.config.IniSecurityManagerFactory;</span><br><span class="line">import org.apache.shiro.mgt.SecurityManager;</span><br><span class="line">import org.apache.shiro.subject.Subject;</span><br><span class="line">import org.apache.shiro.util.Factory;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author zqnh</span><br><span class="line"> * @date 2019/7/14 on 18:20.</span><br><span class="line"> */</span><br><span class="line">public class ShiroTest</span><br><span class="line">&#123;</span><br><span class="line">    public static void main(String[] args)</span><br><span class="line">    &#123;</span><br><span class="line">    	//读取配置文件，返回Factory对象，管理subject的工具</span><br><span class="line">        Factory&lt;SecurityManager&gt; factory =</span><br><span class="line">                new IniSecurityManagerFactory(&quot;classpath:shiro.ini&quot;);</span><br><span class="line">        //获取SecurityManager</span><br><span class="line">        SecurityManager securityManager = factory.getInstance();</span><br><span class="line">        //全局设置，设置一次</span><br><span class="line">        SecurityUtils.setSecurityManager(securityManager);</span><br><span class="line">        //subject代表当前用户交互的用户项</span><br><span class="line">        Subject subject = SecurityUtils.getSubject();</span><br><span class="line">        //用用户名和密码登陆</span><br><span class="line">        UsernamePasswordToken token = new UsernamePasswordToken(&quot;test&quot;,&quot;000000&quot;);</span><br><span class="line">       try&#123;</span><br><span class="line">       	   //登陆</span><br><span class="line">           subject.login(token);</span><br><span class="line">           //判断是否验证过</span><br><span class="line">           if (subject.isAuthenticated())</span><br><span class="line">           &#123;</span><br><span class="line">               System.out.println(&quot;登陆成功&quot;);</span><br><span class="line">               if(subject.hasRole(&quot;admin&quot;))</span><br><span class="line">               &#123;</span><br><span class="line">                   System.out.println(&quot;有admin权限&quot;);</span><br><span class="line">               &#125;else</span><br><span class="line">               &#123;</span><br><span class="line">                   System.out.println(&quot;没有admin权限&quot;);</span><br><span class="line">               &#125;</span><br><span class="line">               if(subject.isPermitted(&quot;search&quot;))</span><br><span class="line">               &#123;</span><br><span class="line">                   System.out.println(&quot;有search权限&quot;);</span><br><span class="line">               &#125;else</span><br><span class="line">               &#123;</span><br><span class="line">                   System.out.println(&quot;没有search权限&quot;);</span><br><span class="line">               &#125;</span><br><span class="line">               if(subject.isPermitted(&quot;del&quot;))</span><br><span class="line">               &#123;</span><br><span class="line">                   System.out.println(&quot;有del权限&quot;);</span><br><span class="line">               &#125;else</span><br><span class="line">               &#123;</span><br><span class="line">                   System.out.println(&quot;没有del权限&quot;);</span><br><span class="line">               &#125;</span><br><span class="line">               if(subject.isPermittedAll(&quot;add&quot;,&quot;update&quot;))</span><br><span class="line">               &#123;</span><br><span class="line">                   System.out.println(&quot;有add和update权限&quot;);</span><br><span class="line">               &#125;</span><br><span class="line">               else</span><br><span class="line">               &#123;</span><br><span class="line">                   System.out.println(&quot;没有有add和update权限&quot;);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;catch (AuthenticationException e)</span><br><span class="line">       &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">           System.out.println(&quot;用户名或密码错误，登陆失败&quot;);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Shiro/" rel="tag"># Shiro</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/14/SpringBoot整合Email遇到的问题/" rel="next" title="SpringBoot整合Email遇到的问题">
+                <i class="fa fa-chevron-left"></i> SpringBoot整合Email遇到的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="ZZQ">
+            
+              <p class="site-author-name" itemprop="name">ZZQ</p>
+              <p class="site-description motion-element" itemprop="description">坦坦荡荡 一身正气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-权限管理"><span class="nav-number">1.</span> <span class="nav-text">1.权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1什么是权限管理"><span class="nav-number">1.1.</span> <span class="nav-text">1.1什么是权限管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2用户身份认证"><span class="nav-number">1.2.</span> <span class="nav-text">1.2用户身份认证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3用户授权"><span class="nav-number">1.3.</span> <span class="nav-text">1.3用户授权</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4权限管理"><span class="nav-number">1.4.</span> <span class="nav-text">1.4权限管理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-简单应用"><span class="nav-number">2.</span> <span class="nav-text">2.简单应用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZZQ</span>
+
+  
+</div>
+
+
+ <!-- 
+ 
+ <div class="powered-by">世界是美好的</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">是值得我们去奋斗的 &mdash;  v</div>
+
+-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+	 
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv"></span>
+        </span>
+        <span class="post-meta-divider"></span>
+        <span id="busuanzi_container_site_uv" style="display:none">
+                <span id="busuanzi_value_site_uv"></span>
+        </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v="></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+		<link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: "<%=page.date%>", 
+            owner: 'zqnh',
+            repo: 'zqnh.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd9c922b4c4a7b4458ba55aa5673db78556aa9d1f',
+            
+                client_id: 'ca41c1f6c6585b630f16'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
