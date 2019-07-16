@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Aemon Zhu">
 <meta property="og:description" content="1.权限管理1.1什么是权限管理基本上涉及到用户参与的系统都要进行权限管理，权限管理属于系统安全的范畴，权限管理实现对用户访问系统的控制，按照安全规则或者安全策略控制用户可以访问而且只能访问自己被授权的资源。 权限管理包括用户身份认证和授权两部分，简称认证授权。对于需要访问控制的资源用户首先经过身份认证，认证通过后用户具有该资源的访问权限方可访问。 1.2用户身份认证身份认证，就是判断一个用户是否">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-14T11:04:30.777Z">
+<meta property="og:updated_time" content="2019-07-15T00:39:35.535Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shiro———权限管理（一）">
 <meta name="twitter:description" content="1.权限管理1.1什么是权限管理基本上涉及到用户参与的系统都要进行权限管理，权限管理属于系统安全的范畴，权限管理实现对用户访问系统的控制，按照安全规则或者安全策略控制用户可以访问而且只能访问自己被授权的资源。 权限管理包括用户身份认证和授权两部分，简称认证授权。对于需要访问控制的资源用户首先经过身份认证，认证通过后用户具有该资源的访问权限方可访问。 1.2用户身份认证身份认证，就是判断一个用户是否">
@@ -379,7 +379,14 @@
 <p>通常企业开发中将资源和权限表合并为一张权限表，如下：</p>
 <p>资源（资源名称、访问地址）<br>权限（权限名称、资源id）<br>合并为：</p>
 <p>权限（权限名称、资源名称、资源访问地址）</p>
-<h4 id="2-简单应用"><a href="#2-简单应用" class="headerlink" title="2.简单应用"></a>2.简单应用</h4><p><strong>maven项目添加依赖</strong></p>
+<h4 id="2-验证流程"><a href="#2-验证流程" class="headerlink" title="2.验证流程"></a>2.验证流程</h4><ol>
+<li>首先调用Subject.login（token）进行登陆，其会委托给Security Manager，调用之前必须通过SecurityUtil’s.setSecurityManager()设置；</li>
+<li>SecurityManager负责真正的身份验证逻辑；它会委托给Authenticator进行身份验证；</li>
+<li>Authenticator才是真正的身份验证者，Shiro API中核心的身份认证入口点，此时衣自定义插入自己的实现；</li>
+<li>Authenticator可能会委托给相应的AuthenticationStrategy进行多Realm身份验证，默认以自定义插入自己的实现；</li>
+<li>Authenticator会把相应的token传入Realm，从Realm获取身份验证信息，如果返回/有抛出异常标十异常身份验证失败，此处可以配置多个Realm，将按照相应的顺序及策略进行访问。</li>
+</ol>
+<h4 id="3-简单应用"><a href="#3-简单应用" class="headerlink" title="3.简单应用"></a>3.简单应用</h4><p><strong>maven项目添加依赖</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;</span><br><span class="line">         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line"></span><br><span class="line">    &lt;groupId&gt;net.zzqd&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;shiro-demo1&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.shiro&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;shiro-core&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.2.3&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">&lt;!--        日志工具包--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.slf4j&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;slf4j-log4j12&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.6.1&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">    &lt;/dependencies&gt;</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
 <p><strong>shiro.ini</strong></p>
 <p>users下面是用户名，密码；roles下面是角色名，权限，*代表所有权限</p>
@@ -565,7 +572,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-权限管理"><span class="nav-number">1.</span> <span class="nav-text">1.权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1什么是权限管理"><span class="nav-number">1.1.</span> <span class="nav-text">1.1什么是权限管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2用户身份认证"><span class="nav-number">1.2.</span> <span class="nav-text">1.2用户身份认证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3用户授权"><span class="nav-number">1.3.</span> <span class="nav-text">1.3用户授权</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4权限管理"><span class="nav-number">1.4.</span> <span class="nav-text">1.4权限管理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-简单应用"><span class="nav-number">2.</span> <span class="nav-text">2.简单应用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-权限管理"><span class="nav-number">1.</span> <span class="nav-text">1.权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1什么是权限管理"><span class="nav-number">1.1.</span> <span class="nav-text">1.1什么是权限管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2用户身份认证"><span class="nav-number">1.2.</span> <span class="nav-text">1.2用户身份认证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3用户授权"><span class="nav-number">1.3.</span> <span class="nav-text">1.3用户授权</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4权限管理"><span class="nav-number">1.4.</span> <span class="nav-text">1.4权限管理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-验证流程"><span class="nav-number">2.</span> <span class="nav-text">2.验证流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-简单应用"><span class="nav-number">3.</span> <span class="nav-text">3.简单应用</span></a></li></ol></div>
             
 
           </div>
