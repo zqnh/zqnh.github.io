@@ -83,18 +83,18 @@
 <meta name="keywords" content="Mybatis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mybatis分页插件使用">
-<meta property="og:url" content="http://yoursite.com/2019/07/17/Mybatis分页插件使用/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/07/18/Mybatis分页插件使用/index.html">
 <meta property="og:site_name" content="Aemon Zhu">
 <meta property="og:description" content="Mybatis分页插件—PageHelper使用方法,使用流程分别在Maven环境下和web项目下。  在Maven环境下1.添加依赖123456&amp;lt;!-- 分页插件依赖 --&amp;gt;		&amp;lt;dependency&amp;gt;			&amp;lt;groupId&amp;gt;com.github.pagehelper&amp;lt;/groupId&amp;gt;			&amp;lt;artifactId&amp;gt;pagehelper">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/07/17/Mybatis分页插件使用/1.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/07/17/Mybatis分页插件使用/2.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/07/17/Mybatis分页插件使用/3.jpg">
-<meta property="og:updated_time" content="2019-07-17T15:05:51.657Z">
+<meta property="og:image" content="http://yoursite.com/2019/07/18/Mybatis分页插件使用/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/07/18/Mybatis分页插件使用/2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/07/18/Mybatis分页插件使用/3.jpg">
+<meta property="og:updated_time" content="2019-07-18T06:30:25.666Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mybatis分页插件使用">
 <meta name="twitter:description" content="Mybatis分页插件—PageHelper使用方法,使用流程分别在Maven环境下和web项目下。  在Maven环境下1.添加依赖123456&amp;lt;!-- 分页插件依赖 --&amp;gt;		&amp;lt;dependency&amp;gt;			&amp;lt;groupId&amp;gt;com.github.pagehelper&amp;lt;/groupId&amp;gt;			&amp;lt;artifactId&amp;gt;pagehelper">
-<meta name="twitter:image" content="http://yoursite.com/2019/07/17/Mybatis分页插件使用/1.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2019/07/18/Mybatis分页插件使用/1.jpg">
 
 
 
@@ -124,7 +124,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/17/Mybatis分页插件使用/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/18/Mybatis分页插件使用/">
 
 
 
@@ -270,7 +270,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/Mybatis分页插件使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/18/Mybatis分页插件使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZZQ">
@@ -299,8 +299,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T22:34:47+08:00">
-                2019-07-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-18T13:34:47+08:00">
+                2019-07-18
               </time>
             
 
@@ -340,8 +340,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/07/17/Mybatis分页插件使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/07/17/Mybatis分页插件使用/" itemprop="commentsCount"></span>
+                <a href="/2019/07/18/Mybatis分页插件使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/07/18/Mybatis分页插件使用/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -375,13 +375,13 @@
 
       
         <p>Mybatis分页插件—PageHelper使用方法,使用流程分别在Maven环境下和web项目下。</p>
-<p><img src="/2019/07/17/Mybatis分页插件使用/1.jpg" alt></p>
+<p><img src="/2019/07/18/Mybatis分页插件使用/1.jpg" alt></p>
 <h4 id="在Maven环境下"><a href="#在Maven环境下" class="headerlink" title="在Maven环境下"></a>在Maven环境下</h4><h5 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1.添加依赖"></a>1.添加依赖</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 分页插件依赖 --&gt;</span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;com.github.pagehelper&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;pagehelper&lt;/artifactId&gt;</span><br><span class="line">			&lt;version&gt;5.1.6&lt;/version&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 <h5 id="2-工具类"><a href="#2-工具类" class="headerlink" title="2.工具类()"></a>2.工具类()</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//5.0以后</span><br><span class="line">public class MybatisConfig</span><br><span class="line">&#123;</span><br><span class="line">    @Bean</span><br><span class="line">    public PageInterceptor pageHelper() &#123;</span><br><span class="line">        PageInterceptor pageHelper = new PageInterceptor();</span><br><span class="line">        Properties p = new Properties();</span><br><span class="line">        p.setProperty(&quot;offsetAsPageNum&quot;, &quot;true&quot;);</span><br><span class="line">        p.setProperty(&quot;rowBoundsWithCount&quot;, &quot;true&quot;);</span><br><span class="line">        p.setProperty(&quot;reasonable&quot;, &quot;true&quot;);</span><br><span class="line">        p.setProperty(&quot;returnPageInfo&quot;, &quot;check&quot;);</span><br><span class="line">        p.setProperty(&quot;params&quot;, &quot;count=countSql&quot;);</span><br><span class="line">        pageHelper.setProperties(p);</span><br><span class="line">        return pageHelper;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//5.0以前</span><br><span class="line">@Bean</span><br><span class="line">    public PageHelper pageHelper() &#123;</span><br><span class="line">        PageHelperpageHelper = new PageHelper();</span><br><span class="line">        Properties p = new Properties();</span><br><span class="line">        p.setProperty(&quot;offsetAsPageNum&quot;, &quot;true&quot;);</span><br><span class="line">        p.setProperty(&quot;rowBoundsWithCount&quot;, &quot;true&quot;);</span><br><span class="line">        p.setProperty(&quot;reasonable&quot;, &quot;true&quot;);</span><br><span class="line">        p.setProperty(&quot;returnPageInfo&quot;, &quot;check&quot;);</span><br><span class="line">        p.setProperty(&quot;params&quot;, &quot;count=countSql&quot;);</span><br><span class="line">        pageHelper.setProperties(p);</span><br><span class="line">        return pageHelper;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <h5 id="3-使用"><a href="#3-使用" class="headerlink" title="3.使用"></a>3.使用</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping(&quot;page&quot;)</span><br><span class="line">	public Object pageVideo(@RequestParam(value=&quot;page&quot;,defaultValue = &quot;1&quot;) int page,</span><br><span class="line">							@RequestParam(value=&quot;size&quot;,defaultValue=&quot;10&quot;) int size)</span><br><span class="line">	&#123;</span><br><span class="line">		PageHelper.startPage(page,size);</span><br><span class="line">        List&lt;Video&gt; list = videoService.findAll();</span><br><span class="line">        PageInfo&lt;Video&gt; pageInfo = new PageInfo&lt;&gt;(list);</span><br><span class="line">        Map&lt;String,Object&gt; data = new HashMap&lt;&gt;();</span><br><span class="line">        data.put(&quot;total_size&quot;,pageInfo.getTotal());//总条数</span><br><span class="line">        data.put(&quot;total_page&quot;,pageInfo.getPages());//总页数</span><br><span class="line">        data.put(&quot;current_page&quot;,page);//当前页</span><br><span class="line">        data.put(&quot;data&quot;,pageInfo.getList());//数据</span><br><span class="line">		return data;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/07/17/Mybatis分页插件使用/2.jpg" alt></p>
-<h4 id="Web项目下"><a href="#Web项目下" class="headerlink" title="Web项目下"></a>Web项目下</h4><h5 id="1-导入jar包"><a href="#1-导入jar包" class="headerlink" title="1.导入jar包"></a>1.导入jar包</h5><p><img src="/2019/07/17/Mybatis分页插件使用/3.jpg" alt></p>
+<p><img src="/2019/07/18/Mybatis分页插件使用/2.jpg" alt></p>
+<h4 id="Web项目下"><a href="#Web项目下" class="headerlink" title="Web项目下"></a>Web项目下</h4><h5 id="1-导入jar包"><a href="#1-导入jar包" class="headerlink" title="1.导入jar包"></a>1.导入jar包</h5><p><img src="/2019/07/18/Mybatis分页插件使用/3.jpg" alt></p>
 <h5 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public Map&lt;String,Object&gt; listByPage(Integer page,Integer rows)</span><br><span class="line">	&#123;</span><br><span class="line">		//设置分页参数</span><br><span class="line">		PageHelper.startPage(page,rows);</span><br><span class="line">		//查询所有数据</span><br><span class="line">		List&lt;Customer&gt; list = customerService.findAll();</span><br><span class="line">		//使用PageInfo封装查询结果</span><br><span class="line">		PageInfo&lt;Customer&gt; pageInfo = new PageInfo&lt;Customer&gt;(list);</span><br><span class="line">		//从PageInfo对象取出查询结果</span><br><span class="line">		//总记录数</span><br><span class="line">		long total = pageInfo.getTotal();</span><br><span class="line">		//当前页数据列表</span><br><span class="line">		List&lt;Customer&gt; custList = pageInfo.getList();</span><br><span class="line">		result.put(&quot;total&quot;, total);</span><br><span class="line">		result.put(&quot;rows&quot;, custList);</span><br><span class="line">		return result;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 
       
