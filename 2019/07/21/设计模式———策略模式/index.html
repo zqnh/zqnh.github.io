@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Maven,">
+  <meta name="keywords" content="设计模式,">
 
 
 
@@ -79,28 +79,18 @@
 
 
 
-<meta name="description" content="Maven配置 安装准备1.下载maven下载地址：http://maven.apache.org/download.cgi2.解压到磁盘某个文件目录下3.配置环境变量，和配置Java一样在系统属性——&amp;gt;环境变量——&amp;gt;新建变量名：MAVEN_HOME变量值：C:\DevelopTools\apache-maven-3.6.1变量值就是你解压的那个路径，保存。4.配置PATH点击编辑在最">
-<meta name="keywords" content="Maven">
+<meta name="description" content="策略模式：分别封装行为接口，实现算法族，超类里面放行为接口对象，在子类里具体设定行为对象。原则就是：分离变化部分，封装接口，基于接口编程各种功能，此模式让行为算法的变化独立于算法的使用者。 注意点： 1.分析项目中变化部分与不变部分 2.多用组合少用继承；用行为类组合，而不是行为的继承。更有弹性 3.设计模式有没有相应的库直接使用？有些库或框架本身就用某种设计模式设计的 策略模式设计到三个角色：">
+<meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Maven配置">
-<meta property="og:url" content="http://yoursite.com/2019/05/31/Maven配置/index.html">
+<meta property="og:title" content="设计模式———策略模式">
+<meta property="og:url" content="http://yoursite.com/2019/07/21/设计模式———策略模式/index.html">
 <meta property="og:site_name" content="Aemon Zhu">
-<meta property="og:description" content="Maven配置 安装准备1.下载maven下载地址：http://maven.apache.org/download.cgi2.解压到磁盘某个文件目录下3.配置环境变量，和配置Java一样在系统属性——&amp;gt;环境变量——&amp;gt;新建变量名：MAVEN_HOME变量值：C:\DevelopTools\apache-maven-3.6.1变量值就是你解压的那个路径，保存。4.配置PATH点击编辑在最">
+<meta property="og:description" content="策略模式：分别封装行为接口，实现算法族，超类里面放行为接口对象，在子类里具体设定行为对象。原则就是：分离变化部分，封装接口，基于接口编程各种功能，此模式让行为算法的变化独立于算法的使用者。 注意点： 1.分析项目中变化部分与不变部分 2.多用组合少用继承；用行为类组合，而不是行为的继承。更有弹性 3.设计模式有没有相应的库直接使用？有些库或框架本身就用某种设计模式设计的 策略模式设计到三个角色：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/05/31/Maven配置/mvn1.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/05/31/Maven配置/mvn2.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/05/31/Maven配置/mvn3.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/05/31/Maven配置/mvn4.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/05/31/Maven配置/mvn5.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/05/31/Maven配置/mvn6.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/05/31/Maven配置/mvn7.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/05/31/Maven配置/mvn8.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/05/31/Maven配置/mvn9.jpg">
-<meta property="og:updated_time" content="2019-07-13T08:38:47.991Z">
+<meta property="og:updated_time" content="2019-07-21T11:09:22.412Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Maven配置">
-<meta name="twitter:description" content="Maven配置 安装准备1.下载maven下载地址：http://maven.apache.org/download.cgi2.解压到磁盘某个文件目录下3.配置环境变量，和配置Java一样在系统属性——&amp;gt;环境变量——&amp;gt;新建变量名：MAVEN_HOME变量值：C:\DevelopTools\apache-maven-3.6.1变量值就是你解压的那个路径，保存。4.配置PATH点击编辑在最">
-<meta name="twitter:image" content="http://yoursite.com/2019/05/31/Maven配置/mvn1.jpg">
+<meta name="twitter:title" content="设计模式———策略模式">
+<meta name="twitter:description" content="策略模式：分别封装行为接口，实现算法族，超类里面放行为接口对象，在子类里具体设定行为对象。原则就是：分离变化部分，封装接口，基于接口编程各种功能，此模式让行为算法的变化独立于算法的使用者。 注意点： 1.分析项目中变化部分与不变部分 2.多用组合少用继承；用行为类组合，而不是行为的继承。更有弹性 3.设计模式有没有相应的库直接使用？有些库或框架本身就用某种设计模式设计的 策略模式设计到三个角色：">
 
 
 
@@ -130,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/31/Maven配置/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/21/设计模式———策略模式/">
 
 
 
 
 
-  <title>Maven配置 | Aemon Zhu</title>
+  <title>设计模式———策略模式 | Aemon Zhu</title>
   
 
 
@@ -276,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/31/Maven配置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/21/设计模式———策略模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZZQ">
@@ -293,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Maven配置</h1>
+          <h1 class="post-title" itemprop="name headline">设计模式———策略模式</h1>
         
 
         <div class="post-meta">
@@ -305,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-31T12:59:37+08:00">
-                2019-05-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-21T18:11:26+08:00">
+                2019-07-21
               </time>
             
 
@@ -328,8 +318,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Maven/" itemprop="url" rel="index">
-                    <span itemprop="name">Maven</span>
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
                   </a>
                 </span>
 
@@ -346,8 +336,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/05/31/Maven配置/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/05/31/Maven配置/" itemprop="commentsCount"></span>
+                <a href="/2019/07/21/设计模式———策略模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/07/21/设计模式———策略模式/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -380,10 +370,35 @@
       
 
       
-        <pre><code>Maven配置
-</code></pre><h5 id="安装准备"><a href="#安装准备" class="headerlink" title="安装准备"></a>安装准备</h5><p>1.下载maven<br>下载地址：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a><br><img src="/2019/05/31/Maven配置/mvn1.jpg" alt><br>2.解压到磁盘某个文件目录下<br><img src="/2019/05/31/Maven配置/mvn2.jpg" alt><br>3.配置环境变量，和配置Java一样<br>在系统属性——&gt;环境变量——&gt;新建<br>变量名：MAVEN_HOME<br>变量值：C:\DevelopTools\apache-maven-3.6.1<br>变量值就是你解压的那个路径，保存。<br><img src="/2019/05/31/Maven配置/mvn3.jpg" alt><br>4.配置PATH点击编辑在最后新建输入 %MAVEN_HOME%\bin\ 点击确定。<br><img src="/2019/05/31/Maven配置/mvn4.jpg" alt><br>5.测试配置cmd——&gt;mvn -version表示成功<br><img src="/2019/05/31/Maven配置/mvn5.jpg" alt></p>
-<h5 id="新建仓库"><a href="#新建仓库" class="headerlink" title="新建仓库"></a>新建仓库</h5><p>1.创建maven——&gt;创建repository<br><img src="/2019/05/31/Maven配置/mvn6.jpg" alt><br>2.打开下载的maven包——&gt;conf——&gt;settings.xml<br>3.将<code>&lt;localRepository&gt;&lt;/localRepository&gt;</code>拉到注释外，里面填写创建repository的路径C:\DevelopTools\maven\repository<br><img src="/2019/05/31/Maven配置/mvn7.jpg" alt><br>4.复制settings.xml到repository的同级目录下<br><img src="/2019/05/31/Maven配置/mvn8.jpg" alt></p>
-<h5 id="Eclipse配置"><a href="#Eclipse配置" class="headerlink" title="Eclipse配置"></a>Eclipse配置</h5><p>1.window——&gt;preferences——&gt;Maven——&gt;User Setting<br>2.一个是全局配置，一个是用户配置，前者路径为安装Maven包settings.xml的路径，后者为仓库settings.xml的路径<br>3.保存。<br><img src="/2019/05/31/Maven配置/mvn9.jpg" alt></p>
+        <p><strong>策略模式</strong>：分别封装行为接口，实现算法族，超类里面放行为接口对象，在子类里具体设定行为对象。原则就是：分离变化部分，封装接口，基于接口编程各种功能，此模式让行为算法的变化独立于算法的使用者。</p>
+<p><strong>注意点</strong>：</p>
+<p>1.分析项目中变化部分与不变部分</p>
+<p>2.多用组合少用继承；用行为类组合，而不是行为的继承。更有弹性</p>
+<p>3.设计模式有没有相应的库直接使用？有些库或框架本身就用某种设计模式设计的</p>
+<p>策略模式设计到三个角色：</p>
+<p>环境角色（Context）：持有一个Strategy的引用</p>
+<p>抽象策略（Strategy）角色：这是一个抽象角色，通常由一个接口或抽象类实现，此角色给出所有的具体策略类所需的接口</p>
+<p>具体策略（ConcreteStrategy）角色：包装了相关的算法或行为</p>
+<p><strong>案例</strong>：</p>
+<p>模拟飞行的鸭子，设计鸭子超类（Quack、Swim、display），扩展超类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//鸭子超类</span><br><span class="line">public abstract class Duck &#123;</span><br><span class="line">	public Duck()</span><br><span class="line">	&#123;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	public void Quack()</span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(&quot;~~gaga~~&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	public abstract void display();</span><br><span class="line">	public void swim()</span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(&quot;~~im swim~~&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//绿头鸭</span><br><span class="line">public class GreenHeadDuck extends Duck &#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void display() &#123;</span><br><span class="line">		System.out.println(&quot;**GreenHead&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//红头鸭</span><br><span class="line">public class RedHeadDuck extends Duck &#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void display() &#123;</span><br><span class="line">		System.out.println(&quot;**RedHead&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//测试类</span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">		GreenHeadDuck gDuck = new GreenHeadDuck();</span><br><span class="line">		RedHeadDuck rDuck = new RedHeadDuck();</span><br><span class="line">		gDuck.display();</span><br><span class="line">		gDuck.Quack();</span><br><span class="line">		gDuck.swim();</span><br><span class="line">		</span><br><span class="line">		rDuck.display();</span><br><span class="line">		rDuck.Quack();</span><br><span class="line">		rDuck.swim();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>新需求：如果要添加一个飞行功能，一种方法是在超类里添加Fly方法,但是绿头鸭和红头鸭都会实现这个方法，但是并不是所有的鸭子不会飞，这中方法让所有子类都会飞了，这是不科学的。</p>
+<p><strong>继承的问题：对类的局部改动，尤其是超类的局部改动，会影响其他部分，影响会有溢出效应。</strong></p>
+<p>如果继续用OO原理，子类覆盖超类里Fly的方法，使某个子类实现不会飞行的功能，但是如果有许多子类，那么这也是不可行的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public void Fly()</span><br><span class="line">&#123;</span><br><span class="line">	System.out.println(&quot;~~fly~~&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用策略模式：</p>
+<p>抽象策略角色（接口）：</p>
+<p>​            public interface FlyBehavior( void fly(); )</p>
+<p>​            public interface QuackBehavior( void quack(); )</p>
+<p>环境角色：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public abstract class Duck &#123;</span><br><span class="line">	</span><br><span class="line">	FlyBehavior flyBehavior;</span><br><span class="line">	QuackBehavior quackBehavior;</span><br><span class="line">	</span><br><span class="line">	public Duck()</span><br><span class="line">	&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	public void Fly()</span><br><span class="line">	&#123;</span><br><span class="line">		flyBehavior.fly();</span><br><span class="line">	&#125;</span><br><span class="line">	public void Quack()</span><br><span class="line">	&#123;</span><br><span class="line">		quackBehavior.quack();</span><br><span class="line">	&#125;</span><br><span class="line">	public abstract void display();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体策略角色：在构造方法里就把两个行为定义上，好的飞行，嘎嘎叫，具体的行为不是在类里实现了，而是直接new一个行为族对象。用行为族的对象来展现行为，不是把具体行为写在类的对象里。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class GreenHeadDuck extends Duck &#123;</span><br><span class="line">	public GreenHeadDuck()</span><br><span class="line">	&#123;</span><br><span class="line">		flyBehavior = new GoodFlyBehavior();</span><br><span class="line">		quackBehavior = new GaGaQuackBehavior();</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void display() &#123;</span><br><span class="line">		System.out.println(&quot;**GreenHead&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class GoodFlyBehavior implements FlyBehavior &#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void fly() &#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class GaGaQuackBehavior implements QuackBehavior &#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void quack() &#123;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -401,7 +416,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Maven/" rel="tag"># Maven</a>
+            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
           
         </div>
       
@@ -414,8 +429,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/28/Java集合类详解二List接口/" rel="next" title="Java集合类详解二List接口">
-                <i class="fa fa-chevron-left"></i> Java集合类详解二List接口
+              <a href="/2019/07/18/Mybatis分页插件使用/" rel="next" title="Mybatis分页插件使用">
+                <i class="fa fa-chevron-left"></i> Mybatis分页插件使用
               </a>
             
           </div>
@@ -423,10 +438,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/01/Spring———简单增删改查/" rel="prev" title="Spring———简单增删改查">
-                Spring———简单增删改查 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -485,17 +496,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -557,22 +559,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装准备"><span class="nav-number">1.</span> <span class="nav-text">安装准备</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#新建仓库"><span class="nav-number">2.</span> <span class="nav-text">新建仓库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Eclipse配置"><span class="nav-number">3.</span> <span class="nav-text">Eclipse配置</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
