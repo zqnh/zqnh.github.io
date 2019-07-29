@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SSM,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SSM框架web商城之购物车demo： 实体类 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889package">
+<meta name="keywords" content="SSM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web商城———购物车实现">
+<meta property="og:url" content="http://yoursite.com/2019/07/28/web商城———购物车实现/index.html">
+<meta property="og:site_name" content="Aemon Zhu">
+<meta property="og:description" content="SSM框架web商城之购物车demo： 实体类 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889package">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-29T02:12:31.910Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="web商城———购物车实现">
+<meta name="twitter:description" content="SSM框架web商城之购物车demo： 实体类 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889package">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/28/web商城———购物车实现/">
+
+
+
+
+
+  <title>web商城———购物车实现 | Aemon Zhu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zqnh"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1" style="
+    margin-left: 1114px;
+    margin-right: 0px;
+"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aemon Zhu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习使我快乐 敲代码使我充实</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/28/web商城———购物车实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZZQ">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aemon Zhu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">web商城———购物车实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-28T20:23:07+08:00">
+                2019-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SSM/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/28/web商城———购物车实现/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/07/28/web商城———购物车实现/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>SSM框架web商城之购物车demo：</p>
+<p>实体类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd.mmall.pojo;</span><br><span class="line"></span><br><span class="line">import java.util.Date;</span><br><span class="line"></span><br><span class="line">public class Cart &#123;</span><br><span class="line">    private Integer id;</span><br><span class="line"></span><br><span class="line">    private Integer userId;</span><br><span class="line"></span><br><span class="line">    private Integer productId;</span><br><span class="line"></span><br><span class="line">    private Integer quantity;</span><br><span class="line"></span><br><span class="line">    private Integer checked;</span><br><span class="line"></span><br><span class="line">    private Date createTime;</span><br><span class="line"></span><br><span class="line">    private Date updateTime;</span><br><span class="line"></span><br><span class="line">    public Cart(Integer id, Integer userId, Integer productId, Integer quantity, Integer checked, Date createTime, Date updateTime) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">        this.userId = userId;</span><br><span class="line">        this.productId = productId;</span><br><span class="line">        this.quantity = quantity;</span><br><span class="line">        this.checked = checked;</span><br><span class="line">        this.createTime = createTime;</span><br><span class="line">        this.updateTime = updateTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Cart() &#123;</span><br><span class="line">        super();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Integer getId() &#123;</span><br><span class="line">        return id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setId(Integer id) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Integer getUserId() &#123;</span><br><span class="line">        return userId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUserId(Integer userId) &#123;</span><br><span class="line">        this.userId = userId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Integer getProductId() &#123;</span><br><span class="line">        return productId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setProductId(Integer productId) &#123;</span><br><span class="line">        this.productId = productId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Integer getQuantity() &#123;</span><br><span class="line">        return quantity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setQuantity(Integer quantity) &#123;</span><br><span class="line">        this.quantity = quantity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Integer getChecked() &#123;</span><br><span class="line">        return checked;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setChecked(Integer checked) &#123;</span><br><span class="line">        this.checked = checked;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Date getCreateTime() &#123;</span><br><span class="line">        return createTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setCreateTime(Date createTime) &#123;</span><br><span class="line">        this.createTime = createTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Date getUpdateTime() &#123;</span><br><span class="line">        return updateTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUpdateTime(Date updateTime) &#123;</span><br><span class="line">        this.updateTime = updateTime;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>控制层</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd.mmall.controller.portal;</span><br><span class="line"></span><br><span class="line">import net.zzqd.mmall.common.Const;</span><br><span class="line">import net.zzqd.mmall.common.ResponseCode;</span><br><span class="line">import net.zzqd.mmall.common.ServerResponse;</span><br><span class="line">import net.zzqd.mmall.pojo.User;</span><br><span class="line">import net.zzqd.mmall.service.ICartService;</span><br><span class="line">import net.zzqd.mmall.vo.CartVo;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line">import javax.servlet.http.HttpSession;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author zqnh</span><br><span class="line"> * @date 2019/7/28 on 20:25.</span><br><span class="line"> */</span><br><span class="line">@Controller</span><br><span class="line">@RequestMapping(&quot;/cart/&quot;)</span><br><span class="line">public class CartController</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private ICartService iCartService;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;list.do&quot;)</span><br><span class="line">    @ResponseBody</span><br><span class="line">    public ServerResponse&lt;CartVo&gt; list(HttpSession session)</span><br><span class="line">    &#123;</span><br><span class="line">        User user = (User)session.getAttribute(Const.CURRENT_USER);</span><br><span class="line">        if(user == null)</span><br><span class="line">        &#123;</span><br><span class="line">            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());</span><br><span class="line">        &#125;</span><br><span class="line">        return iCartService.list(user.getId());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;add.do&quot;)</span><br><span class="line">    @ResponseBody</span><br><span class="line">    public ServerResponse&lt;CartVo&gt; add(HttpSession session, Integer count, Integer productId)</span><br><span class="line">    &#123;</span><br><span class="line">        User user = (User)session.getAttribute(Const.CURRENT_USER);</span><br><span class="line">        if(user == null)</span><br><span class="line">        &#123;</span><br><span class="line">            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());</span><br><span class="line">        &#125;</span><br><span class="line">        return iCartService.add(user.getId(),productId,count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;update.do&quot;)</span><br><span class="line">    @ResponseBody</span><br><span class="line">    public ServerResponse&lt;CartVo&gt; update(HttpSession session, Integer count, Integer productId)</span><br><span class="line">    &#123;</span><br><span class="line">        User user = (User)session.getAttribute(Const.CURRENT_USER);</span><br><span class="line">        if(user == null)</span><br><span class="line">        &#123;</span><br><span class="line">            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());</span><br><span class="line">        &#125;</span><br><span class="line">        return iCartService.update(user.getId(),productId,count);</span><br><span class="line">    &#125;</span><br><span class="line">    @RequestMapping(&quot;delete_product.do&quot;)</span><br><span class="line">    @ResponseBody</span><br><span class="line">    public ServerResponse&lt;CartVo&gt; deleteProduct(HttpSession session, String  productIds)</span><br><span class="line">    &#123;</span><br><span class="line">        User user = (User)session.getAttribute(Const.CURRENT_USER);</span><br><span class="line">        if(user == null)</span><br><span class="line">        &#123;</span><br><span class="line">            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());</span><br><span class="line">        &#125;</span><br><span class="line">        return iCartService.deleteProduct(user.getId(),productIds);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;select_all.do&quot;)</span><br><span class="line">    @ResponseBody</span><br><span class="line">    public ServerResponse&lt;CartVo&gt; selectAll(HttpSession session)</span><br><span class="line">    &#123;</span><br><span class="line">        User user = (User)session.getAttribute(Const.CURRENT_USER);</span><br><span class="line">        if(user == null)</span><br><span class="line">        &#123;</span><br><span class="line">            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());</span><br><span class="line">        &#125;</span><br><span class="line">        return iCartService.selectOrUnSelect(user.getId(),null,Const.Cart.CHECKED);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;un_select_all.do&quot;)</span><br><span class="line">    @ResponseBody</span><br><span class="line">    public ServerResponse&lt;CartVo&gt; unSelectAll(HttpSession session)</span><br><span class="line">    &#123;</span><br><span class="line">        User user = (User)session.getAttribute(Const.CURRENT_USER);</span><br><span class="line">        if(user == null)</span><br><span class="line">        &#123;</span><br><span class="line">            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());</span><br><span class="line">        &#125;</span><br><span class="line">        return iCartService.selectOrUnSelect(user.getId(),null,Const.Cart.UN_CHECKED);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;select.do&quot;)</span><br><span class="line">    @ResponseBody</span><br><span class="line">    public ServerResponse&lt;CartVo&gt; Select(HttpSession session,Integer productId)</span><br><span class="line">    &#123;</span><br><span class="line">        User user = (User)session.getAttribute(Const.CURRENT_USER);</span><br><span class="line">        if(user == null)</span><br><span class="line">        &#123;</span><br><span class="line">            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());</span><br><span class="line">        &#125;</span><br><span class="line">        return iCartService.selectOrUnSelect(user.getId(),productId,Const.Cart.CHECKED);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;un_select.do&quot;)</span><br><span class="line">    @ResponseBody</span><br><span class="line">    public ServerResponse&lt;CartVo&gt; unSelect(HttpSession session,Integer productId)</span><br><span class="line">    &#123;</span><br><span class="line">        User user = (User)session.getAttribute(Const.CURRENT_USER);</span><br><span class="line">        if(user == null)</span><br><span class="line">        &#123;</span><br><span class="line">            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());</span><br><span class="line">        &#125;</span><br><span class="line">        return iCartService.selectOrUnSelect(user.getId(),productId,Const.Cart.UN_CHECKED);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //全选</span><br><span class="line">    //全反选</span><br><span class="line">    //单独选</span><br><span class="line">    //单独反选</span><br><span class="line">    //查询当前用户的购物车里面的产品数量，如果一个产品有10个，那么数量就是10</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;get_cart_product_count.do&quot;)</span><br><span class="line">    @ResponseBody</span><br><span class="line">    public ServerResponse&lt;Integer&gt; getCartProductCount(HttpSession session)</span><br><span class="line">    &#123;</span><br><span class="line">        User user = (User)session.getAttribute(Const.CURRENT_USER);</span><br><span class="line">        if(user == null)</span><br><span class="line">        &#123;</span><br><span class="line">            return ServerResponse.createBySuccess(0);</span><br><span class="line">        &#125;</span><br><span class="line">        return iCartService.getCartProductCount(user.getId());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>业务逻辑层（service以及serviceimpl）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd.mmall.service;</span><br><span class="line"></span><br><span class="line">import net.zzqd.mmall.common.ServerResponse;</span><br><span class="line">import net.zzqd.mmall.vo.CartVo;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author zqnh</span><br><span class="line"> * @date 2019/7/28 on 20:32.</span><br><span class="line"> */</span><br><span class="line">public interface ICartService</span><br><span class="line">&#123;</span><br><span class="line">    ServerResponse&lt;CartVo&gt; add(Integer userId, Integer productId, Integer count);</span><br><span class="line"></span><br><span class="line">    ServerResponse&lt;CartVo&gt; update(Integer userId,Integer productId,Integer count);</span><br><span class="line"></span><br><span class="line">    ServerResponse&lt;CartVo&gt; deleteProduct(Integer userId,String productIds);</span><br><span class="line"></span><br><span class="line">    public ServerResponse&lt;CartVo&gt; list(Integer userId);</span><br><span class="line"></span><br><span class="line">    ServerResponse&lt;CartVo&gt; selectOrUnSelect(Integer userId,Integer productId,Integer checked);</span><br><span class="line"></span><br><span class="line">    ServerResponse&lt;Integer&gt; getCartProductCount(Integer userId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd.mmall.service.impl;</span><br><span class="line"></span><br><span class="line">import com.google.common.base.Splitter;</span><br><span class="line">import com.google.common.collect.Lists;</span><br><span class="line">import net.zzqd.mmall.common.Const;</span><br><span class="line">import net.zzqd.mmall.common.ResponseCode;</span><br><span class="line">import net.zzqd.mmall.common.ServerResponse;</span><br><span class="line">import net.zzqd.mmall.dao.CartMapper;</span><br><span class="line">import net.zzqd.mmall.dao.ProductMapper;</span><br><span class="line">import net.zzqd.mmall.pojo.Cart;</span><br><span class="line">import net.zzqd.mmall.pojo.Product;</span><br><span class="line">import net.zzqd.mmall.service.ICartService;</span><br><span class="line">import net.zzqd.mmall.util.BigDecimalUtil;</span><br><span class="line">import net.zzqd.mmall.util.PropertiesUtil;</span><br><span class="line">import net.zzqd.mmall.vo.CartProductVo;</span><br><span class="line">import net.zzqd.mmall.vo.CartVo;</span><br><span class="line">import org.apache.commons.collections.CollectionUtils;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line">import java.math.BigDecimal;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author zqnh</span><br><span class="line"> * @date 2019/7/28 on 20:32.</span><br><span class="line"> */</span><br><span class="line">@Service(&quot;iCartService&quot;)</span><br><span class="line">public class CartServiceImpl implements ICartService</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private CartMapper cartMapper;</span><br><span class="line">    @Autowired</span><br><span class="line">    private ProductMapper productMapper;</span><br><span class="line"></span><br><span class="line">    public ServerResponse&lt;CartVo&gt; add(Integer userId, Integer productId, Integer count)</span><br><span class="line">    &#123;</span><br><span class="line">        if (productId == null || count == null) &#123;</span><br><span class="line">            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Cart cart = cartMapper.selectCartByUserIdProductId(userId, productId);</span><br><span class="line">        if (cart == null) &#123;</span><br><span class="line">            //这个产品不再这个购物车，需要重新增加一个这个产品的记录</span><br><span class="line">            Cart cartItem = new Cart();</span><br><span class="line">            cartItem.setQuantity(count);</span><br><span class="line">            cartItem.setChecked(Const.Cart.CHECKED);</span><br><span class="line">            cartItem.setProductId(productId);</span><br><span class="line">            cartItem.setUserId(userId);</span><br><span class="line">            cartMapper.insert(cartItem);</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            //代表这个产品再这个购物车里了</span><br><span class="line">            //如果产品已存在，数量相加</span><br><span class="line">            count = cart.getQuantity() + count;</span><br><span class="line">            cart.setQuantity(count);</span><br><span class="line">            cartMapper.updateByPrimaryKeySelective(cart);</span><br><span class="line">        &#125;</span><br><span class="line">        return this.list(userId);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public ServerResponse&lt;CartVo&gt; update(Integer userId,Integer productId,Integer count)</span><br><span class="line">    &#123;</span><br><span class="line">        if (productId == null || count == null) &#123;</span><br><span class="line">            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());</span><br><span class="line">        &#125;</span><br><span class="line">        Cart cart = cartMapper.selectCartByUserIdProductId(userId,productId);</span><br><span class="line">        if(cart != null)</span><br><span class="line">        &#123;</span><br><span class="line">            cart.setQuantity(count);</span><br><span class="line">        &#125;</span><br><span class="line">        cartMapper.updateByPrimaryKeySelective(cart);</span><br><span class="line">        return this.list(userId);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public ServerResponse&lt;CartVo&gt; deleteProduct(Integer userId,String productIds)</span><br><span class="line">    &#123;</span><br><span class="line">        List&lt;String&gt; productList = Splitter.on(&quot;,&quot;).splitToList(productIds);</span><br><span class="line">        if(CollectionUtils.isEmpty(productList))</span><br><span class="line">        &#123;</span><br><span class="line">            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());</span><br><span class="line">        &#125;</span><br><span class="line">        cartMapper.deleteByUserIdProductIds(userId,productList);</span><br><span class="line">        return this.list(userId);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public ServerResponse&lt;CartVo&gt; list(Integer userId)</span><br><span class="line">    &#123;</span><br><span class="line">        CartVo cartVo = this.getCartVoLimit(userId);</span><br><span class="line">        return ServerResponse.createBySuccess(cartVo);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public ServerResponse&lt;CartVo&gt; selectOrUnSelect(Integer userId,Integer productId,Integer checked)</span><br><span class="line">    &#123;</span><br><span class="line">        cartMapper.checkedOrUncheckedProduct(userId,productId,checked);</span><br><span class="line">        return this.list(userId);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public ServerResponse&lt;Integer&gt; getCartProductCount(Integer userId)</span><br><span class="line">    &#123;</span><br><span class="line">        if(userId == null)</span><br><span class="line">        &#123;</span><br><span class="line">            return ServerResponse.createBySuccess(0);</span><br><span class="line">        &#125;</span><br><span class="line">        return ServerResponse.createBySuccess(cartMapper.selectCartProductCount(userId));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private CartVo getCartVoLimit(Integer userId)</span><br><span class="line">    &#123;</span><br><span class="line">        CartVo cartVo = new CartVo();</span><br><span class="line">        List&lt;Cart&gt; cartList = cartMapper.selectCartByUserId(userId);</span><br><span class="line">        List&lt;CartProductVo&gt; cartProductVoList = Lists.newArrayList();</span><br><span class="line"></span><br><span class="line">        BigDecimal cartTotalPrice = new BigDecimal(&quot;0&quot;);</span><br><span class="line">        if(CollectionUtils.isNotEmpty(cartList))</span><br><span class="line">        &#123;</span><br><span class="line">            for(Cart cartItem:cartList)</span><br><span class="line">            &#123;</span><br><span class="line">                CartProductVo cartProductVo = new CartProductVo();</span><br><span class="line">                cartProductVo.setId(cartItem.getId());</span><br><span class="line">                cartProductVo.setUserId(cartItem.getUserId());</span><br><span class="line">                cartProductVo.setProductId(cartProductVo.getProductId());</span><br><span class="line"></span><br><span class="line">                Product product = productMapper.selectByPrimaryKey(cartItem.getProductId());</span><br><span class="line">                if(product != null)</span><br><span class="line">                &#123;</span><br><span class="line">                    cartProductVo.setProductMainImage(product.getMainImage());</span><br><span class="line">                    cartProductVo.setProductName(product.getName());</span><br><span class="line">                    cartProductVo.setProductSubtitle(product.getSubtitle());</span><br><span class="line">                    cartProductVo.setProductStatus(product.getStatus());</span><br><span class="line">                    cartProductVo.setProductPrice(product.getPrice());</span><br><span class="line">                    cartProductVo.setProductStock(product.getStock());</span><br><span class="line">                    //判断库存</span><br><span class="line">                    int buyLimitCount = 0;</span><br><span class="line">                    if(product.getStock() &gt;=cartItem.getQuantity())</span><br><span class="line">                    &#123;</span><br><span class="line">                        //库存充足的时候</span><br><span class="line">                        buyLimitCount = cartItem.getQuantity();</span><br><span class="line">                        cartProductVo.setLimiQuantity(Const.Cart.LIMIT_NUM_SUCCESS);</span><br><span class="line">                    &#125;else</span><br><span class="line">                    &#123;</span><br><span class="line">                        buyLimitCount = product.getStock();</span><br><span class="line">                        cartProductVo.setLimiQuantity(Const.Cart.LIMIT_NUM_FAIL);</span><br><span class="line">                        //购物车中更新有效库存</span><br><span class="line">                        Cart cartForQuantity = new Cart();</span><br><span class="line">                        cartForQuantity.setId(cartItem.getId());</span><br><span class="line">                        cartForQuantity.setQuantity(buyLimitCount);</span><br><span class="line">                        cartMapper.updateByPrimaryKeySelective(cartForQuantity);</span><br><span class="line">                    &#125;</span><br><span class="line">                    cartProductVo.setQuantiry(buyLimitCount);</span><br><span class="line">                    //计算总价</span><br><span class="line">                    cartProductVo.setProductPrice(BigDecimalUtil.mul(product.getPrice().doubleValue(),cartProductVo.getQuantiry()));</span><br><span class="line">                    cartProductVo.setProductChecked(cartItem.getChecked());</span><br><span class="line">                &#125;</span><br><span class="line">                if(cartItem.getChecked() == Const.Cart.CHECKED)</span><br><span class="line">                &#123;</span><br><span class="line">                    //如果已经勾选，增加到整个购物车总价中</span><br><span class="line">                    cartTotalPrice = BigDecimalUtil.add(cartTotalPrice.doubleValue(),cartProductVo.getProductTotalPrice().doubleValue());</span><br><span class="line">                &#125;</span><br><span class="line">                cartProductVoList.add(cartProductVo);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cartVo.setCartTotalPrice(cartTotalPrice);</span><br><span class="line">        cartVo.setCartProductVoList(cartProductVoList);</span><br><span class="line">        cartVo.setAllChecked(this.getAllCheckedStatus(userId));</span><br><span class="line">        cartVo.setImageHost(PropertiesUtil.getProperty(&quot;ftp.server.http.prefix&quot;));</span><br><span class="line"></span><br><span class="line">        return cartVo;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private boolean getAllCheckedStatus(Integer userId)</span><br><span class="line">    &#123;</span><br><span class="line">        if(userId == null)</span><br><span class="line">        &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return cartMapper.selectCartProductCheckedStatusByUserId(userId)==0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>数据处理层（dao以及mapper）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd.mmall.dao;</span><br><span class="line"></span><br><span class="line">import net.zzqd.mmall.pojo.Cart;</span><br><span class="line">import org.apache.ibatis.annotations.Param;</span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">public interface CartMapper &#123;</span><br><span class="line">    int deleteByPrimaryKey(Integer id);</span><br><span class="line"></span><br><span class="line">    int insert(Cart record);</span><br><span class="line"></span><br><span class="line">    int insertSelective(Cart record);</span><br><span class="line"></span><br><span class="line">    Cart selectByPrimaryKey(Integer id);</span><br><span class="line"></span><br><span class="line">    int updateByPrimaryKeySelective(Cart record);</span><br><span class="line"></span><br><span class="line">    int updateByPrimaryKey(Cart record);</span><br><span class="line"></span><br><span class="line">    Cart selectCartByUserIdProductId(@Param(&quot;userId&quot;) Integer userId, @Param(&quot;productId&quot;)Integer productId);</span><br><span class="line"></span><br><span class="line">    List&lt;Cart&gt; selectCartByUserId(Integer userId);</span><br><span class="line"></span><br><span class="line">    int selectCartProductCheckedStatusByUserId(Integer userId);</span><br><span class="line"></span><br><span class="line">    int deleteByUserIdProductIds(@Param(&quot;userId&quot;) Integer userId,@Param(&quot;productIdList&quot;) List&lt;String&gt; productIdList);</span><br><span class="line"></span><br><span class="line">    int checkedOrUncheckedProduct(@Param(&quot;userId&quot;) Integer userId,@Param(&quot;productId&quot;)Integer productId,@Param(&quot;checked&quot;) Integer checked);</span><br><span class="line"></span><br><span class="line">    int selectCartProductCount(@Param(&quot;userId&quot;) Integer userId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot; &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot; &gt;</span><br><span class="line">&lt;mapper namespace=&quot;net.zzqd.mmall.dao.CartMapper&quot; &gt;</span><br><span class="line">  &lt;resultMap id=&quot;BaseResultMap&quot; type=&quot;net.zzqd.mmall.pojo.Cart&quot; &gt;</span><br><span class="line">    &lt;constructor &gt;</span><br><span class="line">      &lt;idArg column=&quot;id&quot; jdbcType=&quot;INTEGER&quot; javaType=&quot;java.lang.Integer&quot; /&gt;</span><br><span class="line">      &lt;arg column=&quot;user_id&quot; jdbcType=&quot;INTEGER&quot; javaType=&quot;java.lang.Integer&quot; /&gt;</span><br><span class="line">      &lt;arg column=&quot;product_id&quot; jdbcType=&quot;INTEGER&quot; javaType=&quot;java.lang.Integer&quot; /&gt;</span><br><span class="line">      &lt;arg column=&quot;quantity&quot; jdbcType=&quot;INTEGER&quot; javaType=&quot;java.lang.Integer&quot; /&gt;</span><br><span class="line">      &lt;arg column=&quot;checked&quot; jdbcType=&quot;INTEGER&quot; javaType=&quot;java.lang.Integer&quot; /&gt;</span><br><span class="line">      &lt;arg column=&quot;create_time&quot; jdbcType=&quot;TIMESTAMP&quot; javaType=&quot;java.util.Date&quot; /&gt;</span><br><span class="line">      &lt;arg column=&quot;update_time&quot; jdbcType=&quot;TIMESTAMP&quot; javaType=&quot;java.util.Date&quot; /&gt;</span><br><span class="line">    &lt;/constructor&gt;</span><br><span class="line">  &lt;/resultMap&gt;</span><br><span class="line">  &lt;sql id=&quot;Base_Column_List&quot; &gt;</span><br><span class="line">    id, user_id, product_id, quantity, checked, create_time, update_time</span><br><span class="line">  &lt;/sql&gt;</span><br><span class="line">  &lt;select id=&quot;selectByPrimaryKey&quot; resultMap=&quot;BaseResultMap&quot; parameterType=&quot;java.lang.Integer&quot; &gt;</span><br><span class="line">    select </span><br><span class="line">    &lt;include refid=&quot;Base_Column_List&quot; /&gt;</span><br><span class="line">    from mmall_cart</span><br><span class="line">    where id = #&#123;id,jdbcType=INTEGER&#125;</span><br><span class="line">  &lt;/select&gt;</span><br><span class="line">  &lt;delete id=&quot;deleteByPrimaryKey&quot; parameterType=&quot;java.lang.Integer&quot; &gt;</span><br><span class="line">    delete from mmall_cart</span><br><span class="line">    where id = #&#123;id,jdbcType=INTEGER&#125;</span><br><span class="line">  &lt;/delete&gt;</span><br><span class="line">  &lt;insert id=&quot;insert&quot; parameterType=&quot;net.zzqd.mmall.pojo.Cart&quot; &gt;</span><br><span class="line">    insert into mmall_cart (id, user_id, product_id, </span><br><span class="line">      quantity, checked, create_time, </span><br><span class="line">      update_time)</span><br><span class="line">    values (#&#123;id,jdbcType=INTEGER&#125;, #&#123;userId,jdbcType=INTEGER&#125;, #&#123;productId,jdbcType=INTEGER&#125;, </span><br><span class="line">      #&#123;quantity,jdbcType=INTEGER&#125;, #&#123;checked,jdbcType=INTEGER&#125;,now(),</span><br><span class="line">      now())</span><br><span class="line">  &lt;/insert&gt;</span><br><span class="line">  &lt;insert id=&quot;insertSelective&quot; parameterType=&quot;net.zzqd.mmall.pojo.Cart&quot; &gt;</span><br><span class="line">    insert into mmall_cart</span><br><span class="line">    &lt;trim prefix=&quot;(&quot; suffix=&quot;)&quot; suffixOverrides=&quot;,&quot; &gt;</span><br><span class="line">      &lt;if test=&quot;id != null&quot; &gt;</span><br><span class="line">        id,</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">      &lt;if test=&quot;userId != null&quot; &gt;</span><br><span class="line">        user_id,</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">      &lt;if test=&quot;productId != null&quot; &gt;</span><br><span class="line">        product_id,</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">      &lt;if test=&quot;quantity != null&quot; &gt;</span><br><span class="line">        quantity,</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">      &lt;if test=&quot;checked != null&quot; &gt;</span><br><span class="line">        checked,</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">      &lt;if test=&quot;createTime != null&quot; &gt;</span><br><span class="line">        create_time,</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">      &lt;if test=&quot;updateTime != null&quot; &gt;</span><br><span class="line">        update_time,</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">    &lt;/trim&gt;</span><br><span class="line">    &lt;trim prefix=&quot;values (&quot; suffix=&quot;)&quot; suffixOverrides=&quot;,&quot; &gt;</span><br><span class="line">      &lt;if test=&quot;id != null&quot; &gt;</span><br><span class="line">        #&#123;id,jdbcType=INTEGER&#125;,</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">      &lt;if test=&quot;userId != null&quot; &gt;</span><br><span class="line">        #&#123;userId,jdbcType=INTEGER&#125;,</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">      &lt;if test=&quot;productId != null&quot; &gt;</span><br><span class="line">        #&#123;productId,jdbcType=INTEGER&#125;,</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">      &lt;if test=&quot;quantity != null&quot; &gt;</span><br><span class="line">        #&#123;quantity,jdbcType=INTEGER&#125;,</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">      &lt;if test=&quot;checked != null&quot; &gt;</span><br><span class="line">        #&#123;checked,jdbcType=INTEGER&#125;,</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">      &lt;if test=&quot;createTime != null&quot; &gt;</span><br><span class="line">        now(),</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">      &lt;if test=&quot;updateTime != null&quot; &gt;</span><br><span class="line">        now(),</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">    &lt;/trim&gt;</span><br><span class="line">  &lt;/insert&gt;</span><br><span class="line">  &lt;update id=&quot;updateByPrimaryKeySelective&quot; parameterType=&quot;net.zzqd.mmall.pojo.Cart&quot; &gt;</span><br><span class="line">    update mmall_cart</span><br><span class="line">    &lt;set &gt;</span><br><span class="line">      &lt;if test=&quot;userId != null&quot; &gt;</span><br><span class="line">        user_id = #&#123;userId,jdbcType=INTEGER&#125;,</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">      &lt;if test=&quot;productId != null&quot; &gt;</span><br><span class="line">        product_id = #&#123;productId,jdbcType=INTEGER&#125;,</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">      &lt;if test=&quot;quantity != null&quot; &gt;</span><br><span class="line">        quantity = #&#123;quantity,jdbcType=INTEGER&#125;,</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">      &lt;if test=&quot;checked != null&quot; &gt;</span><br><span class="line">        checked = #&#123;checked,jdbcType=INTEGER&#125;,</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">      &lt;if test=&quot;createTime != null&quot; &gt;</span><br><span class="line">        create_time = #&#123;createTime,jdbcType=TIMESTAMP&#125;,</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">      &lt;if test=&quot;updateTime != null&quot; &gt;</span><br><span class="line">        update_time = now(),</span><br><span class="line">      &lt;/if&gt;</span><br><span class="line">    &lt;/set&gt;</span><br><span class="line">    where id = #&#123;id,jdbcType=INTEGER&#125;</span><br><span class="line">  &lt;/update&gt;</span><br><span class="line">  &lt;update id=&quot;updateByPrimaryKey&quot; parameterType=&quot;net.zzqd.mmall.pojo.Cart&quot; &gt;</span><br><span class="line">    update mmall_cart</span><br><span class="line">    set user_id = #&#123;userId,jdbcType=INTEGER&#125;,</span><br><span class="line">      product_id = #&#123;productId,jdbcType=INTEGER&#125;,</span><br><span class="line">      quantity = #&#123;quantity,jdbcType=INTEGER&#125;,</span><br><span class="line">      checked = #&#123;checked,jdbcType=INTEGER&#125;,</span><br><span class="line">      create_time = #&#123;createTime,jdbcType=TIMESTAMP&#125;,</span><br><span class="line">      update_time = now()</span><br><span class="line">    where id = #&#123;id,jdbcType=INTEGER&#125;</span><br><span class="line">  &lt;/update&gt;</span><br><span class="line"></span><br><span class="line">  &lt;select id=&quot;selectCartByUserIdProductId&quot; resultMap=&quot;BaseResultMap&quot; parameterType=&quot;map&quot;&gt;</span><br><span class="line">    select </span><br><span class="line">    &lt;include refid=&quot;Base_Column_List&quot;&gt;&lt;/include&gt;</span><br><span class="line">    from mmall_cart</span><br><span class="line">    where user_id=#&#123;userId&#125;</span><br><span class="line">    and product_id=#&#123;productId&#125;</span><br><span class="line">  &lt;/select&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;select id=&quot;selectCartByUserId&quot; resultMap=&quot;BaseResultMap&quot; parameterType=&quot;int&quot;&gt;</span><br><span class="line">    select</span><br><span class="line">    &lt;include refid=&quot;Base_Column_List&quot;/&gt;</span><br><span class="line">    from mmall_cart</span><br><span class="line">    where user_id=#&#123;userId&#125;</span><br><span class="line">  &lt;/select&gt;</span><br><span class="line"></span><br><span class="line">  &lt;select id=&quot;selectCartProductCheckedStatusByUserId&quot; resultType=&quot;int&quot; parameterType=&quot;int&quot;&gt;</span><br><span class="line">    select count(1) from mmall_cart where checked = 0 and user_id=#&#123;userId&#125;</span><br><span class="line">  &lt;/select&gt;</span><br><span class="line">  &lt;delete id=&quot;deleteByUserIdProductIds&quot; parameterType=&quot;map&quot; &gt;</span><br><span class="line">    delete  from mmall_cart</span><br><span class="line">    where user_id=#&#123;userId&#125;</span><br><span class="line">    &lt;if test=&quot;productIdList != null&quot;&gt;</span><br><span class="line">    and product_id in</span><br><span class="line">      &lt;foreach collection=&quot;productIdList&quot; item=&quot;item&quot; index=&quot;index&quot; open=&quot;(&quot; separator=&quot;,&quot; close=&quot;)&quot;&gt;</span><br><span class="line">        #&#123;item&#125;</span><br><span class="line">      &lt;/foreach&gt;</span><br><span class="line">    &lt;/if&gt;</span><br><span class="line">  &lt;/delete&gt;</span><br><span class="line">  &lt;update id=&quot;checkedOrUncheckedProduct&quot; parameterType=&quot;map&quot;&gt;</span><br><span class="line">    update mmall_cart</span><br><span class="line">    set checked = #&#123;checked&#125;</span><br><span class="line">    update _time = now()</span><br><span class="line">    where user_id=#&#123;userId&#125;</span><br><span class="line">    &lt;if test=&quot;procuctId != null&quot;&gt;</span><br><span class="line">      and product_id=#&#123;productId&#125;</span><br><span class="line">    &lt;/if&gt;</span><br><span class="line">  &lt;/update&gt;</span><br><span class="line">  &lt;select id=&quot;selectCartProductCount&quot; parameterType=&quot;int&quot; resultType=&quot;int&quot;&gt;</span><br><span class="line">    select IFNULL( sum(quantity),0) as count from mmall_cart where user_id=#&#123;userId&#125;</span><br><span class="line"></span><br><span class="line">  &lt;/select&gt;</span><br><span class="line">  </span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+<p>工具类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd.mmall.vo;</span><br><span class="line"></span><br><span class="line">import java.math.BigDecimal;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author zqnh</span><br><span class="line"> * @date 2019/7/28 on 21:04.</span><br><span class="line"> */</span><br><span class="line">public class CartProductVo</span><br><span class="line">&#123;</span><br><span class="line">    //结合了产品和购物车的一个抽象对象</span><br><span class="line">    private Integer id;</span><br><span class="line">    private Integer userId;</span><br><span class="line">    private Integer productId;</span><br><span class="line">    private Integer quantiry;//购物车中此商品的数量</span><br><span class="line">    private String productName;</span><br><span class="line">    private String productSubtitle;</span><br><span class="line">    private String productMainImage;</span><br><span class="line">    private BigDecimal productPrice;</span><br><span class="line">    private Integer productStatus;</span><br><span class="line">    private BigDecimal productTotalPrice;</span><br><span class="line">    private Integer productStock;</span><br><span class="line">    private Integer productChecked;//此商品是否勾选</span><br><span class="line"></span><br><span class="line">    private String limiQuantity;//限制数量的一个返回结果</span><br><span class="line"></span><br><span class="line">    public Integer getId()</span><br><span class="line">    &#123;</span><br><span class="line">        return id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setId(Integer id)</span><br><span class="line">    &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Integer getUserId()</span><br><span class="line">    &#123;</span><br><span class="line">        return userId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUserId(Integer userId)</span><br><span class="line">    &#123;</span><br><span class="line">        this.userId = userId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Integer getProductId()</span><br><span class="line">    &#123;</span><br><span class="line">        return productId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setProductId(Integer productId)</span><br><span class="line">    &#123;</span><br><span class="line">        this.productId = productId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Integer getQuantiry()</span><br><span class="line">    &#123;</span><br><span class="line">        return quantiry;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setQuantiry(Integer quantiry)</span><br><span class="line">    &#123;</span><br><span class="line">        this.quantiry = quantiry;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getProductName()</span><br><span class="line">    &#123;</span><br><span class="line">        return productName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setProductName(String productName)</span><br><span class="line">    &#123;</span><br><span class="line">        this.productName = productName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getProductSubtitle()</span><br><span class="line">    &#123;</span><br><span class="line">        return productSubtitle;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setProductSubtitle(String productSubtitle)</span><br><span class="line">    &#123;</span><br><span class="line">        this.productSubtitle = productSubtitle;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getProductMainImage()</span><br><span class="line">    &#123;</span><br><span class="line">        return productMainImage;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setProductMainImage(String productMainImage)</span><br><span class="line">    &#123;</span><br><span class="line">        this.productMainImage = productMainImage;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public BigDecimal getProductPrice()</span><br><span class="line">    &#123;</span><br><span class="line">        return productPrice;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setProductPrice(BigDecimal productPrice)</span><br><span class="line">    &#123;</span><br><span class="line">        this.productPrice = productPrice;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Integer getProductStatus()</span><br><span class="line">    &#123;</span><br><span class="line">        return productStatus;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setProductStatus(Integer productStatus)</span><br><span class="line">    &#123;</span><br><span class="line">        this.productStatus = productStatus;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public BigDecimal getProductTotalPrice()</span><br><span class="line">    &#123;</span><br><span class="line">        return productTotalPrice;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setProductTotalPrice(BigDecimal productTotalPrice)</span><br><span class="line">    &#123;</span><br><span class="line">        this.productTotalPrice = productTotalPrice;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Integer getProductStock()</span><br><span class="line">    &#123;</span><br><span class="line">        return productStock;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setProductStock(Integer productStock)</span><br><span class="line">    &#123;</span><br><span class="line">        this.productStock = productStock;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Integer getProductChecked()</span><br><span class="line">    &#123;</span><br><span class="line">        return productChecked;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setProductChecked(Integer productChecked)</span><br><span class="line">    &#123;</span><br><span class="line">        this.productChecked = productChecked;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getLimiQuantity()</span><br><span class="line">    &#123;</span><br><span class="line">        return limiQuantity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setLimiQuantity(String limiQuantity)</span><br><span class="line">    &#123;</span><br><span class="line">        this.limiQuantity = limiQuantity;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd.mmall.vo;</span><br><span class="line"></span><br><span class="line">import java.math.BigDecimal;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author zqnh</span><br><span class="line"> * @date 2019/7/28 on 21:09.</span><br><span class="line"> */</span><br><span class="line">public class CartVo</span><br><span class="line">&#123;</span><br><span class="line">    List&lt;CartProductVo&gt; cartProductVoList;</span><br><span class="line">    private BigDecimal cartTotalPrice;</span><br><span class="line">    private Boolean allChecked;//是否已经都勾选</span><br><span class="line">    private String imageHost;</span><br><span class="line"></span><br><span class="line">    public List&lt;CartProductVo&gt; getCartProductVoList()</span><br><span class="line">    &#123;</span><br><span class="line">        return cartProductVoList;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setCartProductVoList(List&lt;CartProductVo&gt; cartProductVoList)</span><br><span class="line">    &#123;</span><br><span class="line">        this.cartProductVoList = cartProductVoList;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public BigDecimal getCartTotalPrice()</span><br><span class="line">    &#123;</span><br><span class="line">        return cartTotalPrice;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setCartTotalPrice(BigDecimal cartTotalPrice)</span><br><span class="line">    &#123;</span><br><span class="line">        this.cartTotalPrice = cartTotalPrice;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Boolean getAllChecked()</span><br><span class="line">    &#123;</span><br><span class="line">        return allChecked;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setAllChecked(Boolean allChecked)</span><br><span class="line">    &#123;</span><br><span class="line">        this.allChecked = allChecked;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getImageHost()</span><br><span class="line">    &#123;</span><br><span class="line">        return imageHost;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setImageHost(String imageHost)</span><br><span class="line">    &#123;</span><br><span class="line">        this.imageHost = imageHost;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd.mmall.util;</span><br><span class="line"></span><br><span class="line">import java.math.BigDecimal;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author zqnh</span><br><span class="line"> * @date 2019/7/28 on 21:43.</span><br><span class="line"> */</span><br><span class="line">public class BigDecimalUtil</span><br><span class="line">&#123;</span><br><span class="line">    private BigDecimalUtil()</span><br><span class="line">    &#123;</span><br><span class="line">        //私有构造器，不允许实例化</span><br><span class="line">    &#125;</span><br><span class="line">    //加法</span><br><span class="line">    public static BigDecimal add(double v1,double v2)</span><br><span class="line">    &#123;</span><br><span class="line">        BigDecimal b1 = new BigDecimal(Double.toString(v1));</span><br><span class="line">        BigDecimal b2 = new BigDecimal(Double.toString(v2));</span><br><span class="line">        return b1.add(b2);</span><br><span class="line">    &#125;</span><br><span class="line">    //减法</span><br><span class="line">    public static BigDecimal sub(double v1,double v2)</span><br><span class="line">    &#123;</span><br><span class="line">        BigDecimal b1 = new BigDecimal(Double.toString(v1));</span><br><span class="line">        BigDecimal b2 = new BigDecimal(Double.toString(v2));</span><br><span class="line">        return b1.subtract(b2);</span><br><span class="line">    &#125;</span><br><span class="line">    //乘法</span><br><span class="line">    public static BigDecimal mul(double v1,double v2)</span><br><span class="line">    &#123;</span><br><span class="line">        BigDecimal b1 = new BigDecimal(Double.toString(v1));</span><br><span class="line">        BigDecimal b2 = new BigDecimal(Double.toString(v2));</span><br><span class="line">        return b1.multiply(b2);</span><br><span class="line">    &#125;</span><br><span class="line">    //除法</span><br><span class="line">    public static BigDecimal div(double v1,double v2)</span><br><span class="line">    &#123;</span><br><span class="line">        BigDecimal b1 = new BigDecimal(Double.toString(v1));</span><br><span class="line">        BigDecimal b2 = new BigDecimal(Double.toString(v2));</span><br><span class="line">        return b1.divide(b2,2,BigDecimal.ROUND_HALF_UP);//四舍五入，保留两位小数</span><br><span class="line"></span><br><span class="line">        //除不尽的情况</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Const</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd.mmall.common;</span><br><span class="line"></span><br><span class="line">import com.google.common.collect.Sets;</span><br><span class="line"></span><br><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author zqnh</span><br><span class="line"> * @date 2019/7/25 on 13:13.</span><br><span class="line"> */</span><br><span class="line">public class Const</span><br><span class="line">&#123;</span><br><span class="line">    public static final String CURRENT_USER=&quot;currentUser&quot;;</span><br><span class="line"></span><br><span class="line">    public static final String EMAIL=&quot;email&quot;;</span><br><span class="line">    public static final String USERNAME=&quot;username&quot;;</span><br><span class="line"></span><br><span class="line">    public interface ProductListOrderBy</span><br><span class="line">    &#123;</span><br><span class="line">        Set&lt;String&gt; PRICE_ASC_DESC = Sets.newHashSet(&quot;price_desc&quot;,&quot;price_asc&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    public interface Cart</span><br><span class="line">    &#123;</span><br><span class="line">        int CHECKED = 1;//购物车选中状态</span><br><span class="line">        int UN_CHECKED = 0;//购物车中未选中</span><br><span class="line"></span><br><span class="line">        String LIMIT_NUM_FAIL = &quot;LIMIT_NUM_FAIL&quot;;</span><br><span class="line">        String LIMIT_NUM_SUCCESS = &quot;LIMIT_NUM_SUCCESS&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public interface Role</span><br><span class="line">    &#123;</span><br><span class="line">        int ROLE_CUSTOMER = 0;//普通用户</span><br><span class="line">        int ROLE_ADMAIN = 1;//管理员</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public enum ProductStatusEnum</span><br><span class="line">    &#123;</span><br><span class="line">        ON_SALE(1,&quot;在线&quot;);</span><br><span class="line">        private String value;</span><br><span class="line">        private int code;</span><br><span class="line">        ProductStatusEnum(int code,String value)</span><br><span class="line">        &#123;</span><br><span class="line">            this.code = code;</span><br><span class="line">            this.value=value;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public String getValue()</span><br><span class="line">        &#123;</span><br><span class="line">            return value;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public int getCode()</span><br><span class="line">        &#123;</span><br><span class="line">            return code;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>购物车核心类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">private CartVo getCartVoLimit(Integer userId)</span><br><span class="line">   &#123;</span><br><span class="line">       CartVo cartVo = new CartVo();//实例CartVo</span><br><span class="line">       List&lt;Cart&gt; cartList = cartMapper.selectCartByUserId(userId);//根据userId查找购物车</span><br><span class="line">       List&lt;CartProductVo&gt; cartProductVoList = Lists.newArrayList();//创建List集合</span><br><span class="line"></span><br><span class="line">       BigDecimal cartTotalPrice = new BigDecimal(&quot;0&quot;);//初始购物车总价</span><br><span class="line">       if(CollectionUtils.isNotEmpty(cartList))//对cartList判断，如果不是空</span><br><span class="line">       &#123;</span><br><span class="line">           for(Cart cartItem:cartList)//遍历</span><br><span class="line">           &#123;</span><br><span class="line">               CartProductVo cartProductVo = new CartProductVo();//创建CartProductVo</span><br><span class="line">               cartProductVo.setId(cartItem.getId());//把需要的信息set上</span><br><span class="line">               cartProductVo.setUserId(cartItem.getUserId());</span><br><span class="line">               cartProductVo.setProductId(cartProductVo.getProductId());</span><br><span class="line"></span><br><span class="line">               Product product = productMapper.selectByPrimaryKey(cartItem.getProductId());//查询购物车里的产品对象</span><br><span class="line">               if(product != null)//如果产品不空</span><br><span class="line">               &#123;</span><br><span class="line">                   cartProductVo.setProductMainImage(product.getMainImage());//继续将信息封装</span><br><span class="line">                   cartProductVo.setProductName(product.getName());</span><br><span class="line">                   cartProductVo.setProductSubtitle(product.getSubtitle());</span><br><span class="line">                   cartProductVo.setProductStatus(product.getStatus());</span><br><span class="line">                   cartProductVo.setProductPrice(product.getPrice());</span><br><span class="line">                   cartProductVo.setProductStock(product.getStock());</span><br><span class="line">                   //判断库存</span><br><span class="line">                   int buyLimitCount = 0;</span><br><span class="line">                   if(product.getStock() &gt;=cartItem.getQuantity())</span><br><span class="line">                   &#123;</span><br><span class="line">                       //库存充足的时候</span><br><span class="line">                       buyLimitCount = cartItem.getQuantity();</span><br><span class="line">                       cartProductVo.setLimiQuantity(Const.Cart.LIMIT_NUM_SUCCESS);</span><br><span class="line">                   &#125;else</span><br><span class="line">                   &#123;</span><br><span class="line">                       buyLimitCount = product.getStock();</span><br><span class="line">                       cartProductVo.setLimiQuantity(Const.Cart.LIMIT_NUM_FAIL);</span><br><span class="line">                       //购物车中更新有效库存</span><br><span class="line">                       Cart cartForQuantity = new Cart();</span><br><span class="line">                       cartForQuantity.setId(cartItem.getId());</span><br><span class="line">                       cartForQuantity.setQuantity(buyLimitCount);</span><br><span class="line">                       cartMapper.updateByPrimaryKeySelective(cartForQuantity);</span><br><span class="line">                   &#125;</span><br><span class="line">                   cartProductVo.setQuantiry(buyLimitCount);</span><br><span class="line">                   //计算总价，当前购物车里产品价格*数量</span><br><span class="line">                   cartProductVo.setProductPrice(BigDecimalUtil.mul(product.getPrice().doubleValue(),cartProductVo.getQuantiry()));</span><br><span class="line">                   cartProductVo.setProductChecked(cartItem.getChecked());//进行勾选</span><br><span class="line">               &#125;</span><br><span class="line">               if(cartItem.getChecked() == Const.Cart.CHECKED)</span><br><span class="line">               &#123;</span><br><span class="line">                   //如果已经勾选，增加到整个购物车总价中</span><br><span class="line">                   cartTotalPrice = BigDecimalUtil.add(cartTotalPrice.doubleValue(),cartProductVo.getProductTotalPrice().doubleValue());</span><br><span class="line">               &#125;</span><br><span class="line">               cartProductVoList.add(cartProductVo);//add到上面声明的cartProductVoList</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       cartVo.setCartTotalPrice(cartTotalPrice);//封装CartVo</span><br><span class="line">       cartVo.setCartProductVoList(cartProductVoList);//填充购物车产品</span><br><span class="line">       cartVo.setAllChecked(this.getAllCheckedStatus(userId));//是不是全选</span><br><span class="line">       cartVo.setImageHost(PropertiesUtil.getProperty(&quot;ftp.server.http.prefix&quot;));</span><br><span class="line"></span><br><span class="line">       return cartVo;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SSM/" rel="tag"># SSM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/26/SSM———访问controller404错误/" rel="next" title="SSM———访问controller404错误">
+                <i class="fa fa-chevron-left"></i> SSM———访问controller404错误
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/28/BigDecimal/" rel="prev" title="BigDecimal">
+                BigDecimal <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="ZZQ">
+            
+              <p class="site-author-name" itemprop="name">ZZQ</p>
+              <p class="site-description motion-element" itemprop="description">坦坦荡荡 一身正气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZZQ</span>
+
+  
+</div>
+
+
+ <!-- 
+ 
+ <div class="powered-by">世界是美好的</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">是值得我们去奋斗的 &mdash;  v</div>
+
+-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+	 
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv"></span>
+        </span>
+        <span class="post-meta-divider"></span>
+        <span id="busuanzi_container_site_uv" style="display:none">
+                <span id="busuanzi_value_site_uv"></span>
+        </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v="></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+		<link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: "<%=page.date%>", 
+            owner: 'zqnh',
+            repo: 'zqnh.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd9c922b4c4a7b4458ba55aa5673db78556aa9d1f',
+            
+                client_id: 'ca41c1f6c6585b630f16'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
