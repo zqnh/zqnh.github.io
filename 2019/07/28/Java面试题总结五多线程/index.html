@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试题,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.Java创建线程之后，直接调用start()方法和run()的区别1234start()用来启动一个线程，这时此线程处于就绪（可运行）状态，并没有运行，一旦得到cpu时间片，就开始执行run()方法，这里run()称为线程体，它包含了要执行的这个线程的内容，Run方法运行结束，此线程随即终止。若直接调用run()，它只是类的一个普通方法而已，程序中依然只有主线程这一个线程，就跟执行一个普通方法">
+<meta name="keywords" content="面试题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java面试题总结五多线程">
+<meta property="og:url" content="http://yoursite.com/2019/07/28/Java面试题总结五多线程/index.html">
+<meta property="og:site_name" content="Aemon Zhu">
+<meta property="og:description" content="1.Java创建线程之后，直接调用start()方法和run()的区别1234start()用来启动一个线程，这时此线程处于就绪（可运行）状态，并没有运行，一旦得到cpu时间片，就开始执行run()方法，这里run()称为线程体，它包含了要执行的这个线程的内容，Run方法运行结束，此线程随即终止。若直接调用run()，它只是类的一个普通方法而已，程序中依然只有主线程这一个线程，就跟执行一个普通方法">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-31T07:17:30.376Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java面试题总结五多线程">
+<meta name="twitter:description" content="1.Java创建线程之后，直接调用start()方法和run()的区别1234start()用来启动一个线程，这时此线程处于就绪（可运行）状态，并没有运行，一旦得到cpu时间片，就开始执行run()方法，这里run()称为线程体，它包含了要执行的这个线程的内容，Run方法运行结束，此线程随即终止。若直接调用run()，它只是类的一个普通方法而已，程序中依然只有主线程这一个线程，就跟执行一个普通方法">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/28/Java面试题总结五多线程/">
+
+
+
+
+
+  <title>Java面试题总结五多线程 | Aemon Zhu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zqnh"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1" style="
+    margin-left: 1114px;
+    margin-right: 0px;
+"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aemon Zhu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习使我快乐 敲代码使我充实</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/28/Java面试题总结五多线程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZZQ">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aemon Zhu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java面试题总结五多线程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-28T20:59:46+08:00">
+                2019-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试题/" itemprop="url" rel="index">
+                    <span itemprop="name">面试题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/28/Java面试题总结五多线程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/07/28/Java面试题总结五多线程/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h5 id="1-Java创建线程之后，直接调用start-方法和run-的区别"><a href="#1-Java创建线程之后，直接调用start-方法和run-的区别" class="headerlink" title="1.Java创建线程之后，直接调用start()方法和run()的区别"></a>1.Java创建线程之后，直接调用start()方法和run()的区别</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">start()用来启动一个线程，这时此线程处于就绪（可运行）状态，并没有运行，一旦得到cpu时间片，就开始执行run()方法，这里run()称为线程体，它包含了要执行的这个线程的内容，Run方法运行结束，此线程随即终止。</span><br><span class="line">若直接调用run()，它只是类的一个普通方法而已，程序中依然只有主线程这一个线程，就跟执行一个普通方法一样。</span><br><span class="line">run()方法必须是public访问权限，返回值类型为void</span><br><span class="line">调用run会在当前线程中执行方法，调用start会开启一条新线程来执行方法。</span><br></pre></td></tr></table></figure>
+<h5 id="2-常用的线程池模式以及不同线程池的使用场景"><a href="#2-常用的线程池模式以及不同线程池的使用场景" class="headerlink" title="2.常用的线程池模式以及不同线程池的使用场景"></a>2.常用的线程池模式以及不同线程池的使用场景</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CachedThreadPool </span><br><span class="line">这类线程池的特点就是里面没有核心线程，全是非核心线程，其maximumPoolSize设置为Integer.MAX_VALUE，线程可以无限创建，当线程池中的线程都处于活动状态的时候，线程池会创建新的线程来处理新任务，否则会用空闲的线程来处理新任务，这类线程池的空闲线程都是有超时机制的，keepAliveTime在这里是有效的，时长为60秒，超过60秒的空闲线程就会被回收，当线程池都处于闲置状态时，线程池中的线程都会因为超时而被回收，所以几乎不会占用什么系统资源。任务队列采用的是SynchronousQueue，这个队列是无法插入任务的，一有任务立即执行，所以CachedThreadPool比较适合任务量大但耗时少的任务。</span><br><span class="line"></span><br><span class="line">FixedThreadPool</span><br><span class="line">这类线程池的特点就是里面全是核心线程，没有非核心线程，也没有超时机制，任务大小也是没有限制的，数量固定，即使是空闲状态，线程不会被回收，除非线程池被关闭，从构造方法也可以看出来，只有两个参数，一个是指定的核心线程数，一个是线程工厂，keepAliveTime无效。任务队列采用了无界的阻塞队列LinkedBlockingQueue，执行execute方法的时候，运行的线程没有达到corePoolSize就创建核心线程执行任务，否则就阻塞在任务队列中，有空闲线程的时候去取任务执行。由于该线程池线程数固定，且不被回收，线程与线程池的生命周期同步，所以适用于任务量比较固定但耗时长的任务。</span><br><span class="line"></span><br><span class="line">ScheduledThreadPool</span><br><span class="line">这类线程池核心线程数量是固定的，好像和FixThreadPool有点像，但是它的非核心线程是没有限制的，并且非核心线程一闲置就会被回收，keepAliveTime同样无效，因为核心线程是不会回收的，当运行的线程数没有达到corePoolSize的时候，就新建线程去DelayedWorkQueue中取ScheduledFutureTask然后才去执行任务，否则就把任务添加到DelayedWorkQueue，DelayedWorkQueue会将任务排序，按新建一个非核心线程顺序执行，执行完线程就回收，然后循环。任务队列采用的DelayedWorkQueue是个无界的队列，延时执行队列任务。综合来说，这类线程池适用于执行定时任务和具体固定周期的重复任务。</span><br><span class="line"></span><br><span class="line">SingleThreadPool</span><br><span class="line">这类线程池顾名思义就是一个只有一个核心线程的线程池，从构造方法来看，它可以单独执行，也可以与周期线程池结合用。其任务队列是LinkedBlockingQueue，这是个无界的阻塞队列，因为线程池里只有一个线程，就确保所有的任务都在同一个线程中顺序执行，这样就不需要处理线程同步的问题。这类线程池适用于多个任务顺序执行的场景。</span><br></pre></td></tr></table></figure>
+<h5 id="3-newFixedThreadPool此种线程池如果线程数达到最大值后会怎么办，底层原理"><a href="#3-newFixedThreadPool此种线程池如果线程数达到最大值后会怎么办，底层原理" class="headerlink" title="3.newFixedThreadPool此种线程池如果线程数达到最大值后会怎么办，底层原理"></a>3.newFixedThreadPool此种线程池如果线程数达到最大值后会怎么办，底层原理</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">创建一个可重用固定线程数的线程池，以共享的无界队列方式来运行这些线程。在任意点，在大多数 nThreads 线程会处于处理任务的活动状态。如果在所有线程处于活动状态时提交附加任务，则在有可用线程之前，附加任务将在队列中等待。如果在关闭前的执行期间由于失败而导致任何线程终止，那么一个新线程将代替它执行后续的任务（如果需要）。在某个线程被显式地关闭之前，池中的线程将一直存在。</span><br></pre></td></tr></table></figure>
+<h5 id="4-多线程之间通信的同步问题，synchronized锁的是对象，衍伸出和synchronized相关很多的具体问题，例如同一个类不同方法都有synchronized锁，一个对象是否可以同时访问。或者一个类的static构造方法加上synchronized之后的锁的影响。"><a href="#4-多线程之间通信的同步问题，synchronized锁的是对象，衍伸出和synchronized相关很多的具体问题，例如同一个类不同方法都有synchronized锁，一个对象是否可以同时访问。或者一个类的static构造方法加上synchronized之后的锁的影响。" class="headerlink" title="4.多线程之间通信的同步问题，synchronized锁的是对象，衍伸出和synchronized相关很多的具体问题，例如同一个类不同方法都有synchronized锁，一个对象是否可以同时访问。或者一个类的static构造方法加上synchronized之后的锁的影响。"></a>4.多线程之间通信的同步问题，synchronized锁的是对象，衍伸出和synchronized相关很多的具体问题，例如同一个类不同方法都有synchronized锁，一个对象是否可以同时访问。或者一个类的static构造方法加上synchronized之后的锁的影响。</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="5-了解可重入锁的含义，以及ReentrantLock-和synchronized的区别"><a href="#5-了解可重入锁的含义，以及ReentrantLock-和synchronized的区别" class="headerlink" title="5.了解可重入锁的含义，以及ReentrantLock 和synchronized的区别"></a>5.了解可重入锁的含义，以及ReentrantLock 和synchronized的区别</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">同一个线程再次进入同步代码的时候.可以使用自己已经获取到的锁,这就是可重入锁java里面内置锁(synchronize)和Lock(ReentrantLock)都是可重入的。</span><br><span class="line"></span><br><span class="line">区别：</span><br><span class="line"></span><br><span class="line">      这两种方式最大区别就是对于Synchronized来说，它是java语言的关键字，是原生语法层面的互斥，需要jvm实现。而ReentrantLock它是JDK 1.5之后提供的API层面的互斥锁，需要lock()和unlock()方法配合try/finally语句块来完成。</span><br><span class="line"></span><br><span class="line">1.Synchronized</span><br><span class="line"></span><br><span class="line">    Synchronized进过编译，会在同步块的前后分别形成monitorenter和monitorexit这个两个字节码指令。在执行monitorenter指令时，首先要尝试获取对象锁。如果这个对象没被锁定，或者当前线程已经拥有了那个对象锁，把锁的计算器加1，相应的，在执行monitorexit指令时会将锁计算器就减1，当计算器为0时，锁就被释放了。如果获取对象锁失败，那当前线程就要阻塞，直到对象锁被另一个线程释放为止。</span><br><span class="line"></span><br><span class="line">2.ReentrantLock</span><br><span class="line"></span><br><span class="line">   由于ReentrantLock是java.util.concurrent包下提供的一套互斥锁，相比Synchronized，ReentrantLock类提供了一些高级功能，主要有以下3项：</span><br><span class="line"></span><br><span class="line">        1.等待可中断，持有锁的线程长期不释放的时候，正在等待的线程可以选择放弃等待，这相当于Synchronized来说可以避免出现死锁的情况。</span><br><span class="line"></span><br><span class="line">        2.公平锁，多个线程等待同一个锁时，必须按照申请锁的时间顺序获得锁，Synchronized锁非公平锁，ReentrantLock默认的构造函数是创建的非公平锁，可以通过参数true设为公平锁，但公平锁表现的性能不是很好。</span><br><span class="line"></span><br><span class="line">        3.锁绑定多个条件，一个ReentrantLock对象可以同时绑定对个对象。</span><br></pre></td></tr></table></figure>
+<h5 id="6-同步的数据结构，例如concurrentHashMap的源码理解以及内部实现原理，为什么他是同步的且效率高"><a href="#6-同步的数据结构，例如concurrentHashMap的源码理解以及内部实现原理，为什么他是同步的且效率高" class="headerlink" title="6.同步的数据结构，例如concurrentHashMap的源码理解以及内部实现原理，为什么他是同步的且效率高"></a>6.同步的数据结构，例如concurrentHashMap的源码理解以及内部实现原理，为什么他是同步的且效率高</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">ConcurrentHashMap采用了非常精妙的&quot;分段锁&quot;策略，ConcurrentHashMap的主干是个Segment数组。</span><br><span class="line"></span><br><span class="line">final Segment&lt;K,V&gt;[] segments;</span><br><span class="line"></span><br><span class="line">Segment继承了ReentrantLock，所以它就是一种可重入锁（ReentrantLock)。在ConcurrentHashMap，一个Segment就是一个子哈希表，Segment里维护了一个HashEntry数组，并发环境下，对于不同Segment的数据进行操作是不用考虑锁竞争的。（就按默认的ConcurrentLeve为16来讲，理论上就允许16个线程并发执行，有木有很酷）</span><br><span class="line"></span><br><span class="line">所以，对于同一个Segment的操作才需考虑线程同步，不同的Segment则无需考虑。</span><br><span class="line"></span><br><span class="line">Segment类似于HashMap，一个Segment维护着一个HashEntry数组</span><br><span class="line"></span><br><span class="line">transient volatile HashEntry&lt;K,V&gt;[] table;</span><br><span class="line"></span><br><span class="line">HashEntry是目前我们提到的最小的逻辑处理单元了。一个ConcurrentHashMap维护一个Segment数组，一个Segment维护一个HashEntry数组。</span><br><span class="line"></span><br><span class="line">static final class HashEntry&lt;K,V&gt; &#123;</span><br><span class="line"></span><br><span class="line">final int hash;</span><br><span class="line"></span><br><span class="line">final K key;</span><br><span class="line"></span><br><span class="line">volatile V value;</span><br><span class="line"></span><br><span class="line">volatile HashEntry&lt;K,V&gt; next;</span><br><span class="line"></span><br><span class="line">//其他省略</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">我们说Segment类似哈希表，那么一些属性就跟我们之前提到的HashMap差不离，比如负载因子loadFactor，比如阈值threshold等等，如果用户不指定则会使用默认值，initialCapacity为16，loadFactor为0.75（负载因子，扩容时需要参考），concurrentLevel为16。</span><br><span class="line"></span><br><span class="line">Segment数组的大小ssize是由concurrentLevel来决定的，但是却不一定等于concurrentLevel，ssize一定是大于或等于concurrentLevel的最小的2的次幂。比如：默认情况下concurrentLevel是16，则ssize为16；若concurrentLevel为14，ssize为16；若concurrentLevel为17，则ssize为32。为什么Segment的数组大小一定是2的次幂？其实主要是便于通过按位与的散列算法来定位Segment的index。</span><br><span class="line"></span><br><span class="line">从源码看，put的主要逻辑也就两步：1.定位segment并确保定位的Segment已初始化 2.调用Segment的put方法。</span><br><span class="line"></span><br><span class="line">get方法无需加锁，由于其中涉及到的共享变量都使用volatile修饰，volatile可以保证内存可见性，所以不会读取到过期数据。</span><br><span class="line"></span><br><span class="line">Segment中的put方法是要加锁的。只不过是锁粒度细了而已。</span><br></pre></td></tr></table></figure>
+<h5 id="7-atomicinteger和volatile等线程安全操作的关键字的理解和使用"><a href="#7-atomicinteger和volatile等线程安全操作的关键字的理解和使用" class="headerlink" title="7.atomicinteger和volatile等线程安全操作的关键字的理解和使用"></a>7.atomicinteger和volatile等线程安全操作的关键字的理解和使用</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">volatile关键字</span><br><span class="line"></span><br><span class="line">　　volatile是一个特殊的修饰符，只有成员变量才能使用它，与Synchronized及ReentrantLock等提供的互斥相比，Synchronized保证了Synchronized同步块中变量的可见性，而volatile则是保证了所修饰变量的可见性。可见性指的是在一个线程中修改变量的值以后，在其他线程中能够看到这个值（在Java并发程序缺少同步类的情况下，多线程对成员变量的操作对其它线程是透明的（不可见））。因为volatile只是保证了同一个变量在多线程中的可见性，所以它更多是用于修饰作为开关状态的变量。</span><br><span class="line"></span><br><span class="line">　　java关键字volatile，从表面意思上是说这个变量是易变的，不稳定的，事实上，确实如此，这个关键字的作用就是告诉编译器，凡是被该关键字声明的变量都是易变的、不稳定的。所以不要试图对该变量使用缓存等优化机制，而应当每次都从它的内存地址中去读值。使用volatile标记的变量在读取或写入时不需要使用锁，这将减少产生死锁的概率，使代码保持简洁。</span><br><span class="line"></span><br><span class="line">　　请注意，这里只是说每次读取volatile的变量时都要从它的内存地址中读取，并没有说每次修改完volatile的变量后都要立刻将它的值写回内存。也就是说volatile只提供了内存可见性，而没有提供原子性，操作互斥提供了操作整体的原子性，同一个变量多个线程间的可见性与多个线程中操作互斥是两件事情，所以说如果用这个关键字做高并发的安全机制的话是不可靠的。</span><br><span class="line"></span><br><span class="line">volatile的用法如下：</span><br><span class="line"></span><br><span class="line">public volatile static int count=0;//在声明的时候带上volatile关键字即可</span><br><span class="line"></span><br><span class="line">什么时候使用volatile关键字？当我们知道了volatile的作用，我们也就知道了它应该用在哪些地方,很显然，最好是那种只有一个线程修改变量，多个线程读取变量的地方。也就是对内存可见性要求高，而对原子性要求低的地方。</span><br><span class="line"></span><br><span class="line">从上面的描述中，我们可以看出volatile与加锁机制的主要区别是：加锁机制既可以确保可见性又可以确保原子性，而volatile变量只有确保可见性。</span><br><span class="line"></span><br><span class="line">原子操作Atomic</span><br><span class="line"></span><br><span class="line">　　Volatile变量可以确保先行关系，保证下一个读取操作会在前一个写操作之后发生(即写操作会发生在后续的读操作之前)，但它并不能保证原子性。例如用volatile修饰count变量，那么count++ 操作就不是原子性的。</span><br><span class="line"></span><br><span class="line">在JDK5中增加了java.util.concurrent.atomic包，这个包中是一些以Atomic开头的类，这些类主要提供一些相关的原子操作。我们以AtomicInteger为例来看一个多线程计数器场景。场景很简单，让多个线程都对计数器进行加1操作。我们一般可能会这样做：</span><br><span class="line"></span><br><span class="line">public class TestUtil &#123;</span><br><span class="line"></span><br><span class="line">private int counter = 0;</span><br><span class="line"></span><br><span class="line">public int increase() &#123;</span><br><span class="line"></span><br><span class="line">synchronized (this) &#123;</span><br><span class="line"></span><br><span class="line">counter = counter + 1;</span><br><span class="line"></span><br><span class="line">return counter;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public int decrease() &#123;</span><br><span class="line"></span><br><span class="line">synchronized (this) &#123;</span><br><span class="line"></span><br><span class="line">counter = counter - 1;</span><br><span class="line"></span><br><span class="line">return counter;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">而采用了AtomicInteger后，代码会变成下面的样子：</span><br><span class="line"></span><br><span class="line">public class TestUtil &#123;</span><br><span class="line"></span><br><span class="line">private AtomicInteger counter = new AtomicInteger();</span><br><span class="line"></span><br><span class="line">public int increase() &#123;</span><br><span class="line"></span><br><span class="line">return counter.incrementAndGet();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public int decrease() &#123;</span><br><span class="line"></span><br><span class="line">return counter.decrementAndGet();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">采用AtomicInteger之后代码变得简洁了，更重要的是性能得到了提升，而且是比较明显的提升，有兴趣的读者可以再自己的机器上进行测试。性能提升的原因主要在于AtomicInteger内部通过JNI的方式使用了硬件支持的CAS指令。</span><br><span class="line">而在java.util.concurrent.atomic包中，除了AtomicInteger外，还有很多实用的类。</span><br></pre></td></tr></table></figure>
+<h5 id="8-线程间通信，wait和notify"><a href="#8-线程间通信，wait和notify" class="headerlink" title="8.线程间通信，wait和notify"></a>8.线程间通信，wait和notify</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">线程是操作系统中独立的个体，但这些个体如果不经过特殊的处理就不能成为一个整体，线程之间的通信就成为整体的必用方式之一。当线程存在通信指挥，系统间的交互性会更强大，在提高CPU利用率的同时还会对线程任务在处理过程中进行有效的把控与监督。</span><br><span class="line"></span><br><span class="line">为了支持多线程之间的协作，JDK提供了两个非常重要的接口线程等待wait()方法和通知notify()方法。这两个方法并不是在Thread类中的，而是输出Object类。这也意味着任何对象都可以调用这2个方法。</span><br><span class="line"></span><br><span class="line">1、wait() 和 notify()必须配合synchrozied关键字使用，无论是wait()还是notify()都需要首先获取目标对象的一个监听器。</span><br><span class="line"></span><br><span class="line">2、wait()释放锁，而notify()不释放锁。</span><br></pre></td></tr></table></figure>
+<h5 id="9-定时线程的使用"><a href="#9-定时线程的使用" class="headerlink" title="9.定时线程的使用"></a>9.定时线程的使用</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">实现定时任务线程有如下三种方式：</span><br><span class="line"></span><br><span class="line">①普通线程死循环</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"></span><br><span class="line">     * 普通thread</span><br><span class="line"></span><br><span class="line">     * 这是最常见的，创建一个thread，然后让它在while循环里一直运行着，</span><br><span class="line"></span><br><span class="line">     * 通过sleep方法来达到定时任务的效果,这样可以快速简单的实现</span><br><span class="line"></span><br><span class="line">     */</span><br><span class="line"></span><br><span class="line">    Thread thread = new Thread(new Runnable() &#123;</span><br><span class="line"></span><br><span class="line">         </span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line"></span><br><span class="line">    public void run() &#123;</span><br><span class="line"></span><br><span class="line">        while(true) &#123;</span><br><span class="line"></span><br><span class="line">            System.out.println(&quot;普通线程执行中......&quot;);</span><br><span class="line"></span><br><span class="line">            try &#123;</span><br><span class="line"></span><br><span class="line">                TimeUnit.SECONDS.sleep(1);</span><br><span class="line"></span><br><span class="line">            &#125; catch (InterruptedException e) &#123;</span><br><span class="line"></span><br><span class="line">                e.printStackTrace();</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">    thread.start();</span><br><span class="line"></span><br><span class="line">②使用定时器timer</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"></span><br><span class="line">     * 与第一种方式相比：</span><br><span class="line"></span><br><span class="line">     * 优势 1：当启动和取消任务时可以控制</span><br><span class="line"></span><br><span class="line">     * 优势 2：第一次执行任务时可以指定你想要的delay时间</span><br><span class="line"></span><br><span class="line">     * 在实现时，Timer类可以调度任务，TimerTask则是通过在run()方法里实现具体任务。</span><br><span class="line"></span><br><span class="line">     * Timer实例可以调度多任务，它是线程安全的。</span><br><span class="line"></span><br><span class="line">     *</span><br><span class="line"></span><br><span class="line">     */</span><br><span class="line"></span><br><span class="line">    TimerTask task = new TimerTask() &#123;</span><br><span class="line"></span><br><span class="line">         </span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line"></span><br><span class="line">        public void run() &#123;</span><br><span class="line"></span><br><span class="line">            System.out.println(&quot;timer线程执行中......&quot;);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">Timer timer = new Timer();</span><br><span class="line"></span><br><span class="line">timer.scheduleAtFixedRate(task, 5000, 1000);</span><br><span class="line"></span><br><span class="line"> ③使用定时调度线程池ScheduledExecutorService</span><br><span class="line"></span><br><span class="line">Runnable runnable = new Runnable() &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line"></span><br><span class="line">    public void run() &#123;</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;定时任务线程执行中......&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();</span><br><span class="line">service.scheduleWithFixedDelay(runnable, 5000, 500, TimeUnit.MILLISECONDS);</span><br></pre></td></tr></table></figure>
+<h5 id="10-场景：在一个主线程中，要求有大量-很多很多-子线程执行完之后，主线程才执行完成。多种方式，考虑效率。"><a href="#10-场景：在一个主线程中，要求有大量-很多很多-子线程执行完之后，主线程才执行完成。多种方式，考虑效率。" class="headerlink" title="10.场景：在一个主线程中，要求有大量(很多很多)子线程执行完之后，主线程才执行完成。多种方式，考虑效率。"></a>10.场景：在一个主线程中，要求有大量(很多很多)子线程执行完之后，主线程才执行完成。多种方式，考虑效率。</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">join()</span><br></pre></td></tr></table></figure>
+<h5 id="11-进程和线程的区别"><a href="#11-进程和线程的区别" class="headerlink" title="11.进程和线程的区别"></a>11.进程和线程的区别</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">线程是指进程内的一个执行单元,也是进程内的可调度实体.与进程的区别:</span><br><span class="line">(1)地址空间:进程内的一个执行单元;进程至少有一个线程;它们共享进程的地址空间;而进程有自己独立的地址空间;</span><br><span class="line">(2)资源拥有:进程是资源分配和拥有的单位,同一个进程内的线程共享进程的资源</span><br><span class="line">(3)线程是处理器调度的基本单位,但进程不是.</span><br><span class="line">4)二者均可并发执行.</span><br></pre></td></tr></table></figure>
+<h5 id="12-什么叫线程安全？举例说明"><a href="#12-什么叫线程安全？举例说明" class="headerlink" title="12.什么叫线程安全？举例说明"></a>12.什么叫线程安全？举例说明</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果你的代码所在的进程中有多个线程同时运行，而这些线程可能会同时运行这段代码。如果每次运行结果和单线程运行的结果是一样的，而且其他变量的值也和预期一样，我们就说是线程安全。线程安全问题都是由全局变量和静态变量引起的。</span><br></pre></td></tr></table></figure>
+<h5 id="13-线程的几种状态"><a href="#13-线程的几种状态" class="headerlink" title="13.线程的几种状态"></a>13.线程的几种状态</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">新建，就绪，运行，阻塞，死亡；</span><br><span class="line">新建：当使用new操作创建一个线程</span><br><span class="line">就绪：调用了start（），线程分配cpu以外的全部资源，等待获得cpu调度</span><br><span class="line">运行：线程获得cpu，开始真正执行run()方法</span><br><span class="line">阻塞：正在运行的线程没有运行结束，暂时让出CPU，这时其他处于就绪状态的线程就可以获得CPU时间，进入运行状态。有以下的几种原因：</span><br><span class="line">1、线程调用sleep()方法</span><br><span class="line">2、线程调用一个在I/O上被阻塞的操作，即该操作在输入输出操作完成之前不会返回到它的调用者；</span><br><span class="line">3、线程试图得到一个锁，而该锁正被其他线程持有；</span><br><span class="line">4、线程在等待某个触发条件；</span><br><span class="line">死亡：正常退出或者一个异常结束stop（）、interrupt或者设置标志位</span><br></pre></td></tr></table></figure>
+<h5 id="14-并发、同步的接口或方法"><a href="#14-并发、同步的接口或方法" class="headerlink" title="14.并发、同步的接口或方法"></a>14.并发、同步的接口或方法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1：线程池</span><br><span class="line">   与每次需要时都创建线程相比，线程池可以降低创建线程的开销，这也是因为线程池在线程执行结束后进行的是回收操作，而不是真正的</span><br><span class="line">2：ReentrantLock</span><br><span class="line">    ReentrantLock提供了tryLock方法，tryLock调用的时候，如果锁被其他线程持有，那么tryLock会立即返回，返回结果为false，如果锁没有被</span><br><span class="line">其他线程持有，那么当前调用线程会持有锁，并且tryLock返回的结果是true,</span><br><span class="line">  lock.lock();</span><br><span class="line">  try &#123;</span><br><span class="line">      //do something </span><br><span class="line">  &#125; finally &#123;</span><br><span class="line">      lock.unlock();</span><br><span class="line">   &#125;</span><br><span class="line">3：volatile</span><br><span class="line">     保证了同一个变量在多线程中的可见性，所以它更多是用于修饰作为开关状态的变量，因为volatile保证了只有一份主存中的数据。</span><br></pre></td></tr></table></figure>
+<h5 id="15-HashMap-是否线程安全，为何不安全。-ConcurrentHashMap，线程安全，为何安全。底层实现是怎么样的。"><a href="#15-HashMap-是否线程安全，为何不安全。-ConcurrentHashMap，线程安全，为何安全。底层实现是怎么样的。" class="headerlink" title="15.HashMap 是否线程安全，为何不安全。 ConcurrentHashMap，线程安全，为何安全。底层实现是怎么样的。"></a>15.HashMap 是否线程安全，为何不安全。 ConcurrentHashMap，线程安全，为何安全。底层实现是怎么样的。</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">不是线程安全地。当多个线程同时操作同一个数组位置的时候，也都会先取得现在状态下该位置存储的头结点，然后各自去进行计算操作，之后再把结果写会到该数组位置去，其实写回的时候可能其他的线程已经就把这个位置给修改过了，就会覆盖其他线程的修改。</span><br></pre></td></tr></table></figure>
+<h5 id="16-J-U-C下的常见类的使用。-ThreadPool的深入考察；-BlockingQueue的使用。（take，poll的区别，put，offer的区别）；原子类的实现。"><a href="#16-J-U-C下的常见类的使用。-ThreadPool的深入考察；-BlockingQueue的使用。（take，poll的区别，put，offer的区别）；原子类的实现。" class="headerlink" title="16.J.U.C下的常见类的使用。 ThreadPool的深入考察； BlockingQueue的使用。（take，poll的区别，put，offer的区别）；原子类的实现。"></a>16.J.U.C下的常见类的使用。 ThreadPool的深入考察； BlockingQueue的使用。（take，poll的区别，put，offer的区别）；原子类的实现。</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="17-简单介绍下多线程的情况，从建立一个线程开始。然后怎么控制同步过程，多线程常用的方法和结构"><a href="#17-简单介绍下多线程的情况，从建立一个线程开始。然后怎么控制同步过程，多线程常用的方法和结构" class="headerlink" title="17.简单介绍下多线程的情况，从建立一个线程开始。然后怎么控制同步过程，多线程常用的方法和结构"></a>17.简单介绍下多线程的情况，从建立一个线程开始。然后怎么控制同步过程，多线程常用的方法和结构</h5><h5 id="18-volatile的理解"><a href="#18-volatile的理解" class="headerlink" title="18.volatile的理解"></a>18.volatile的理解</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">volatile关键字为域变量的访问提供了一种免锁机制</span><br><span class="line">b.使用volatile修饰域相当于告诉虚拟机该域可能会被其他线程更新</span><br><span class="line">c.因此每次使用该域就要重新计算，而不是使用寄存器中的值</span><br><span class="line">d.volatile不会提供任何原子操作，它也不能用来修饰final类型的变量</span><br></pre></td></tr></table></figure>
+<h5 id="19-实现多线程有几种方式，多线程同步怎么做，说说几个线程里常用的方法"><a href="#19-实现多线程有几种方式，多线程同步怎么做，说说几个线程里常用的方法" class="headerlink" title="19.实现多线程有几种方式，多线程同步怎么做，说说几个线程里常用的方法"></a>19.实现多线程有几种方式，多线程同步怎么做，说说几个线程里常用的方法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">常用的有两种方式：实现Runnable接口和继承Thread类。</span><br><span class="line">多线程同步有以下的几种方式，使用synchronized、特殊域变量volatile、重入锁ReentrantLock()、使用局部变量</span><br><span class="line">start(); 表示该线程处于活动的，可以抢时间片的状态，而不是开始运行。</span><br><span class="line">interrupt(); 表示将线程对象中断。如果该线程正处于sleep状态，会抛出异常(最好不用，不如让run方法完成执行)</span><br><span class="line">stop(); 表示将线程直接终止。（已过时，不安全，如果有正在打开的资源无法关闭，而线程直接被关闭）。</span><br><span class="line">sleep(); 表示该语句写在那个线程中表示要将当前线程睡眠。</span><br><span class="line">只能在同步控制方法或同步块中调用wait()、notify()和notifyAll()</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试题/" rel="tag"># 面试题</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/28/web商城———购物车实现/" rel="next" title="web商城———购物车实现">
+                <i class="fa fa-chevron-left"></i> web商城———购物车实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/28/BigDecimal/" rel="prev" title="BigDecimal">
+                BigDecimal <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="ZZQ">
+            
+              <p class="site-author-name" itemprop="name">ZZQ</p>
+              <p class="site-description motion-element" itemprop="description">坦坦荡荡 一身正气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Java创建线程之后，直接调用start-方法和run-的区别"><span class="nav-number">1.</span> <span class="nav-text">1.Java创建线程之后，直接调用start()方法和run()的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-常用的线程池模式以及不同线程池的使用场景"><span class="nav-number">2.</span> <span class="nav-text">2.常用的线程池模式以及不同线程池的使用场景</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-newFixedThreadPool此种线程池如果线程数达到最大值后会怎么办，底层原理"><span class="nav-number">3.</span> <span class="nav-text">3.newFixedThreadPool此种线程池如果线程数达到最大值后会怎么办，底层原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-多线程之间通信的同步问题，synchronized锁的是对象，衍伸出和synchronized相关很多的具体问题，例如同一个类不同方法都有synchronized锁，一个对象是否可以同时访问。或者一个类的static构造方法加上synchronized之后的锁的影响。"><span class="nav-number">4.</span> <span class="nav-text">4.多线程之间通信的同步问题，synchronized锁的是对象，衍伸出和synchronized相关很多的具体问题，例如同一个类不同方法都有synchronized锁，一个对象是否可以同时访问。或者一个类的static构造方法加上synchronized之后的锁的影响。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-了解可重入锁的含义，以及ReentrantLock-和synchronized的区别"><span class="nav-number">5.</span> <span class="nav-text">5.了解可重入锁的含义，以及ReentrantLock 和synchronized的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-同步的数据结构，例如concurrentHashMap的源码理解以及内部实现原理，为什么他是同步的且效率高"><span class="nav-number">6.</span> <span class="nav-text">6.同步的数据结构，例如concurrentHashMap的源码理解以及内部实现原理，为什么他是同步的且效率高</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-atomicinteger和volatile等线程安全操作的关键字的理解和使用"><span class="nav-number">7.</span> <span class="nav-text">7.atomicinteger和volatile等线程安全操作的关键字的理解和使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-线程间通信，wait和notify"><span class="nav-number">8.</span> <span class="nav-text">8.线程间通信，wait和notify</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-定时线程的使用"><span class="nav-number">9.</span> <span class="nav-text">9.定时线程的使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-场景：在一个主线程中，要求有大量-很多很多-子线程执行完之后，主线程才执行完成。多种方式，考虑效率。"><span class="nav-number">10.</span> <span class="nav-text">10.场景：在一个主线程中，要求有大量(很多很多)子线程执行完之后，主线程才执行完成。多种方式，考虑效率。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-进程和线程的区别"><span class="nav-number">11.</span> <span class="nav-text">11.进程和线程的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#12-什么叫线程安全？举例说明"><span class="nav-number">12.</span> <span class="nav-text">12.什么叫线程安全？举例说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-线程的几种状态"><span class="nav-number">13.</span> <span class="nav-text">13.线程的几种状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#14-并发、同步的接口或方法"><span class="nav-number">14.</span> <span class="nav-text">14.并发、同步的接口或方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#15-HashMap-是否线程安全，为何不安全。-ConcurrentHashMap，线程安全，为何安全。底层实现是怎么样的。"><span class="nav-number">15.</span> <span class="nav-text">15.HashMap 是否线程安全，为何不安全。 ConcurrentHashMap，线程安全，为何安全。底层实现是怎么样的。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#16-J-U-C下的常见类的使用。-ThreadPool的深入考察；-BlockingQueue的使用。（take，poll的区别，put，offer的区别）；原子类的实现。"><span class="nav-number">16.</span> <span class="nav-text">16.J.U.C下的常见类的使用。 ThreadPool的深入考察； BlockingQueue的使用。（take，poll的区别，put，offer的区别）；原子类的实现。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#17-简单介绍下多线程的情况，从建立一个线程开始。然后怎么控制同步过程，多线程常用的方法和结构"><span class="nav-number">17.</span> <span class="nav-text">17.简单介绍下多线程的情况，从建立一个线程开始。然后怎么控制同步过程，多线程常用的方法和结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#18-volatile的理解"><span class="nav-number">18.</span> <span class="nav-text">18.volatile的理解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#19-实现多线程有几种方式，多线程同步怎么做，说说几个线程里常用的方法"><span class="nav-number">19.</span> <span class="nav-text">19.实现多线程有几种方式，多线程同步怎么做，说说几个线程里常用的方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZZQ</span>
+
+  
+</div>
+
+
+ <!-- 
+ 
+ <div class="powered-by">世界是美好的</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">是值得我们去奋斗的 &mdash;  v</div>
+
+-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+	 
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv"></span>
+        </span>
+        <span class="post-meta-divider"></span>
+        <span id="busuanzi_container_site_uv" style="display:none">
+                <span id="busuanzi_value_site_uv"></span>
+        </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v="></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+		<link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: "<%=page.date%>", 
+            owner: 'zqnh',
+            repo: 'zqnh.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd9c922b4c4a7b4458ba55aa5673db78556aa9d1f',
+            
+                client_id: 'ca41c1f6c6585b630f16'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

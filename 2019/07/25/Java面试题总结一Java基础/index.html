@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试题,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.String类为什么是final的。1主要是为了“效率” 和 “安全性” 的缘故。若 String允许被继承, 由于它的高度被使用率, 可能会降低程序的性能，所以String被定义成final。 2.HashMap的源码，实现原理，底层结构123456789总的来说，HashMap就是数组+链表的组合实现，每个数组元素存储一个链表的头结点，本质上来说是哈希表“拉链法”的实现。　　HashMap">
+<meta name="keywords" content="面试题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java面试题总结一Java基础">
+<meta property="og:url" content="http://yoursite.com/2019/07/25/Java面试题总结一Java基础/index.html">
+<meta property="og:site_name" content="Aemon Zhu">
+<meta property="og:description" content="1.String类为什么是final的。1主要是为了“效率” 和 “安全性” 的缘故。若 String允许被继承, 由于它的高度被使用率, 可能会降低程序的性能，所以String被定义成final。 2.HashMap的源码，实现原理，底层结构123456789总的来说，HashMap就是数组+链表的组合实现，每个数组元素存储一个链表的头结点，本质上来说是哈希表“拉链法”的实现。　　HashMap">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-31T07:16:37.556Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java面试题总结一Java基础">
+<meta name="twitter:description" content="1.String类为什么是final的。1主要是为了“效率” 和 “安全性” 的缘故。若 String允许被继承, 由于它的高度被使用率, 可能会降低程序的性能，所以String被定义成final。 2.HashMap的源码，实现原理，底层结构123456789总的来说，HashMap就是数组+链表的组合实现，每个数组元素存储一个链表的头结点，本质上来说是哈希表“拉链法”的实现。　　HashMap">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/25/Java面试题总结一Java基础/">
+
+
+
+
+
+  <title>Java面试题总结一Java基础 | Aemon Zhu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zqnh"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1" style="
+    margin-left: 1114px;
+    margin-right: 0px;
+"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aemon Zhu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习使我快乐 敲代码使我充实</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/25/Java面试题总结一Java基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZZQ">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aemon Zhu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java面试题总结一Java基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-25T10:03:05+08:00">
+                2019-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试题/" itemprop="url" rel="index">
+                    <span itemprop="name">面试题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/25/Java面试题总结一Java基础/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/07/25/Java面试题总结一Java基础/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h5 id="1-String类为什么是final的。"><a href="#1-String类为什么是final的。" class="headerlink" title="1.String类为什么是final的。"></a>1.String类为什么是final的。</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">主要是为了“效率” 和 “安全性” 的缘故。若 String允许被继承, 由于它的高度被使用率, 可能会降低程序的性能，所以String被定义成final。</span><br></pre></td></tr></table></figure>
+<h5 id="2-HashMap的源码，实现原理，底层结构"><a href="#2-HashMap的源码，实现原理，底层结构" class="headerlink" title="2.HashMap的源码，实现原理，底层结构"></a>2.HashMap的源码，实现原理，底层结构</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">总的来说，HashMap就是数组+链表的组合实现，每个数组元素存储一个链表的头结点，本质上来说是哈希表“拉链法”的实现。</span><br><span class="line">　　HashMap的链表元素对应的是一个静态内部类Entry，Entry主要包含key，value，next三个元素</span><br><span class="line">　　主要有put和get方法，put的原理是，通过hash%Entry.length计算index，此时记作Entry[index]=该元素。如果index相同</span><br><span class="line">　　就是新入的元素放置到Entry[index]，原先的元素记作Entry[index].next</span><br><span class="line">　　get就比较简单了，先遍历数组，再遍历链表元素。</span><br><span class="line">　　null key总是放在Entry数组的第一个元素</span><br><span class="line">　　解决hash冲突的方法：链地址法</span><br><span class="line">　　再散列rehash的过程：确定容量超过目前哈希表的容量，重新调整table 的容量大小，当超过容量的最大值时，取</span><br><span class="line">　　Integer.Maxvalue</span><br></pre></td></tr></table></figure>
+<h5 id="3-说说你知道的几个Java集合类：list、set、queue、map实现类"><a href="#3-说说你知道的几个Java集合类：list、set、queue、map实现类" class="headerlink" title="3.说说你知道的几个Java集合类：list、set、queue、map实现类"></a>3.说说你知道的几个Java集合类：list、set、queue、map实现类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List:ArrayList、LinkedList</span><br><span class="line">Set：HashSet、TreeSet</span><br><span class="line">Map：HashMap、LinkedHashMap</span><br></pre></td></tr></table></figure>
+<h5 id="4-描述一下ArrayList和LinkedList各自实现和区别"><a href="#4-描述一下ArrayList和LinkedList各自实现和区别" class="headerlink" title="4.描述一下ArrayList和LinkedList各自实现和区别"></a>4.描述一下ArrayList和LinkedList各自实现和区别</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList:基于数组实现，由于是List，所以是有序，可以重复，可以为null，查询效率高，增删效率低</span><br><span class="line">LinkedList：基于链表实现，查询效率低（遍历），增删效率高。</span><br></pre></td></tr></table></figure>
+<h5 id="5-Java中的队列都有哪些，有什么区别。"><a href="#5-Java中的队列都有哪些，有什么区别。" class="headerlink" title="5.Java中的队列都有哪些，有什么区别。"></a>5.Java中的队列都有哪些，有什么区别。</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">普通队列、阻塞队列、非阻塞队列</span><br><span class="line">区别：阻塞队列与普通队列区别在于，当队列是空时，从队列中获取元素的操作将被阻塞，或者当队列满时，往队列里添加元素的操作会被阻塞。试图从空的阻塞队列中获取元素的线程将会被阻塞，直到其他的线程往空的队列插入新的元素。同样，试图往已满的阻塞队列中添加新的元素的线程同样会被阻塞，知道其他的线程使得队列重新变的空闲起来，如从队列中溢出一个或多个元素，或者完全情况队列。</span><br><span class="line"> 举例说明：阻塞队列（LinkedBlockingQueue）和非阻塞队列（ConcurrentLinkedQueue）的区别</span><br><span class="line">    相同点：二者都是线程安全的。</span><br><span class="line">    不同点：</span><br><span class="line">         （1）阻塞队列：按FIFO排序元素。队列的头部是在队列中时间最长的元素。队列的尾部是在队列中最短的元素。新元素插入队列的尾部，并且队列检索操作会获得位于队列头部的元素。链接队列的吞吐量通常要高于基于数组的队列，但是在大多数并发应用程序中，其可预知性能要低。</span><br><span class="line">          注意：A:必须要使用take()方法获取的时候达成阻塞结果</span><br><span class="line">                    B:使用poll()方法产生非阻塞效果</span><br><span class="line">         （2）非阻塞队列：基于链接节点的、无界的、线程安全。按FIFO排序元素。队列的头部是在队列中时间最长的元素。队列的尾部是在队列中最短的元素。新元素插入队列的尾部，并且队列检索操作会获得位于队列头部的元素。当许多线程共享访问一个公共Collection时，ConcurrentLinkedQueue是一个恰当的选择。此队列不允许为null元素。</span><br><span class="line">         （3）在并发编程中，一般推荐使用阻塞队列，这样实现可以尽量避免程序出现意外错误。阻塞队列使用最经典的场景就是socket客户端数据的读取和解析，读取数据的线程不断将数据放入队列，然后解析线程不断从队列取数据解析。只要符合生产者-消费者模型的都可以使用阻塞队列。</span><br><span class="line">        （4）使用非阻塞队列，虽然能即时返回结果（消费结果），但是必须自行编码解决返回为空的情况（以及消费重试等问题）。</span><br></pre></td></tr></table></figure>
+<h5 id="6-反射中，Class-forName和classloader的区别"><a href="#6-反射中，Class-forName和classloader的区别" class="headerlink" title="6.反射中，Class.forName和classloader的区别"></a>6.反射中，Class.forName和classloader的区别</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">共同点</span><br><span class="line">两者都会将用户指定的类加载到内存中，供用户使用</span><br><span class="line">不同点：</span><br><span class="line">Class.forName方法有要不要初始static变量的参数，而ClassLoader.loadClass()没有；Class.forName的重载方法是静态的，而ClassLoader.loadClass不是。</span><br></pre></td></tr></table></figure>
+<h5 id="7-Java7、Java8的新特性"><a href="#7-Java7、Java8的新特性" class="headerlink" title="7.Java7、Java8的新特性"></a>7.Java7、Java8的新特性</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.可以用字符串控制Switch语句2.lambda表达式3.用|表示多个异常4.可以为接口添加静态方法和默认实现</span><br></pre></td></tr></table></figure>
+<h5 id="8-Java数组和链表两种结构的操作效率，在哪些情况下-从开头开始，从结尾开始，从中间开始-，哪些操作-插入，查找，删除-的效率高"><a href="#8-Java数组和链表两种结构的操作效率，在哪些情况下-从开头开始，从结尾开始，从中间开始-，哪些操作-插入，查找，删除-的效率高" class="headerlink" title="8.Java数组和链表两种结构的操作效率，在哪些情况下(从开头开始，从结尾开始，从中间开始)，哪些操作(插入，查找，删除)的效率高"></a>8.Java数组和链表两种结构的操作效率，在哪些情况下(从开头开始，从结尾开始，从中间开始)，哪些操作(插入，查找，删除)的效率高</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数组在随机访问数据、随机增加数据、随机删除数据的执行效率上比链表的效率高，数据量越小，两者之间效率的差距越小，数据量越大差距越大</span><br></pre></td></tr></table></figure>
+<h5 id="9-Java内存泄露的问题调查定位：jmap，jstack的使用等等"><a href="#9-Java内存泄露的问题调查定位：jmap，jstack的使用等等" class="headerlink" title="9.Java内存泄露的问题调查定位：jmap，jstack的使用等等"></a>9.Java内存泄露的问题调查定位：jmap，jstack的使用等等</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="10-string、stringbuilder、stringbuffer区别"><a href="#10-string、stringbuilder、stringbuffer区别" class="headerlink" title="10.string、stringbuilder、stringbuffer区别"></a>10.string、stringbuilder、stringbuffer区别</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String：不可变，每次修改都生成新对象，线程安全，</span><br><span class="line">StringBuilder：修改不产生新的未使用对象，线程不安全，速度快</span><br><span class="line">StringBuffer：修改不产生新的未使用对象，线程安全，速度慢</span><br></pre></td></tr></table></figure>
+<h5 id="11-HashTable和HashMap的区别"><a href="#11-HashTable和HashMap的区别" class="headerlink" title="11.HashTable和HashMap的区别"></a>11.HashTable和HashMap的区别</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HashMap是基于哈希表实现的，每一个元素是一个key-value对，其内部通过单链表解决冲突问题，容量不足（超过了阀值）时，同样会自动增长。HashMap是非线程安全的，只是用于单线程环境下，多线程环境下可以采用concurrent并发包下的concurrentHashMap。实现了Serializable接口，因此它支持序列化，实现了Cloneable接口，能被克隆。</span><br><span class="line">Hashtable同样是基于哈希表实现的，同样每个元素是一个key-value对，其内部也是通过单链表解决冲突问题，容量不足（超过了阀值）时，同样会自动增长。Hashtable也是JDK1.0引入的类，是线程安全的，能用于多线程环境中。Hashtable同样实现了Serializable接口，它支持序列化，实现了Cloneable接口，能被克隆。</span><br></pre></td></tr></table></figure>
+<h5 id="12-异常的结构，运行时异常和非运行时异常，各举个例子"><a href="#12-异常的结构，运行时异常和非运行时异常，各举个例子" class="headerlink" title="12.异常的结构，运行时异常和非运行时异常，各举个例子"></a>12.异常的结构，运行时异常和非运行时异常，各举个例子</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">运行时异常都是RuntimeException类及其子类异常，如NullPointerException、IndexOutOfBoundsException等，这些异常是不检查异常，程序中可以选择捕获处理，也可以不处理。这些异常一般是由程序逻辑错误引起的，程序应该从逻辑角度尽可能避免这类异常的发生。</span><br><span class="line"></span><br><span class="line">非运行时异常是RuntimeException以外的异常，类型上都属于Exception类及其子类。如IOException、SQLException等以及用户自定义的Exception异常。对于这种异常，JAVA编译器强制要求我们必需对出现的这些异常进行catch并处理，否则程序就不能编译通过。所以，面对这种异常不管我们是否愿意，只能自己去写一大堆catch块去处理可能的异常。</span><br></pre></td></tr></table></figure>
+<h5 id="13-String-a-“abc”-String-b-“abc”-String-c-new-String-“abc”-String-d-“ab”-“c”-他们之间用-比较的结果"><a href="#13-String-a-“abc”-String-b-“abc”-String-c-new-String-“abc”-String-d-“ab”-“c”-他们之间用-比较的结果" class="headerlink" title="13.String a= “abc” String b = “abc” String c = new String(“abc”) String d = “ab” + “c” .他们之间用 == 比较的结果"></a>13.String a= “abc” String b = “abc” String c = new String(“abc”) String d = “ab” + “c” .他们之间用 == 比较的结果</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">String a = &quot;abc&quot;;				//</span><br><span class="line">String b = &quot;abc&quot;;				//</span><br><span class="line">String c = new String (&quot;abc&quot;);	//</span><br><span class="line">String d = &quot;ab&quot;+&quot;c&quot;;			//</span><br><span class="line">System.out.println(a==b);		//true</span><br><span class="line">System.out.println(a==c);		//false</span><br><span class="line">System.out.println(a==d);		//true</span><br><span class="line">System.out.println(b==c);		//false</span><br><span class="line">System.out.println(b==d);		//true</span><br><span class="line">System.out.println(c==d);		//false</span><br><span class="line">用==比较的是引用地址，abd三个变量指向的同一个内存地址，c是new出来的对象，在堆内存中。</span><br></pre></td></tr></table></figure>
+<h5 id="14-String-类的常用方法"><a href="#14-String-类的常用方法" class="headerlink" title="14.String 类的常用方法"></a>14.String 类的常用方法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">length	charAt compareTo concat indexOf toLowerCase toUpperCase trim split</span><br></pre></td></tr></table></figure>
+<h5 id="15-Java-的引用类型有哪几种"><a href="#15-Java-的引用类型有哪几种" class="headerlink" title="15.Java 的引用类型有哪几种"></a>15.Java 的引用类型有哪几种</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">强引用：Java中默认声明的就是强引用，比如Object obj = new Object()</span><br><span class="line">软引用：在内存不足的情况下，软引用将会被自动回收</span><br><span class="line">弱引用：无论内存是否足够，只要 JVM 开始进行垃圾回收，那些被弱引用关联的对象都会被回收</span><br><span class="line">虚引用：如果一个对象仅持有虚引用，那么它就和没有任何引用一样，它随时可能会被回收</span><br></pre></td></tr></table></figure>
+<h5 id="16-Java的基础类型和字节大小。"><a href="#16-Java的基础类型和字节大小。" class="headerlink" title="16.Java的基础类型和字节大小。"></a>16.Java的基础类型和字节大小。</h5><table>
+<thead>
+<tr>
+<th>基本类型</th>
+<th>字节大小</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>byte</td>
+<td>1</td>
+</tr>
+<tr>
+<td>short</td>
+<td>2</td>
+</tr>
+<tr>
+<td>int</td>
+<td>4</td>
+</tr>
+<tr>
+<td>long</td>
+<td>8</td>
+</tr>
+<tr>
+<td>float</td>
+<td>4</td>
+</tr>
+<tr>
+<td>double</td>
+<td>8</td>
+</tr>
+<tr>
+<td>char</td>
+<td>2</td>
+</tr>
+<tr>
+<td>boolean</td>
+</tr>
+</tbody>
+</table>
+<h5 id="17-Hashtable-HashMap-ConcurrentHashMap-底层实现原理与线程安全问题（建议熟悉-jdk-源码，才能从容应答）"><a href="#17-Hashtable-HashMap-ConcurrentHashMap-底层实现原理与线程安全问题（建议熟悉-jdk-源码，才能从容应答）" class="headerlink" title="17.Hashtable,HashMap,ConcurrentHashMap 底层实现原理与线程安全问题（建议熟悉 jdk 源码，才能从容应答）"></a>17.Hashtable,HashMap,ConcurrentHashMap 底层实现原理与线程安全问题（建议熟悉 jdk 源码，才能从容应答）</h5><h5 id="18-如果不让你用Java-Jdk提供的工具，你自己实现一个Map，你怎么做。"><a href="#18-如果不让你用Java-Jdk提供的工具，你自己实现一个Map，你怎么做。" class="headerlink" title="18.如果不让你用Java Jdk提供的工具，你自己实现一个Map，你怎么做。"></a>18.如果不让你用Java Jdk提供的工具，你自己实现一个Map，你怎么做。</h5><h5 id="19-Hash冲突怎么办？哪些解决散列冲突的方法？"><a href="#19-Hash冲突怎么办？哪些解决散列冲突的方法？" class="headerlink" title="19. Hash冲突怎么办？哪些解决散列冲突的方法？"></a>19. Hash冲突怎么办？哪些解决散列冲突的方法？</h5><h5 id="20-HashMap冲突很厉害，最差性能，你会怎么解决-从O（n）提升到log（n）咯，用二叉排序树的思路说了一通"><a href="#20-HashMap冲突很厉害，最差性能，你会怎么解决-从O（n）提升到log（n）咯，用二叉排序树的思路说了一通" class="headerlink" title="20.HashMap冲突很厉害，最差性能，你会怎么解决?从O（n）提升到log（n）咯，用二叉排序树的思路说了一通"></a>20.HashMap冲突很厉害，最差性能，你会怎么解决?从O（n）提升到log（n）咯，用二叉排序树的思路说了一通</h5><h5 id="21-rehash"><a href="#21-rehash" class="headerlink" title="21.rehash"></a>21.rehash</h5><h5 id="22-hashCode-与-equals-生成算法、方法怎么重写"><a href="#22-hashCode-与-equals-生成算法、方法怎么重写" class="headerlink" title="22.hashCode() 与 equals() 生成算法、方法怎么重写"></a>22.hashCode() 与 equals() 生成算法、方法怎么重写</h5><p>##### </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试题/" rel="tag"># 面试题</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/24/Nginx安装/" rel="next" title="Nginx安装">
+                <i class="fa fa-chevron-left"></i> Nginx安装
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/26/Java面试题总结二IO流/" rel="prev" title="Java面试题总结二IO流">
+                Java面试题总结二IO流 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="ZZQ">
+            
+              <p class="site-author-name" itemprop="name">ZZQ</p>
+              <p class="site-description motion-element" itemprop="description">坦坦荡荡 一身正气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-String类为什么是final的。"><span class="nav-number">1.</span> <span class="nav-text">1.String类为什么是final的。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-HashMap的源码，实现原理，底层结构"><span class="nav-number">2.</span> <span class="nav-text">2.HashMap的源码，实现原理，底层结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-说说你知道的几个Java集合类：list、set、queue、map实现类"><span class="nav-number">3.</span> <span class="nav-text">3.说说你知道的几个Java集合类：list、set、queue、map实现类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-描述一下ArrayList和LinkedList各自实现和区别"><span class="nav-number">4.</span> <span class="nav-text">4.描述一下ArrayList和LinkedList各自实现和区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-Java中的队列都有哪些，有什么区别。"><span class="nav-number">5.</span> <span class="nav-text">5.Java中的队列都有哪些，有什么区别。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-反射中，Class-forName和classloader的区别"><span class="nav-number">6.</span> <span class="nav-text">6.反射中，Class.forName和classloader的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-Java7、Java8的新特性"><span class="nav-number">7.</span> <span class="nav-text">7.Java7、Java8的新特性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-Java数组和链表两种结构的操作效率，在哪些情况下-从开头开始，从结尾开始，从中间开始-，哪些操作-插入，查找，删除-的效率高"><span class="nav-number">8.</span> <span class="nav-text">8.Java数组和链表两种结构的操作效率，在哪些情况下(从开头开始，从结尾开始，从中间开始)，哪些操作(插入，查找，删除)的效率高</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-Java内存泄露的问题调查定位：jmap，jstack的使用等等"><span class="nav-number">9.</span> <span class="nav-text">9.Java内存泄露的问题调查定位：jmap，jstack的使用等等</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-string、stringbuilder、stringbuffer区别"><span class="nav-number">10.</span> <span class="nav-text">10.string、stringbuilder、stringbuffer区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-HashTable和HashMap的区别"><span class="nav-number">11.</span> <span class="nav-text">11.HashTable和HashMap的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#12-异常的结构，运行时异常和非运行时异常，各举个例子"><span class="nav-number">12.</span> <span class="nav-text">12.异常的结构，运行时异常和非运行时异常，各举个例子</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-String-a-“abc”-String-b-“abc”-String-c-new-String-“abc”-String-d-“ab”-“c”-他们之间用-比较的结果"><span class="nav-number">13.</span> <span class="nav-text">13.String a= “abc” String b = “abc” String c = new String(“abc”) String d = “ab” + “c” .他们之间用 == 比较的结果</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#14-String-类的常用方法"><span class="nav-number">14.</span> <span class="nav-text">14.String 类的常用方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#15-Java-的引用类型有哪几种"><span class="nav-number">15.</span> <span class="nav-text">15.Java 的引用类型有哪几种</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#16-Java的基础类型和字节大小。"><span class="nav-number">16.</span> <span class="nav-text">16.Java的基础类型和字节大小。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#17-Hashtable-HashMap-ConcurrentHashMap-底层实现原理与线程安全问题（建议熟悉-jdk-源码，才能从容应答）"><span class="nav-number">17.</span> <span class="nav-text">17.Hashtable,HashMap,ConcurrentHashMap 底层实现原理与线程安全问题（建议熟悉 jdk 源码，才能从容应答）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#18-如果不让你用Java-Jdk提供的工具，你自己实现一个Map，你怎么做。"><span class="nav-number">18.</span> <span class="nav-text">18.如果不让你用Java Jdk提供的工具，你自己实现一个Map，你怎么做。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#19-Hash冲突怎么办？哪些解决散列冲突的方法？"><span class="nav-number">19.</span> <span class="nav-text">19. Hash冲突怎么办？哪些解决散列冲突的方法？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#20-HashMap冲突很厉害，最差性能，你会怎么解决-从O（n）提升到log（n）咯，用二叉排序树的思路说了一通"><span class="nav-number">20.</span> <span class="nav-text">20.HashMap冲突很厉害，最差性能，你会怎么解决?从O（n）提升到log（n）咯，用二叉排序树的思路说了一通</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#21-rehash"><span class="nav-number">21.</span> <span class="nav-text">21.rehash</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#22-hashCode-与-equals-生成算法、方法怎么重写"><span class="nav-number">22.</span> <span class="nav-text">22.hashCode() 与 equals() 生成算法、方法怎么重写</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZZQ</span>
+
+  
+</div>
+
+
+ <!-- 
+ 
+ <div class="powered-by">世界是美好的</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">是值得我们去奋斗的 &mdash;  v</div>
+
+-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+	 
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv"></span>
+        </span>
+        <span class="post-meta-divider"></span>
+        <span id="busuanzi_container_site_uv" style="display:none">
+                <span id="busuanzi_value_site_uv"></span>
+        </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v="></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+		<link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: "<%=page.date%>", 
+            owner: 'zqnh',
+            repo: 'zqnh.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd9c922b4c4a7b4458ba55aa5673db78556aa9d1f',
+            
+                client_id: 'ca41c1f6c6585b630f16'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

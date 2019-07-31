@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试题,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.使用随机算法产生一个数，要求把1-1000W之间这些数全部生成。（考察高效率，解决产生冲突的问题）123456789101112131415161718192021222324252627282930313233343536373839以100为例，1000W时将value值更改即可，选取1-100范围方便时输出检验是否正确。先构建一个value大小的数组，按下标存储1-value范围的值。有">
+<meta name="keywords" content="面试题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java面试题总结八算法">
+<meta property="og:url" content="http://yoursite.com/2019/07/30/Java面试题总结八算法/index.html">
+<meta property="og:site_name" content="Aemon Zhu">
+<meta property="og:description" content="1.使用随机算法产生一个数，要求把1-1000W之间这些数全部生成。（考察高效率，解决产生冲突的问题）123456789101112131415161718192021222324252627282930313233343536373839以100为例，1000W时将value值更改即可，选取1-100范围方便时输出检验是否正确。先构建一个value大小的数组，按下标存储1-value范围的值。有">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-31T07:18:06.050Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java面试题总结八算法">
+<meta name="twitter:description" content="1.使用随机算法产生一个数，要求把1-1000W之间这些数全部生成。（考察高效率，解决产生冲突的问题）123456789101112131415161718192021222324252627282930313233343536373839以100为例，1000W时将value值更改即可，选取1-100范围方便时输出检验是否正确。先构建一个value大小的数组，按下标存储1-value范围的值。有">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/30/Java面试题总结八算法/">
+
+
+
+
+
+  <title>Java面试题总结八算法 | Aemon Zhu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zqnh"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1" style="
+    margin-left: 1114px;
+    margin-right: 0px;
+"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aemon Zhu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习使我快乐 敲代码使我充实</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/30/Java面试题总结八算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZZQ">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aemon Zhu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java面试题总结八算法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-30T09:00:46+08:00">
+                2019-07-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试题/" itemprop="url" rel="index">
+                    <span itemprop="name">面试题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/30/Java面试题总结八算法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/07/30/Java面试题总结八算法/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h5 id="1-使用随机算法产生一个数，要求把1-1000W之间这些数全部生成。（考察高效率，解决产生冲突的问题）"><a href="#1-使用随机算法产生一个数，要求把1-1000W之间这些数全部生成。（考察高效率，解决产生冲突的问题）" class="headerlink" title="1.使用随机算法产生一个数，要求把1-1000W之间这些数全部生成。（考察高效率，解决产生冲突的问题）"></a>1.使用随机算法产生一个数，要求把1-1000W之间这些数全部生成。（考察高效率，解决产生冲突的问题）</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">以100为例，1000W时将value值更改即可，选取1-100范围方便时输出检验是否正确。</span><br><span class="line">先构建一个value大小的数组，按下标存储1-value范围的值。</span><br><span class="line">有了这样一个数组之后，用random.nextInt(value) 每次随机生成[0,value)范围的值，用count+value 作为下标交换count+value 和count位置的两个数，比如交换 list[0+5] 和list[0]。 下一次count++，交换某个位置和list[1],这样相当于随机选取某个位置的数，逐一放在数组的第0个位置、第1个位置。注意：count+value不能超过原本value的值，每次count++都要value--。</span><br><span class="line"></span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">         Random random = new Random();</span><br><span class="line">         long start = System.currentTimeMillis();</span><br><span class="line">         int value = 100;</span><br><span class="line">         //使用数组速度更快</span><br><span class="line">         int[] list = new int[value];</span><br><span class="line">         for (int j = 0; j &lt; value; ++j) &#123;</span><br><span class="line">             list[j] = j+1;</span><br><span class="line">         &#125;</span><br><span class="line">         int index = 0;</span><br><span class="line">         int count = 0;</span><br><span class="line">         int tmp = 0;</span><br><span class="line">         while (value &gt; 0) &#123;</span><br><span class="line">             index = random.nextInt(value);</span><br><span class="line">             //System.out.println(list[count + index]);</span><br><span class="line">             tmp = list[count + index];</span><br><span class="line">             list[count + index] = list[count];</span><br><span class="line">             list[count] = tmp;</span><br><span class="line">             ++count;</span><br><span class="line">             --value;</span><br><span class="line">         &#125;</span><br><span class="line">         long end = System.currentTimeMillis();</span><br><span class="line">         //----验证是否正确</span><br><span class="line">         Arrays.sort(list);</span><br><span class="line">         int i = 0, size = list.length;</span><br><span class="line">         for (; i &lt; size; ++i) &#123;</span><br><span class="line">             //System.out.println(list[i]);</span><br><span class="line">             if (list[i] != (i + 1))</span><br><span class="line">                 System.out.println(i + &quot;error&quot; + list[i]);</span><br><span class="line">          &#125;</span><br><span class="line">         //----验证是否正确</span><br><span class="line">         System.out.println(&quot;creat4------&quot;);</span><br><span class="line">         System.out.println(&quot;执行耗时 : &quot; + (end - start) / 1000f + &quot; 秒 &quot;);</span><br><span class="line">         System.out.println(&quot;完了，集合大小为&quot; + list.length);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2-两个有序数组的合并排序"><a href="#2-两个有序数组的合并排序" class="headerlink" title="2.两个有序数组的合并排序"></a>2.两个有序数组的合并排序</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">思路：新建一个以两个集合长度之和为长度的新数组，从两数组最左边开始比起，把小的放入新集合，并用变量标记后一位置，</span><br><span class="line">    每次比较都是比较的最左边未比较过的元素（通过变量），循环比较，直至其中有一个集合遍历结束，将另一个集合剩余部分加入新集合中</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">public class MyClass &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        int[] num1 = new int[]&#123;1, 2, 4, 6, 7, 123, 411, 5334, 1414141, 1314141414&#125;;</span><br><span class="line"></span><br><span class="line">        int[] num2 = new int[]&#123;0, 2, 5, 7, 89, 113, 5623, 6353, 134134&#125;;</span><br><span class="line"></span><br><span class="line">        //变量用于存储两个集合应该被比较的索引（存入新集合就加一）</span><br><span class="line"></span><br><span class="line">        int a = 0;</span><br><span class="line"></span><br><span class="line">        int b = 0;</span><br><span class="line"></span><br><span class="line">        int[] num3 = new int[num1.length + num2.length];</span><br><span class="line"></span><br><span class="line">        for (int i = 0; i &lt; num3.length; i++) &#123;</span><br><span class="line"></span><br><span class="line">            if (a &lt; num1.length &amp;&amp; b &lt; num2.length) &#123;   //两数组都未遍历完，相互比较后加入</span><br><span class="line"></span><br><span class="line">                if (num1[a] &gt; num2[b]) &#123;</span><br><span class="line"></span><br><span class="line">                    num3[i] = num2[b];</span><br><span class="line"></span><br><span class="line">                    b++;</span><br><span class="line"></span><br><span class="line">                &#125; else &#123;</span><br><span class="line"></span><br><span class="line">                    num3[i] = num1[a];</span><br><span class="line"></span><br><span class="line">                    a++;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125; else if (a &lt; num1.length) &#123;   //num2已经遍历完，无需比较，直接将剩余num1加入</span><br><span class="line"></span><br><span class="line">                num3[i] = num1[a];</span><br><span class="line"></span><br><span class="line">                a++;</span><br><span class="line"></span><br><span class="line">            &#125; else if (b &lt; num2.length) &#123;    //num1已经遍历完，无需比较，直接将剩余num2加入</span><br><span class="line"></span><br><span class="line">                num3[i] = num2[b];</span><br><span class="line"></span><br><span class="line">                b++;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;排序后:&quot; + Arrays.toString(num3));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="3-一个数组的倒序"><a href="#3-一个数组的倒序" class="headerlink" title="3.一个数组的倒序"></a>3.一个数组的倒序</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import java.util.*;</span><br><span class="line">public class lianxi31 &#123;</span><br><span class="line">public static void main(String[] args)</span><br><span class="line">&#123;</span><br><span class="line">	Scanner s = new Scanner(System.in);</span><br><span class="line"> 	int a[] = new int[20];</span><br><span class="line">	System.out.println(&quot;请输入多个正整数（输入-1表示结束）：&quot;);</span><br><span class="line">	 int i=0,j;</span><br><span class="line"> 	do&#123;</span><br><span class="line">	 	a[i]=s.nextInt();</span><br><span class="line">	  	i++;</span><br><span class="line">	 &#125;while (a[i-1]!=-1);</span><br><span class="line"> 	System.out.println(&quot;你输入的数组为：&quot;);</span><br><span class="line">	 for( j=0; j&lt;i-1; j++) </span><br><span class="line">	 &#123;</span><br><span class="line">		 System.out.print(a[j]+&quot; &quot;);</span><br><span class="line">	 &#125;</span><br><span class="line"> 	System.out.println(&quot;\n数组逆序输出为：&quot;);</span><br><span class="line">	 for( j=i-2; j&gt;=0; j=j-1) </span><br><span class="line">	 &#123;</span><br><span class="line"> 		System.out.print(a[j]+&quot; &quot;);</span><br><span class="line">	 &#125;</span><br><span class="line"> 	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="4-计算一个正整数的正平方根"><a href="#4-计算一个正整数的正平方根" class="headerlink" title="4.计算一个正整数的正平方根"></a>4.计算一个正整数的正平方根</h5><h5 id="5-说白了就是常见的那些查找、排序算法以及各自的时间复杂度"><a href="#5-说白了就是常见的那些查找、排序算法以及各自的时间复杂度" class="headerlink" title="5.说白了就是常见的那些查找、排序算法以及各自的时间复杂度"></a>5.说白了就是常见的那些查找、排序算法以及各自的时间复杂度</h5><h5 id="6-二叉树的遍历算法"><a href="#6-二叉树的遍历算法" class="headerlink" title="6.二叉树的遍历算法"></a>6.二叉树的遍历算法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">//二叉树节点</span><br><span class="line">public class BinaryTreeNode &#123;</span><br><span class="line">    private int data;</span><br><span class="line">    private BinaryTreeNode left;</span><br><span class="line">    private BinaryTreeNode right;</span><br><span class="line">    </span><br><span class="line">    public BinaryTreeNode() &#123;&#125;</span><br><span class="line"></span><br><span class="line">    public BinaryTreeNode(int data, BinaryTreeNode left, BinaryTreeNode right) &#123;</span><br><span class="line">        super();</span><br><span class="line">        this.data = data;</span><br><span class="line">        this.left = left;</span><br><span class="line">        this.right = right;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getData() &#123;</span><br><span class="line">        return data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setData(int data) &#123;</span><br><span class="line">        this.data = data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public BinaryTreeNode getLeft() &#123;</span><br><span class="line">        return left;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setLeft(BinaryTreeNode left) &#123;</span><br><span class="line">        this.left = left;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public BinaryTreeNode getRight() &#123;</span><br><span class="line">        return right;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setRight(BinaryTreeNode right) &#123;</span><br><span class="line">        this.right = right;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 前序递归遍历算法：访问根结点–&gt;递归遍历根结点的左子树–&gt;递归遍历根结点的右子树</p>
+<p> 中序递归遍历算法：递归遍历根结点的左子树–&gt;访问根结点–&gt;递归遍历根结点的右子树</p>
+<p> 后序递归遍历算法：递归遍历根结点的左子树–&gt;递归遍历根结点的右子树–&gt;访问根结点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line">import com.ccut.aaron.stack.LinkedStack;</span><br><span class="line"></span><br><span class="line">public class BinaryTree &#123;</span><br><span class="line">    //前序遍历递归的方式</span><br><span class="line">    public void preOrder(BinaryTreeNode root)&#123;</span><br><span class="line">        if(null!=root)&#123;</span><br><span class="line">            System.out.print(root.getData()+&quot;\t&quot;);</span><br><span class="line">            preOrder(root.getLeft());</span><br><span class="line">            preOrder(root.getRight());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //前序遍历非递归的方式</span><br><span class="line">    public void preOrderNonRecursive(BinaryTreeNode root)&#123;</span><br><span class="line">        Stack&lt;BinaryTreeNode&gt; stack=new Stack&lt;BinaryTreeNode&gt;();</span><br><span class="line">        while(true)&#123;</span><br><span class="line">            while(root!=null)&#123;</span><br><span class="line">                System.out.print(root.getData()+&quot;\t&quot;);</span><br><span class="line">                stack.push(root);</span><br><span class="line">                root=root.getLeft();</span><br><span class="line">            &#125;</span><br><span class="line">            if(stack.isEmpty()) break;</span><br><span class="line">            root=stack.pop();</span><br><span class="line">            root=root.getRight();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //中序遍历采用递归的方式</span><br><span class="line">    public void inOrder(BinaryTreeNode root)&#123;</span><br><span class="line">        if(null!=root)&#123;</span><br><span class="line">            inOrder(root.getLeft());</span><br><span class="line">            System.out.print(root.getData()+&quot;\t&quot;);</span><br><span class="line">            inOrder(root.getRight());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //中序遍历采用非递归的方式</span><br><span class="line">    public void inOrderNonRecursive(BinaryTreeNode root)&#123;</span><br><span class="line">        Stack&lt;BinaryTreeNode&gt; stack=new Stack&lt;BinaryTreeNode&gt;();</span><br><span class="line">        while(true)&#123;</span><br><span class="line">            while(root!=null)&#123;</span><br><span class="line">                stack.push(root);</span><br><span class="line">                root=root.getLeft();</span><br><span class="line">            &#125;</span><br><span class="line">            if(stack.isEmpty())break;</span><br><span class="line">            root=stack.pop();</span><br><span class="line">            System.out.print(root.getData()+&quot;\t&quot;);</span><br><span class="line">            root=root.getRight();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //后序遍历采用递归的方式</span><br><span class="line">    public void postOrder(BinaryTreeNode root)&#123;</span><br><span class="line">        if(root!=null)&#123;</span><br><span class="line">            postOrder(root.getLeft());</span><br><span class="line">            postOrder(root.getRight());</span><br><span class="line">            System.out.print(root.getData()+&quot;\t&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //后序遍历采用非递归的方式</span><br><span class="line">    public void postOrderNonRecursive(BinaryTreeNode root)&#123;</span><br><span class="line">        Stack&lt;BinaryTreeNode&gt; stack=new Stack&lt;BinaryTreeNode&gt;();</span><br><span class="line">        while(true)&#123;</span><br><span class="line">            if(root!=null)&#123;</span><br><span class="line">                stack.push(root);</span><br><span class="line">                root=root.getLeft();</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                if(stack.isEmpty()) return;</span><br><span class="line">                </span><br><span class="line">                if(null==stack.lastElement().getRight())&#123;</span><br><span class="line">                    root=stack.pop();</span><br><span class="line">                    System.out.print(root.getData()+&quot;\t&quot;);</span><br><span class="line">                    while(root==stack.lastElement().getRight())&#123;</span><br><span class="line">                        System.out.print(stack.lastElement().getData()+&quot;\t&quot;);</span><br><span class="line">                        root=stack.pop();</span><br><span class="line">                        if(stack.isEmpty())&#123;</span><br><span class="line">                            break;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">                if(!stack.isEmpty())</span><br><span class="line">                    root=stack.lastElement().getRight();</span><br><span class="line">                else</span><br><span class="line">                    root=null;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //层序遍历</span><br><span class="line">    public void levelOrder(BinaryTreeNode root)&#123;</span><br><span class="line">        BinaryTreeNode temp;</span><br><span class="line">        Queue&lt;BinaryTreeNode&gt; queue=new LinkedList&lt;BinaryTreeNode&gt;();</span><br><span class="line">        queue.offer(root);</span><br><span class="line">        while(!queue.isEmpty())&#123;</span><br><span class="line">            temp=queue.poll();</span><br><span class="line">            System.out.print(temp.getData()+&quot;\t&quot;);</span><br><span class="line">            if(null!=temp.getLeft()) </span><br><span class="line">                queue.offer(temp.getLeft());</span><br><span class="line">            if(null!=temp.getRight())&#123;</span><br><span class="line">                queue.offer(temp.getRight());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        BinaryTreeNode node10=new BinaryTreeNode(10,null,null);</span><br><span class="line">        BinaryTreeNode node8=new BinaryTreeNode(8,null,null);</span><br><span class="line">        BinaryTreeNode node9=new BinaryTreeNode(9,null,node10);</span><br><span class="line">        BinaryTreeNode node4=new BinaryTreeNode(4,null,null);</span><br><span class="line">        BinaryTreeNode node5=new BinaryTreeNode(5,node8,node9);</span><br><span class="line">        BinaryTreeNode node6=new BinaryTreeNode(6,null,null);</span><br><span class="line">        BinaryTreeNode node7=new BinaryTreeNode(7,null,null);</span><br><span class="line">        BinaryTreeNode node2=new BinaryTreeNode(2,node4,node5);</span><br><span class="line">        BinaryTreeNode node3=new BinaryTreeNode(3,node6,node7);</span><br><span class="line">        BinaryTreeNode node1=new BinaryTreeNode(1,node2,node3);</span><br><span class="line">        </span><br><span class="line">        BinaryTree tree=new BinaryTree();</span><br><span class="line">        //采用递归的方式进行遍历</span><br><span class="line">        System.out.println(&quot;-----前序遍历------&quot;);</span><br><span class="line">        tree.preOrder(node1);</span><br><span class="line">        System.out.println();</span><br><span class="line">        //采用非递归的方式遍历</span><br><span class="line">        tree.preOrderNonRecursive(node1);</span><br><span class="line">        System.out.println();</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        //采用递归的方式进行遍历</span><br><span class="line">        System.out.println(&quot;-----中序遍历------&quot;);</span><br><span class="line">        tree.inOrder(node1);</span><br><span class="line">        System.out.println();</span><br><span class="line">        //采用非递归的方式遍历</span><br><span class="line">        tree.inOrderNonRecursive(node1);</span><br><span class="line">        System.out.println();</span><br><span class="line">        </span><br><span class="line">        //采用递归的方式进行遍历</span><br><span class="line">        System.out.println(&quot;-----后序遍历------&quot;);</span><br><span class="line">        tree.postOrder(node1);</span><br><span class="line">        System.out.println();</span><br><span class="line">        //采用非递归的方式遍历</span><br><span class="line">        tree.postOrderNonRecursive(node1);</span><br><span class="line">        System.out.println();</span><br><span class="line">        </span><br><span class="line">        //采用递归的方式进行遍历</span><br><span class="line">        System.out.println(&quot;-----层序遍历------&quot;);</span><br><span class="line">        tree.levelOrder(node1);</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="7-DFS-BFS算法"><a href="#7-DFS-BFS算法" class="headerlink" title="7.DFS,BFS算法"></a>7.DFS,BFS算法</h5><p>参考：<a href="https://blog.csdn.net/qq_40660894/article/details/88385180" target="_blank" rel="noopener">https://blog.csdn.net/qq_40660894/article/details/88385180</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">import java.util.LinkedList;</span><br><span class="line">import java.util.Queue;</span><br><span class="line"></span><br><span class="line">public class Graph &#123;</span><br><span class="line">	private int v;	//顶点个数</span><br><span class="line">	private LinkedList&lt;Integer&gt; adj[];	//存放边</span><br><span class="line">	Graph(int v)&#123;</span><br><span class="line">		this.v = v;</span><br><span class="line">		adj = new LinkedList[v];</span><br><span class="line">		for(int i=0; i&lt;v; ++i) &#123;</span><br><span class="line">			adj[i] = new LinkedList&lt;&gt;();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public void addEdge(int s, int t) &#123;	//无向图一条边要存两次</span><br><span class="line">		adj[s].add(t);</span><br><span class="line">		adj[t].add(s);</span><br><span class="line">	&#125;</span><br><span class="line">	//广度优先搜索</span><br><span class="line">	public void bfs(int s, int t) &#123;</span><br><span class="line">		if(s == t)return;</span><br><span class="line">		boolean[] visited = new boolean[v];	//存放已经访问过的节点</span><br><span class="line">		visited[s] = true;</span><br><span class="line">		Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();	//存放已经访问过但相连节点还没有被访问过的节点</span><br><span class="line">		queue.add(s);</span><br><span class="line">		int[] prev = new int[v];			//记录搜素路径</span><br><span class="line">		for(int i=0; i&lt;v;i++) &#123;</span><br><span class="line">			prev[i] = -1;</span><br><span class="line">		&#125;</span><br><span class="line">		while(queue.size() != 0) &#123;</span><br><span class="line">			int w =queue.poll();</span><br><span class="line">			for(int i=0; i&lt;adj[w].size();++i) &#123;</span><br><span class="line">				int q = adj[w].get(i);</span><br><span class="line">				while(!visited[q]) &#123;</span><br><span class="line">					prev[q] = w;</span><br><span class="line">					if(q == t) &#123;</span><br><span class="line">						print(prev,s,t);</span><br><span class="line">						return;</span><br><span class="line">					&#125;</span><br><span class="line">					visited[q] = true;</span><br><span class="line">					queue.add(q);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public void print(int[] prev, int s,int t) &#123;	//递归打印s--&gt;t的路径</span><br><span class="line">		if(prev[t] != -1 &amp;&amp; s != t) &#123;</span><br><span class="line">			print(prev,s,prev[t]);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.print(t + &quot; &quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	boolean found = false;</span><br><span class="line">	//深度优先搜索</span><br><span class="line">	public void dfs(int s,int t) &#123;</span><br><span class="line">		found = false;</span><br><span class="line">		boolean[] visited = new boolean[v];</span><br><span class="line">		int[] prev = new int[v];</span><br><span class="line">		for(int i=0;i&lt;v;++i) &#123;</span><br><span class="line">			prev[i] = -1;</span><br><span class="line">		&#125;</span><br><span class="line">		recurDfs(s,t,visited,prev);</span><br><span class="line">		print(prev,s,t);</span><br><span class="line"> 	&#125;</span><br><span class="line">	public void recurDfs(int w, int t, boolean[] visited,int [] prev) &#123;</span><br><span class="line">		if(found == true)return;</span><br><span class="line">		visited[w] = true;</span><br><span class="line">		if(w == t) &#123;</span><br><span class="line">			found = true;</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		for(int i=0; i&lt;adj[w].size();++i) &#123;</span><br><span class="line">			int q = adj[w].get(i);</span><br><span class="line">			if(!visited[q]) &#123;</span><br><span class="line">				prev[q] = w;</span><br><span class="line">				recurDfs(q,t,visited,prev);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Graph graph = new Graph(8);</span><br><span class="line">		graph.addEdge(0, 1);</span><br><span class="line">		graph.addEdge(0, 3);</span><br><span class="line">		graph.addEdge(1, 2);</span><br><span class="line">		graph.addEdge(1, 4);</span><br><span class="line">		graph.addEdge(3, 4);</span><br><span class="line">		graph.addEdge(2, 5);</span><br><span class="line">		graph.addEdge(4, 5);</span><br><span class="line">		graph.addEdge(4, 6);</span><br><span class="line">		graph.addEdge(5, 7);</span><br><span class="line">		graph.addEdge(6, 7);</span><br><span class="line">		graph.bfs(0, 6);</span><br><span class="line">		System.out.println();</span><br><span class="line">		graph.dfs(0, 7);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="8-比较重要的数据结构，如链表，队列，栈的基本理解及大致实现"><a href="#8-比较重要的数据结构，如链表，队列，栈的基本理解及大致实现" class="headerlink" title="8.比较重要的数据结构，如链表，队列，栈的基本理解及大致实现"></a>8.比较重要的数据结构，如链表，队列，<strong>栈的基本理解及大致实现</strong></h5><h5 id="9-排序算法与时空复杂度（快排为什么不稳定，为什么你的项目还在用）"><a href="#9-排序算法与时空复杂度（快排为什么不稳定，为什么你的项目还在用）" class="headerlink" title="9.排序算法与时空复杂度（快排为什么不稳定，为什么你的项目还在用）"></a>9.排序算法与时空复杂度（快排为什么不稳定，为什么你的项目还在用）</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class QuickSort &#123;</span><br><span class="line">    public static void quickSort(int[] arr,int low,int high)&#123;</span><br><span class="line">        int i,j,temp,t;</span><br><span class="line">        if(low&gt;high)&#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        i=low;</span><br><span class="line">        j=high;</span><br><span class="line">        //temp就是基准位</span><br><span class="line">        temp = arr[low];</span><br><span class="line">        while (i&lt;j) &#123;</span><br><span class="line">            //先看右边，依次往左递减</span><br><span class="line"></span><br><span class="line">            while (temp&lt;=arr[j]&amp;&amp;i&lt;j) &#123;</span><br><span class="line"></span><br><span class="line">                j--;</span><br><span class="line">            &#125;</span><br><span class="line">            //再看左边，依次往右递增</span><br><span class="line">            while (temp&gt;=arr[i]&amp;&amp;i&lt;j) &#123;</span><br><span class="line">               i++;</span><br><span class="line">            &#125;</span><br><span class="line">            //如果满足条件则交换</span><br><span class="line">            if (i&lt;j) &#123;</span><br><span class="line">                t = arr[j];</span><br><span class="line">                arr[j] = arr[i];</span><br><span class="line">                arr[i] = t;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //最后将基准为与i和j相等位置的数字交换</span><br><span class="line">         arr[low] = arr[i];</span><br><span class="line">         arr[i] = temp;</span><br><span class="line">        //递归调用左半数组</span><br><span class="line">        quickSort(arr, low, j-1);</span><br><span class="line">        //递归调用右半数组</span><br><span class="line">        quickSort(arr, j+1, high);</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String[] args)</span><br><span class="line">    &#123;</span><br><span class="line">        int[] arr = &#123;10,7,2,4,7,62,3,4,2,1,8,9,19&#125;;</span><br><span class="line">        quickSort(arr, 0, arr.length-1);</span><br><span class="line">        for (int i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">            System.out.println(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="10-逆波兰计算器"><a href="#10-逆波兰计算器" class="headerlink" title="10.逆波兰计算器"></a>10.逆波兰计算器</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="11-Hoffman-编码"><a href="#11-Hoffman-编码" class="headerlink" title="11.Hoffman 编码"></a>11.Hoffman 编码</h5><p>参考：<a href="https://blog.csdn.net/sinat_22828505/article/details/50364158" target="_blank" rel="noopener">https://blog.csdn.net/sinat_22828505/article/details/50364158</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br></pre></td><td class="code"><pre><span class="line">/*-------------------------------------------------------------------------</span><br><span class="line"> * Name:   哈夫曼编码源</span><br><span class="line"> * Date:   2015.12.20</span><br><span class="line"> * Author: Ingrid </span><br><span class="line"> * 实现过程：</span><br><span class="line"> *      //初始化huffmanTree,huffmanCode</span><br><span class="line"> *      initHuffmanTree(huffmanTree,m);</span><br><span class="line"> *      initHuffmanCode(huffmanCode,n);</span><br><span class="line"> *      </span><br><span class="line"> *      //获取huffmanCode的符号</span><br><span class="line"> *      getHuffmanCode(huffmanCode,n);</span><br><span class="line"> *</span><br><span class="line"> *      //获取huffmanTree的频数</span><br><span class="line"> *      getHuffmanWeight(huffmanTree,n);</span><br><span class="line"> *      </span><br><span class="line"> *      //创建huffmanTree</span><br><span class="line"> *      createHaffmanTree(huffmanTree,n);</span><br><span class="line"> *      //创建huffmanCode</span><br><span class="line"> *      createHaffmanCode(huffmanTree,huffmanCode,n);</span><br><span class="line"> *      </span><br><span class="line"> *      //输出huffmanCode编码</span><br><span class="line"> *      ouputHaffmanCode(huffmanCode,n);    </span><br><span class="line"> *------------------------------------------------------------------------*/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import java.util.Scanner;</span><br><span class="line">public class HuffmanCode&#123;</span><br><span class="line">    //建立数的节点类</span><br><span class="line">    static class Node&#123;</span><br><span class="line">        int weight;//频数</span><br><span class="line">        int parent;</span><br><span class="line">        int leftChild;</span><br><span class="line">        int rightChild;</span><br><span class="line"></span><br><span class="line">        public Node(int weight,int parent,int leftChild,int rightChild)&#123;</span><br><span class="line">            this.weight=weight;</span><br><span class="line">            this.parent=parent;</span><br><span class="line">            this.leftChild=leftChild;</span><br><span class="line">            this.rightChild=rightChild;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        void setWeight(int weight)&#123;</span><br><span class="line">            this.weight=weight;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        void setParent(int parent)&#123;</span><br><span class="line">            this.parent=parent;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        void setLeftChild(int leftChild)&#123;</span><br><span class="line">            this.leftChild=leftChild;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        void setRightChild(int rightChild)&#123;</span><br><span class="line">            this.rightChild=rightChild;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        int getWeight()&#123;</span><br><span class="line">            return weight;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        int getParent()&#123;</span><br><span class="line">            return parent;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        int getLeftChild()&#123;</span><br><span class="line">            return leftChild;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        int getRightChild()&#123;</span><br><span class="line">            return rightChild;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //新建哈夫曼编码</span><br><span class="line">    static class NodeCode&#123;</span><br><span class="line">        String character;</span><br><span class="line">        String code;</span><br><span class="line">        NodeCode(String character,String code)&#123;</span><br><span class="line">            this.character=character;</span><br><span class="line">            this.code=code;</span><br><span class="line">        &#125;</span><br><span class="line">        NodeCode(String code)&#123;</span><br><span class="line">            this.code= code;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        void setCharacter(String character)&#123;</span><br><span class="line">            this.character=character;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        void setCode(String code)&#123;</span><br><span class="line">            this.code=code;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        String getCharacter()&#123;</span><br><span class="line">            return character;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        String getCode()&#123;</span><br><span class="line">            return code;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //初始化一个huffuman树</span><br><span class="line">    public static void initHuffmanTree(Node[] huffmanTree,int m)&#123;</span><br><span class="line">        for(int i=0;i&lt;m;i++)&#123;</span><br><span class="line">            huffmanTree[i] = new Node(0,-1,-1,-1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //初始化一个huffmanCode</span><br><span class="line">    public static void initHuffmanCode(NodeCode[] huffmanCode,int n)&#123;</span><br><span class="line">        for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">            huffmanCode[i]=new NodeCode(&quot;&quot;,&quot;&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //获取huffmanCode的符号</span><br><span class="line">    public static void getHuffmanCode(NodeCode[] huffmanCode , int n)&#123;</span><br><span class="line">        Scanner input = new Scanner(System.in);</span><br><span class="line">        for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">            String temp = input.next();</span><br><span class="line">            huffmanCode[i] = new NodeCode(temp,&quot;&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //获取huffman树节点频数</span><br><span class="line">    public static void getHuffmanWeight(Node[] huffmanTree , int n)&#123;</span><br><span class="line">        Scanner input = new Scanner(System.in);</span><br><span class="line">        for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">            int temp = input.nextInt();</span><br><span class="line">            huffmanTree[i] = new Node(temp,-1,-1,-1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //从n个结点中选取最小的两个结点</span><br><span class="line">    public static int[] selectMin(Node[] huffmanTree ,int n)  </span><br><span class="line">    &#123;  </span><br><span class="line">        int min[] = new int[2];</span><br><span class="line">          class TempNode</span><br><span class="line">           &#123;  </span><br><span class="line">                  int newWeight;//存储权  </span><br><span class="line">                  int place;//存储该结点所在的位置  </span><br><span class="line"></span><br><span class="line">                  TempNode(int newWeight,int place)&#123;</span><br><span class="line">                      this.newWeight=newWeight;</span><br><span class="line">                      this.place=place;</span><br><span class="line">                  &#125;</span><br><span class="line"></span><br><span class="line">                  void setNewWeight(int newWeight)&#123;</span><br><span class="line">                      this.newWeight=newWeight;</span><br><span class="line">                  &#125;</span><br><span class="line"></span><br><span class="line">                  void setPlace(int place)&#123;</span><br><span class="line">                      this.place=place;</span><br><span class="line">                  &#125;</span><br><span class="line"></span><br><span class="line">                  int getNewWeight()&#123;</span><br><span class="line">                      return newWeight;</span><br><span class="line">                  &#125;</span><br><span class="line"></span><br><span class="line">                  int getPlace()&#123;</span><br><span class="line">                      return place;</span><br><span class="line">                  &#125;</span><br><span class="line">           &#125; </span><br><span class="line"></span><br><span class="line">           TempNode[] tempTree=new TempNode[n];  </span><br><span class="line"></span><br><span class="line">         //将huffmanTree中没有双亲的结点存储到tempTree中 </span><br><span class="line">           int i=0,j=0;   </span><br><span class="line">           for(i=0;i&lt;n;i++)  </span><br><span class="line">           &#123;  </span><br><span class="line">                  if(huffmanTree[i].getParent()==-1&amp;&amp; huffmanTree[i].getWeight()!=0)  </span><br><span class="line">                  &#123;  </span><br><span class="line">                      tempTree[j]= new TempNode(huffmanTree[i].getWeight(),i);  </span><br><span class="line">                      j++;  </span><br><span class="line">                  &#125;  </span><br><span class="line">           &#125; </span><br><span class="line"></span><br><span class="line">           int m1,m2;  </span><br><span class="line">           m1=m2=0;  </span><br><span class="line">           for(i=0;i&lt;j;i++)  </span><br><span class="line">           &#123;  </span><br><span class="line">                  if(tempTree[i].getNewWeight()&lt;tempTree[m1].getNewWeight())//此处不让取到相等，是因为结点中有相同权值的时候，m1取最前的   </span><br><span class="line">                         m1=i;  </span><br><span class="line">           &#125;  </span><br><span class="line">           for(i=0;i&lt;j;i++)  </span><br><span class="line">           &#123;  </span><br><span class="line">                  if(m1==m2)  </span><br><span class="line">                         m2++;//当m1在第一个位置的时候，m2向后移一位  </span><br><span class="line">                  if(tempTree[i].getNewWeight()&lt;=tempTree[m2].getNewWeight()&amp;&amp; i!=m1)//此处取到相等，是让在结点中有相同的权值的时候，  </span><br><span class="line"></span><br><span class="line">                                       //m2取最后的那个。  </span><br><span class="line">                         m2=i;  </span><br><span class="line">           &#125;  </span><br><span class="line"></span><br><span class="line">           min[0]=tempTree[m1].getPlace();  </span><br><span class="line">           min[1]=tempTree[m2].getPlace();  </span><br><span class="line">       return min;</span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    //创建huffmanTree</span><br><span class="line">    public static void createHaffmanTree(Node[] huffmanTree,int n)&#123;   </span><br><span class="line">           if(n&lt;=1)  </span><br><span class="line">               System.out.println(&quot;Parameter Error!&quot;);  </span><br><span class="line">           int m = 2*n-1; </span><br><span class="line">           //initHuffmanTree(huffmanTree,m);  </span><br><span class="line"></span><br><span class="line">           for(int i=n;i&lt;m;i++)  </span><br><span class="line">           &#123;      </span><br><span class="line">               int[] min=selectMin(huffmanTree,i);</span><br><span class="line">               int min1=min[0];</span><br><span class="line">               int min2=min[1];</span><br><span class="line">               huffmanTree[min1].setParent(i);  </span><br><span class="line">               huffmanTree[min2].setParent(i);  </span><br><span class="line">               huffmanTree[i].setLeftChild(min1);  </span><br><span class="line">               huffmanTree[i].setRightChild(min2);</span><br><span class="line">               huffmanTree[i].setWeight(huffmanTree[min1].getWeight()+ huffmanTree[min2].getWeight());   </span><br><span class="line">           &#125;  </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //创建huffmanCode</span><br><span class="line">    public static void createHaffmanCode(Node[] huffmanTree,NodeCode[] huffmanCode,int n)&#123;</span><br><span class="line">        Scanner input = new Scanner(System.in);</span><br><span class="line">        char[] code = new char[10]; </span><br><span class="line">        int start;</span><br><span class="line">        int c;</span><br><span class="line">        int parent;</span><br><span class="line">        int temp;</span><br><span class="line"></span><br><span class="line">        code[n-1]=&apos;0&apos;; </span><br><span class="line">        for(int i=0;i&lt;n;i++)  </span><br><span class="line">           &#123;</span><br><span class="line">            StringBuffer stringBuffer = new StringBuffer();</span><br><span class="line">            start=n-1;</span><br><span class="line">            c=i;</span><br><span class="line">            while( (parent=huffmanTree[c].getParent()) &gt;=0 )  </span><br><span class="line">                  &#123;  </span><br><span class="line">                         start--;  </span><br><span class="line">                         code[start]=((huffmanTree[parent].getLeftChild()==c)?&apos;0&apos;:&apos;1&apos;);  </span><br><span class="line">                         c=parent;  </span><br><span class="line"></span><br><span class="line">                  &#125; </span><br><span class="line">            for(;start&lt;n-1;start++)&#123;</span><br><span class="line">                 stringBuffer.append(code[start]);</span><br><span class="line">            &#125;</span><br><span class="line">            huffmanCode[i].setCode(stringBuffer.toString());</span><br><span class="line">           &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //输出hufmanCode</span><br><span class="line">    public static void ouputHaffmanCode(NodeCode[] huffmanCode,int n)&#123;</span><br><span class="line">        System.out.println(&quot;字符与编码的对应关系如下：&quot;);</span><br><span class="line">        for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">            System.out.println(huffmanCode[i].getCharacter()+&quot;:&quot;+huffmanCode[i].getCode());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //主函数</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        Scanner input = new Scanner(System.in);</span><br><span class="line">        int n;</span><br><span class="line">        int m;</span><br><span class="line">        System.out.print(&quot;请输入字符个数：&quot;);</span><br><span class="line">        n = input.nextInt();</span><br><span class="line">        m=2*n-1;</span><br><span class="line">        Node[] huffmanTree = new Node[m];</span><br><span class="line">        NodeCode[] huffmanCode = new NodeCode[n];</span><br><span class="line"></span><br><span class="line">        //初始化huffmanTree,huffmanCode</span><br><span class="line">        initHuffmanTree(huffmanTree,m);</span><br><span class="line">        initHuffmanCode(huffmanCode,n);</span><br><span class="line"></span><br><span class="line">        //获取huffmanCode的符号</span><br><span class="line">        System.out.print(&quot;请输入哈夫曼编码的字符：&quot;);</span><br><span class="line">        getHuffmanCode(huffmanCode,n);</span><br><span class="line"></span><br><span class="line">        //获取huffmanTree的频数</span><br><span class="line">        System.out.print(&quot;请输入哈夫曼编码字符对应的频数：&quot;);</span><br><span class="line">        getHuffmanWeight(huffmanTree,n);</span><br><span class="line"></span><br><span class="line">        //创建huffmanTree</span><br><span class="line">        createHaffmanTree(huffmanTree,n);</span><br><span class="line">        //创建huffmanCode</span><br><span class="line">        createHaffmanCode(huffmanTree,huffmanCode,n);</span><br><span class="line"></span><br><span class="line">        //输出huffmanCode编码</span><br><span class="line">        ouputHaffmanCode(huffmanCode,n);</span><br><span class="line"></span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="12-查找树与红黑树"><a href="#12-查找树与红黑树" class="headerlink" title="12.查找树与红黑树"></a>12.查找树与红黑树</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">二叉查找树：是由2节点的树组成的，最坏的时间复杂度是O(N)</span><br><span class="line">树为空插入的节点作为根节点</span><br><span class="line">插入的节点等于子树的值，则树不增加节点</span><br><span class="line">插入的节点大于最终查询的子树则作为子树的右节点</span><br><span class="line">插入的节点小于最终查询的子树则作为子树的左节点</span><br><span class="line">红黑树</span><br><span class="line">每个节点要么是红色，要么是黑色（2-3树节点要么是2节点要么是3节点）</span><br><span class="line">根节点必须是黑色</span><br><span class="line">红色节点不能连续（红色节点的子和父不能为红）（不能有4节点。注意2-3的4节点是临时的）</span><br><span class="line">对于每个节点，从该点至null（树的尾端）的任何路径，都含有相同个数的黑色节点。</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试题/" rel="tag"># 面试题</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/29/Java面试题总结七MySQL/" rel="next" title="Java面试题总结七MySQL">
+                <i class="fa fa-chevron-left"></i> Java面试题总结七MySQL
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/30/Spring的事务传播行为与隔离级别/" rel="prev" title="Spring的事务传播行为与隔离级别">
+                Spring的事务传播行为与隔离级别 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="ZZQ">
+            
+              <p class="site-author-name" itemprop="name">ZZQ</p>
+              <p class="site-description motion-element" itemprop="description">坦坦荡荡 一身正气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-使用随机算法产生一个数，要求把1-1000W之间这些数全部生成。（考察高效率，解决产生冲突的问题）"><span class="nav-number">1.</span> <span class="nav-text">1.使用随机算法产生一个数，要求把1-1000W之间这些数全部生成。（考察高效率，解决产生冲突的问题）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-两个有序数组的合并排序"><span class="nav-number">2.</span> <span class="nav-text">2.两个有序数组的合并排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-一个数组的倒序"><span class="nav-number">3.</span> <span class="nav-text">3.一个数组的倒序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-计算一个正整数的正平方根"><span class="nav-number">4.</span> <span class="nav-text">4.计算一个正整数的正平方根</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-说白了就是常见的那些查找、排序算法以及各自的时间复杂度"><span class="nav-number">5.</span> <span class="nav-text">5.说白了就是常见的那些查找、排序算法以及各自的时间复杂度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-二叉树的遍历算法"><span class="nav-number">6.</span> <span class="nav-text">6.二叉树的遍历算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-DFS-BFS算法"><span class="nav-number">7.</span> <span class="nav-text">7.DFS,BFS算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-比较重要的数据结构，如链表，队列，栈的基本理解及大致实现"><span class="nav-number">8.</span> <span class="nav-text">8.比较重要的数据结构，如链表，队列，栈的基本理解及大致实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-排序算法与时空复杂度（快排为什么不稳定，为什么你的项目还在用）"><span class="nav-number">9.</span> <span class="nav-text">9.排序算法与时空复杂度（快排为什么不稳定，为什么你的项目还在用）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-逆波兰计算器"><span class="nav-number">10.</span> <span class="nav-text">10.逆波兰计算器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-Hoffman-编码"><span class="nav-number">11.</span> <span class="nav-text">11.Hoffman 编码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#12-查找树与红黑树"><span class="nav-number">12.</span> <span class="nav-text">12.查找树与红黑树</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZZQ</span>
+
+  
+</div>
+
+
+ <!-- 
+ 
+ <div class="powered-by">世界是美好的</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">是值得我们去奋斗的 &mdash;  v</div>
+
+-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+	 
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv"></span>
+        </span>
+        <span class="post-meta-divider"></span>
+        <span id="busuanzi_container_site_uv" style="display:none">
+                <span id="busuanzi_value_site_uv"></span>
+        </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v="></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+		<link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: "<%=page.date%>", 
+            owner: 'zqnh',
+            repo: 'zqnh.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd9c922b4c4a7b4458ba55aa5673db78556aa9d1f',
+            
+                client_id: 'ca41c1f6c6585b630f16'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

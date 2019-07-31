@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试题,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Get和Post有什么区别GET和POST本质上都是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。1.在浏览器端，Get通过URL提交数据，数据可以在URL中可以看到；Post数据放置Body中.2.Get和Post的URL长度，都没有限制，出于安全和稳定性，性能方面等，浏览器和服务器会对URL长度做限制，3.安全问题，Post比Get安全">
+<meta name="keywords" content="面试题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java面试题总结三Web">
+<meta property="og:url" content="http://yoursite.com/2019/07/26/Java面试题总结三Web/index.html">
+<meta property="og:site_name" content="Aemon Zhu">
+<meta property="og:description" content="Get和Post有什么区别GET和POST本质上都是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。1.在浏览器端，Get通过URL提交数据，数据可以在URL中可以看到；Post数据放置Body中.2.Get和Post的URL长度，都没有限制，出于安全和稳定性，性能方面等，浏览器和服务器会对URL长度做限制，3.安全问题，Post比Get安全">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-31T07:17:04.114Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java面试题总结三Web">
+<meta name="twitter:description" content="Get和Post有什么区别GET和POST本质上都是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。1.在浏览器端，Get通过URL提交数据，数据可以在URL中可以看到；Post数据放置Body中.2.Get和Post的URL长度，都没有限制，出于安全和稳定性，性能方面等，浏览器和服务器会对URL长度做限制，3.安全问题，Post比Get安全">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/26/Java面试题总结三Web/">
+
+
+
+
+
+  <title>Java面试题总结三Web | Aemon Zhu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zqnh"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1" style="
+    margin-left: 1114px;
+    margin-right: 0px;
+"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aemon Zhu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习使我快乐 敲代码使我充实</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/26/Java面试题总结三Web/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZZQ">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aemon Zhu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java面试题总结三Web</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-26T18:58:39+08:00">
+                2019-07-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/26/Java面试题总结三Web/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/07/26/Java面试题总结三Web/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h5 id="Get和Post有什么区别"><a href="#Get和Post有什么区别" class="headerlink" title="Get和Post有什么区别"></a>Get和Post有什么区别</h5><p>GET和POST本质上都是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。<br>1.在浏览器端，Get通过URL提交数据，数据可以在URL中可以看到；Post数据放置Body中.<br>2.Get和Post的URL长度，都没有限制，出于安全和稳定性，性能方面等，浏览器和服务器会对URL长度做限制，<br>3.安全问题，Post比Get安全一点点，都是明文传输（如果抓包的话两者都不安全）。<br>4.Get在浏览器回退时是无害的，Post则会再次提交请求<br>5.GET产生一个TCP数据包；POST产生两个TCP数据包。<br>6.Get比Post效率高</p>
+<h5 id="前端和后端如何交互数据"><a href="#前端和后端如何交互数据" class="headerlink" title="前端和后端如何交互数据"></a>前端和后端如何交互数据</h5><p>1.通过Form表单，分为Post和Get，通过submit直接提交(非Ajax)，后台返回一个html页面或其他内容。<br>2.href页面跳转模式，前端通过url访问Servlet(服务器小程序)，后台返回数据。<br>3.利用Ajax进行异步数据请求<br>用jquery来写Ajax的话，需要五个参数，url：传输的地址，通常我们为了及时刷新，防止缓存，我们需要带一个对值不影响的参数，<br>method：发出参数的请求方法<br>datatype：值返回数据类型<br>data：指发出的参数<br>success：参数传送出去后，得到相应处理并且成功返回时所执行的代码块</p>
+<h5 id="Get请求怎么提交中文数据"><a href="#Get请求怎么提交中文数据" class="headerlink" title="Get请求怎么提交中文数据"></a>Get请求怎么提交中文数据</h5><p>1.浏览器发送文字编码和页面编码保持一致，并且和服务器编码一致，可以都为utf-8<br>2.如果不想在服务器上指定编码方式，可以在页面Get请求提交时对中文进行url转码，<br>URLDecoder.decode(request.getParameter(“取到的加密字符串”), “utf-8”）；</p>
+<h5 id="filter和servlet有什么区别"><a href="#filter和servlet有什么区别" class="headerlink" title="filter和servlet有什么区别"></a>filter和servlet有什么区别</h5><p>1.servlet：servlet是一种运行服务器端的java应用程序，具有独立于平台和协议的特性，并且可以动态的生成web页面，它工作在客户端请求与服务器响应的中间层.<br>filter: filter是一个可以复用的代码片段，可以用来转换HTTP请求、响应和头信息。Filter不像Servlet，它不能产生一个请求或者响应，它只是修改对某一资源的请求，或者修改从某一的响应<br>2.生命周期<br>servlet：装入-&gt;初始化-&gt;调用-&gt;销毁<br>filter：启动服务器时加载，并调用init方法初始化，每一次请求都只调用doFilter方法进行处理，销毁<br>3.作用<br>servlet：创建并返回一个包含基于客户请求性质的动态内容的完整的html页面；<br>创建可嵌入到现有的html页面中的一部分html页面（html片段）；<br>读取客户端发来的隐藏和显示数据；<br>与其他服务器资源（包括数据库和java的应用程序）进行通信；<br>通过状态代码和响应头向客户端发送隐藏数据。<br>filter：filter能够在一个请求到达servlet之前预处理用户请求，也可以在离开servlet时处理http响应：<br>在执行servlet之前，首先执行filter程序，并为之做一些预处理工作；<br>根据程序需要修改请求和响应；<br>在servlet被调用之后截获servlet的执行<br>4.servlet流程是短的，url传来就进行处理，之后返回或转向到某一自己指定的页面，主要用来业务处理之前进行控制<br>filter是线性的，url传来之后，检查过后，可保持原来流程继续向下执行，<br>filter可用来进行字符编码的过滤，检测用户是否登陆的过滤，禁止页面缓存等</p>
+<h5 id="servlet是单例的吗"><a href="#servlet是单例的吗" class="headerlink" title="servlet是单例的吗"></a>servlet是单例的吗</h5><p>servlet究竟有几个实例，受以下原因影响，是否在分布式环境中部署，<br>是否实现了SingleThreadModer，如果实现最多会创建20个实例，<br>在web.xml中声明了几次，如果声明多次，也会生成多个实例</p>
+<h5 id="如何让服务器支持多线程下载"><a href="#如何让服务器支持多线程下载" class="headerlink" title="如何让服务器支持多线程下载"></a>如何让服务器支持多线程下载</h5><p>原理：先使用head方法查询得到对应文件的Content-Length，然后拆分成多个部分，交由多个线程去处理，使用”Range”, “bytes=” + start + “-“ + end这个header来指定下载文件的哪个部分。</p>
+<h5 id="session有什么作用"><a href="#session有什么作用" class="headerlink" title="session有什么作用"></a>session有什么作用</h5><p>在计算机中，尤其是在网络应用中，称为“会话”，Session是由应用服务器维持的一个服务器端的存储空间，用户在连接服务器时，会由服务器生成一个唯一的SessionID,用该SessionID为标识符来存取服务器端的Session存储空间。而SessionID这一数据则是保存到客户端，用Cookie保存的，用户提交页面时，会将这一SessionID提交到服务器端，来存取Session数据。这一过程，是不用开发人员干预的。所以一旦客户端禁用Cookie，那么Session也会失效。</p>
+<h5 id="session和cookie的区别"><a href="#session和cookie的区别" class="headerlink" title="session和cookie的区别"></a>session和cookie的区别</h5><p>1、cookie数据存放在客户的浏览器上，session数据放在服务器上。<br>2、cookie不是很安全，别人可以分析存放在本地的cookie并进行cookie欺骗，考虑到安全应当使用session。<br>3、session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能，考虑到减轻服务器性能方面，应当使用cookie。<br>4、单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。<br>5、可以考虑将登陆信息等重要信息存放为session，其他信息如果需要保留，可以放在cookie中。</p>
+<h5 id="页面重定向和转发"><a href="#页面重定向和转发" class="headerlink" title="页面重定向和转发"></a>页面重定向和转发</h5><p>1.转发是服务器行为，重定向是客户端行为<br>2.转发过程：客户浏览器发送http请求—&gt;web服务器接受此请求—&gt;调用内部的一个方法在容器内部完成请求处理和转发动作—&gt;将目标资源发送给客户；在这里，转发的路径必须是同一个web容器下的url，其不能转向到其他的web路径上去，中间传递的是自己的容器内的request。 在客户浏览器路径栏显示的仍然是其第一次访问的路径，也就是说客户是感觉不到服务器做了转发的。转发行为是浏览器只做了一次访问请求。<br>3.重定向过程：客户浏览器发送http请求—&gt;web服务器接受后发送302状态码响应及对应新的location给客户浏览器—&gt;客户浏览器发现是302响应， 则自动再发送一个新的http请求，请求url是新的location地址——》服务器根据此请求寻找资源并发送给客户。在这里location可以重定向到任意URL，重定向行为是浏览器做了至少两次的访问请求的。</p>
+<h5 id="JSP和Servlet有什么关系"><a href="#JSP和Servlet有什么关系" class="headerlink" title="JSP和Servlet有什么关系"></a>JSP和Servlet有什么关系</h5><p>1.不同之处:Servlet在Java代码中通过HttpServletResponse对象动态输出HTML内容JSP在静态HTML内容中嵌入Java代码，Java代码被动态执行后生成HTML内容<br>2.各自特点：Servlet能够很好地组织业务逻辑代码，但是在Java源文件中通过字符串拼接的方式生成动态HTML内容会导致代码维护困难、可读性差JSP虽然规避了Servlet在生成HTML内容方面的劣势，但是在HTML中混入大量、复杂的业务逻辑同样也是不可取的<br>3.通过MVC设计模式联系起来<br>Controller——负责转发请求，对请求进行处理<br>View——负责界面显示<br>Model——业务功能编写（例如算法实现）、数据库设计以及数据存取操作实现<br>4.MVC设计模式：<br>Web浏览器发送HTTP请求到服务端，被Controller(Servlet)获取并进行处理（例如参数解析、请求转发）Controller(Servlet)调用核心业务逻辑——Model部分，获得结果Controller(Servlet)将逻辑处理结果交给View（JSP），动态输出HTML内容动态生成的HTML内容返回到浏览器显示<br>MVC模式在Web开发中的好处是非常明显，它规避了JSP与Servlet各自的短板，Servlet只负责业务逻辑而不会通过out.append()动态生成HTML代码；JSP中也不会充斥着大量的业务代码。这大大提高了代码的可读性和可维护性。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试题/" rel="tag"># 面试题</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/26/Java面试题总结二IO流/" rel="next" title="Java面试题总结二IO流">
+                <i class="fa fa-chevron-left"></i> Java面试题总结二IO流
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/26/SSM———访问controller404错误/" rel="prev" title="SSM———访问controller404错误">
+                SSM———访问controller404错误 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="ZZQ">
+            
+              <p class="site-author-name" itemprop="name">ZZQ</p>
+              <p class="site-description motion-element" itemprop="description">坦坦荡荡 一身正气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#Get和Post有什么区别"><span class="nav-number">1.</span> <span class="nav-text">Get和Post有什么区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#前端和后端如何交互数据"><span class="nav-number">2.</span> <span class="nav-text">前端和后端如何交互数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Get请求怎么提交中文数据"><span class="nav-number">3.</span> <span class="nav-text">Get请求怎么提交中文数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#filter和servlet有什么区别"><span class="nav-number">4.</span> <span class="nav-text">filter和servlet有什么区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#servlet是单例的吗"><span class="nav-number">5.</span> <span class="nav-text">servlet是单例的吗</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何让服务器支持多线程下载"><span class="nav-number">6.</span> <span class="nav-text">如何让服务器支持多线程下载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#session有什么作用"><span class="nav-number">7.</span> <span class="nav-text">session有什么作用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#session和cookie的区别"><span class="nav-number">8.</span> <span class="nav-text">session和cookie的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#页面重定向和转发"><span class="nav-number">9.</span> <span class="nav-text">页面重定向和转发</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JSP和Servlet有什么关系"><span class="nav-number">10.</span> <span class="nav-text">JSP和Servlet有什么关系</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZZQ</span>
+
+  
+</div>
+
+
+ <!-- 
+ 
+ <div class="powered-by">世界是美好的</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">是值得我们去奋斗的 &mdash;  v</div>
+
+-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+	 
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv"></span>
+        </span>
+        <span class="post-meta-divider"></span>
+        <span id="busuanzi_container_site_uv" style="display:none">
+                <span id="busuanzi_value_site_uv"></span>
+        </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v="></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+		<link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: "<%=page.date%>", 
+            owner: 'zqnh',
+            repo: 'zqnh.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd9c922b4c4a7b4458ba55aa5673db78556aa9d1f',
+            
+                client_id: 'ca41c1f6c6585b630f16'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
