@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="数据结构,">
+  <meta name="keywords" content="数据结构,栈,队列,">
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="栈 Stack 栈是一种后进先出的数据结构 Last In First Out(LIFO)  栈的实现 void push(E)    O（1） E pop()             O（1） E peek()           O（1） int getSize()     O（1） boolean isEmpty()  O（1）  12345678public interface Stack">
-<meta name="keywords" content="数据结构">
+<meta name="keywords" content="数据结构,栈,队列">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据结构之栈和队列">
 <meta property="og:url" content="http://yoursite.com/2019/08/01/数据结构之栈和队列/index.html">
 <meta property="og:site_name" content="Aemon Zhu">
 <meta property="og:description" content="栈 Stack 栈是一种后进先出的数据结构 Last In First Out(LIFO)  栈的实现 void push(E)    O（1） E pop()             O（1） E peek()           O（1） int getSize()     O（1） boolean isEmpty()  O（1）  12345678public interface Stack">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-01T03:40:08.294Z">
+<meta property="og:updated_time" content="2019-08-02T03:17:34.228Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构之栈和队列">
 <meta name="twitter:description" content="栈 Stack 栈是一种后进先出的数据结构 Last In First Out(LIFO)  栈的实现 void push(E)    O（1） E pop()             O（1） E peek()           O（1） int getSize()     O（1） boolean isEmpty()  O（1）  12345678public interface Stack">
@@ -390,7 +390,19 @@
 <li>队列也是一种线性结构</li>
 <li>相比数组，队列对应的操作是数组的子集</li>
 <li>只能从一段（队尾）添加元素，只能从另一端（对首）取出元素</li>
+<li>队列是一种先进先出的数据结构</li>
+<li>First In First Out(FIFO) </li>
 </ul>
+<h4 id="队列的实现"><a href="#队列的实现" class="headerlink" title="队列的实现"></a>队列的实现</h4><ul>
+<li>void enqueue(E) O(1)</li>
+<li>E dequeue() O(n)</li>
+<li>E getFront() O(1)</li>
+<li>int getSize() O(1)</li>
+<li>boolean isEmpty() O(1)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public interface Queue&lt;E&gt;</span><br><span class="line">&#123;</span><br><span class="line">	int getSize();</span><br><span class="line">	boolean isEmpty();</span><br><span class="line">	void enqueue(E e);</span><br><span class="line">	E dequeue();</span><br><span class="line">	E getFront();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">public class ArrayQueue&lt;E&gt; implements Queue&lt;E&gt;</span><br><span class="line">&#123;</span><br><span class="line">	private Array&lt;E&gt; array;</span><br><span class="line">	public ArrayQueue(int capacity)</span><br><span class="line">	&#123;</span><br><span class="line">		array = new Array&lt;&gt;(capacity);	</span><br><span class="line">	&#125;</span><br><span class="line">	public ArrayQueue()</span><br><span class="line">	&#123;</span><br><span class="line">		array = new Array&lt;&gt;();</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public int getSize()</span><br><span class="line">	&#123;</span><br><span class="line">		return array.getSize();</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public boolean isEmpty()</span><br><span class="line">	&#123;</span><br><span class="line">		return array.isEmpty();</span><br><span class="line">	&#125;</span><br><span class="line">	public int getCapacity()</span><br><span class="line">	&#123;</span><br><span class="line">		return array.getCapacity();</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void enqueue(E e)</span><br><span class="line">	&#123;</span><br><span class="line">		array.addLast(e);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void dequeue()</span><br><span class="line">	&#123;</span><br><span class="line">		array.removeFirst();</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public E getFront()</span><br><span class="line">	&#123;</span><br><span class="line">		return array.getFirst();</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public String toString()</span><br><span class="line">	&#123;</span><br><span class="line">		StringBuilder res = new StringBuilder();</span><br><span class="line">		res.append(&quot;Queue: &quot;);</span><br><span class="line">		res.append(&apos;front [&apos;);</span><br><span class="line">		for(int i=0; i&lt;arr.getSize();i++)</span><br><span class="line">		&#123;</span><br><span class="line">			res.append(array.get(i));</span><br><span class="line">			if(i != array.getSize() -1)</span><br><span class="line">				res.append(&quot;,&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		res.append(&quot;] tail&quot;);</span><br><span class="line">		return res.toString();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="循环队列的实现"><a href="#循环队列的实现" class="headerlink" title="循环队列的实现"></a>循环队列的实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">public  class LoopQueue&lt;E&gt; implements Queue&lt;E&gt;</span><br><span class="line">&#123;</span><br><span class="line">	private E[] data;</span><br><span class="line">	private int front,detail;</span><br><span class="line">	private int size;</span><br><span class="line">	</span><br><span class="line">	public LoopQueue(int capacity)</span><br><span class="line">	&#123;</span><br><span class="line">		data = new Object[capacity + 1];</span><br><span class="line">		front = 0;</span><br><span class="line">		tail = 0;</span><br><span class="line">		size = 0;</span><br><span class="line">	&#125;</span><br><span class="line">	public LoopQueue()</span><br><span class="line">	&#123;</span><br><span class="line">		this(10);</span><br><span class="line">	&#125;</span><br><span class="line">	public int getCapacity()</span><br><span class="line">	&#123;</span><br><span class="line">		return data.length-1;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public boolean isEmpty()</span><br><span class="line">	&#123;</span><br><span class="line">		return front == tail;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public int getSize()</span><br><span class="line">	&#123;</span><br><span class="line">		return size;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void enqueue(E e)</span><br><span class="line">	&#123;</span><br><span class="line">		if((tail + 1) % data.length == front)</span><br><span class="line">		resize(getCapacity() * 2);</span><br><span class="line">		data[tail]=e;</span><br><span class="line">		tail=(tail+1)%data.length;</span><br><span class="line">		size++;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Override</span><br><span class="line">	public E dequeue()</span><br><span class="line">	&#123;</span><br><span class="line">		if(isEmpty)</span><br><span class="line">		&#123;</span><br><span class="line">			throw new IllegalArgumentException(&quot;Cannot dequeue from an empty queue.&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		E ret = data[front];</span><br><span class="line">		data[front] = null;</span><br><span class="line">		front=(front+1)%data.length;</span><br><span class="line">		size--;</span><br><span class="line">		if(size == getCapacity()/4&amp;&amp;getCapacity()/2 != 0)</span><br><span class="line">		&#123;</span><br><span class="line">			resize(getCapacity()/2);</span><br><span class="line">		&#125;</span><br><span class="line">		return ret;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Override</span><br><span class="line">	public E getFront()</span><br><span class="line">	&#123;</span><br><span class="line">		if(isEmpty())</span><br><span class="line">        	throw new IllegalArgumentException(&quot;Queue is empty.&quot;)</span><br><span class="line">        	return data[front];</span><br><span class="line">	&#125; </span><br><span class="line">	@Override</span><br><span class="line">	public String toString()</span><br><span class="line">	&#123;</span><br><span class="line">		StringBuilder res = new StringBuilder();</span><br><span class="line">		res.append(String.format(&quot;Queue: size=%d,capacity=%d\n&quot;,size,getCapacity()));</span><br><span class="line">		res.append(&quot;front [&quot;);</span><br><span class="line">		for(int i=front;i!=tail;i=(i+1)%data.length)</span><br><span class="line">		&#123;</span><br><span class="line">			res.append(data[i]);</span><br><span class="line">			if(i+1%data.length != tail)</span><br><span class="line">			res.append(&quot;,&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		res.append(&quot;] tail&quot;);</span><br><span class="line">		return res.toString();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	private void resize(int newCapacity)</span><br><span class="line">	&#123;</span><br><span class="line">		E[] newData = (E[])new Object[newCapacity + 1];</span><br><span class="line">		for(int i=0;i&lt;size;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			newData[i]=data[(i+front)%data.length];</span><br><span class="line">		&#125;</span><br><span class="line">		data=newData;</span><br><span class="line">		front=0;</span><br><span class="line">		tail=size;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -409,6 +421,10 @@
         <div class="post-tags">
           
             <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/栈/" rel="tag"># 栈</a>
+          
+            <a href="/tags/队列/" rel="tag"># 队列</a>
           
         </div>
       
@@ -430,6 +446,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/01/数据结构之链表/" rel="prev" title="数据结构之链表">
+                数据结构之链表 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -515,7 +535,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">63</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -537,7 +557,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -570,7 +590,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈-Stack"><span class="nav-number">1.</span> <span class="nav-text">栈 Stack</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的实现"><span class="nav-number">1.1.</span> <span class="nav-text">栈的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的应用（20-Valid-Parentheses）"><span class="nav-number">1.2.</span> <span class="nav-text">栈的应用（20.Valid Parentheses）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列-Queue"><span class="nav-number">2.</span> <span class="nav-text">队列 Queue</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈-Stack"><span class="nav-number">1.</span> <span class="nav-text">栈 Stack</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的实现"><span class="nav-number">1.1.</span> <span class="nav-text">栈的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的应用（20-Valid-Parentheses）"><span class="nav-number">1.2.</span> <span class="nav-text">栈的应用（20.Valid Parentheses）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列-Queue"><span class="nav-number">2.</span> <span class="nav-text">队列 Queue</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的实现"><span class="nav-number">2.1.</span> <span class="nav-text">队列的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环队列的实现"><span class="nav-number">2.2.</span> <span class="nav-text">循环队列的实现</span></a></li></ol></li></ol></div>
             
 
           </div>

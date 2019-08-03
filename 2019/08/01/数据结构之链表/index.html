@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构,链表,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="链表链表是真正的动态数据结构，最简单的动态数据结构，数据存储在“结点”（Node）中优点：是真正的动态，不需要处理固定容量的问题。缺点：丧失了随机访问的能力 链表的增删改查123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616">
+<meta name="keywords" content="数据结构,链表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构之链表">
+<meta property="og:url" content="http://yoursite.com/2019/08/01/数据结构之链表/index.html">
+<meta property="og:site_name" content="Aemon Zhu">
+<meta property="og:description" content="链表链表是真正的动态数据结构，最简单的动态数据结构，数据存储在“结点”（Node）中优点：是真正的动态，不需要处理固定容量的问题。缺点：丧失了随机访问的能力 链表的增删改查123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/08/01/数据结构之链表/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/01/数据结构之链表/2.jpg">
+<meta property="og:updated_time" content="2019-08-02T11:27:19.171Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构之链表">
+<meta name="twitter:description" content="链表链表是真正的动态数据结构，最简单的动态数据结构，数据存储在“结点”（Node）中优点：是真正的动态，不需要处理固定容量的问题。缺点：丧失了随机访问的能力 链表的增删改查123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/01/数据结构之链表/1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/01/数据结构之链表/">
+
+
+
+
+
+  <title>数据结构之链表 | Aemon Zhu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zqnh"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1" style="
+    margin-left: 1114px;
+    margin-right: 0px;
+"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aemon Zhu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习使我快乐 敲代码使我充实</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/01/数据结构之链表/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZZQ">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aemon Zhu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构之链表</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-01T17:38:51+08:00">
+                2019-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/01/数据结构之链表/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/08/01/数据结构之链表/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h4><p>链表是真正的动态数据结构，最简单的动态数据结构，数据存储在“结点”（Node）中优点：是真正的动态，不需要处理固定容量的问题。缺点：丧失了随机访问的能力</p>
+<h5 id="链表的增删改查"><a href="#链表的增删改查" class="headerlink" title="链表的增删改查"></a>链表的增删改查</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @author zqnh</span><br><span class="line"> * @date 2019/8/1 on 17:54.</span><br><span class="line"> */</span><br><span class="line">public class LinkedList&lt;E&gt;</span><br><span class="line">&#123;</span><br><span class="line">    private class Node</span><br><span class="line">    &#123;</span><br><span class="line">        public E e;</span><br><span class="line">        public Node next;</span><br><span class="line"></span><br><span class="line">        public Node(E e, Node next)</span><br><span class="line">        &#123;</span><br><span class="line">            this.e = e;</span><br><span class="line">            this.next = next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Node(E e)</span><br><span class="line">        &#123;</span><br><span class="line">            this(e, null);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Node()</span><br><span class="line">        &#123;</span><br><span class="line">            this(null, null);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public String toString()</span><br><span class="line">        &#123;</span><br><span class="line">            return e.toString();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">        private Node dummyHead;</span><br><span class="line">        private int size;</span><br><span class="line">        public LinkedList()</span><br><span class="line">        &#123;</span><br><span class="line">            dummyHead=new Node(null,null);</span><br><span class="line">            size=0;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //获取链表中的元素的个数</span><br><span class="line">        public int getSize()</span><br><span class="line">        &#123;</span><br><span class="line">            return size;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //获取链表是否为空</span><br><span class="line">        public boolean isEmpty()</span><br><span class="line">        &#123;</span><br><span class="line">            return size==0;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //在链表的index（0-based）位置添加新的元素e</span><br><span class="line">        public void add(int index,E e)</span><br><span class="line">        &#123;</span><br><span class="line">            if(index&lt;0||index&gt;size)</span><br><span class="line">                throw new IllegalArgumentException(&quot;Add failed.Illegal index.&quot;);</span><br><span class="line">               Node prev = dummyHead;</span><br><span class="line">                    for(int i=0;i&lt;index-1;i++)</span><br><span class="line">                        prev=prev.next;</span><br><span class="line"></span><br><span class="line">                   prev.next = new Node(e,prev.next);</span><br><span class="line">                   size++;</span><br><span class="line">                </span><br><span class="line">        &#125;</span><br><span class="line">        //在链表头添加新的元素e</span><br><span class="line">        public void addFirst(E e)</span><br><span class="line">        &#123;</span><br><span class="line">            add(0,e);</span><br><span class="line">        &#125;</span><br><span class="line">        //在链表的末尾添加新的元素e</span><br><span class="line">        public void addLast(E e)</span><br><span class="line">        &#123;</span><br><span class="line">            add(size,e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //获得链表的第index（0-based）个位置的元素</span><br><span class="line">        //在链表中不是一个常用的操作，练习用</span><br><span class="line">        public E get(int index)</span><br><span class="line">        &#123;</span><br><span class="line">            if(index&lt;0||index&gt;=size)</span><br><span class="line">                throw new IllegalArgumentException(&quot;Get failed,Illegal index.&quot;);</span><br><span class="line"></span><br><span class="line">            Node cur = dummyHead.next;</span><br><span class="line">            for(int i=0;i&lt;index;i++)</span><br><span class="line">                cur=cur.next;</span><br><span class="line">            return cur.e;</span><br><span class="line">        &#125;</span><br><span class="line">        //获得链表的第一个元素</span><br><span class="line">        public E getFirst()</span><br><span class="line">        &#123;</span><br><span class="line">            return get(0);</span><br><span class="line">        &#125;</span><br><span class="line">        //获得链表的最后一个元素</span><br><span class="line">        public E getLast()</span><br><span class="line">        &#123;</span><br><span class="line">            return get(size-1);</span><br><span class="line">        &#125;</span><br><span class="line">        //修改链表的第index（0-based）个位置的元素为e</span><br><span class="line">        //在链表中不是一个常用的操作，练习用</span><br><span class="line">        public void set(int index,E e)</span><br><span class="line">        &#123;</span><br><span class="line">            if(index&lt;0||index&gt;=size)</span><br><span class="line">                throw new IllegalArgumentException(&quot;Set failed,Illegal index.&quot;);</span><br><span class="line">            Node cur = dummyHead.next;</span><br><span class="line">            for(int i=0;i&lt;index;i++)</span><br><span class="line">                cur = cur.next;</span><br><span class="line">            cur.e = e;</span><br><span class="line">        &#125;</span><br><span class="line">        //查找链表中是否有元素e</span><br><span class="line">        public boolean contain(E e)</span><br><span class="line">        &#123;</span><br><span class="line">            Node cur = dummyHead.next;</span><br><span class="line">            while(cur != null)</span><br><span class="line">            &#123;</span><br><span class="line">                if(cur.e.equals(e))</span><br><span class="line">                    return true;</span><br><span class="line">                cur = cur.next;</span><br><span class="line">            &#125;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        //从链表中删除index（0-based）位置的元素，返回删除的元素</span><br><span class="line">        public E remove(int index)</span><br><span class="line">        &#123;</span><br><span class="line">            if(index&lt;0||index&gt;=size)</span><br><span class="line">                throw new IllegalArgumentException(&quot;Remove failed,Illegal index.&quot;);</span><br><span class="line">            Node prev = dummyHead;</span><br><span class="line">            for(int i=0;i&lt;index;i++)</span><br><span class="line">                prev=prev.next;</span><br><span class="line">            Node retNode = prev.next;</span><br><span class="line">            prev.next = retNode.next;</span><br><span class="line">            retNode.next = null;</span><br><span class="line">            size--;</span><br><span class="line">            return retNode.e;</span><br><span class="line">        &#125;</span><br><span class="line">        //从链表中删除第一个元素，返回删除的元素</span><br><span class="line">        public E removeFirst()</span><br><span class="line">        &#123;</span><br><span class="line">            return remove(0);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //从链表中删除最后一个元素，返回删除的元素</span><br><span class="line">        public E removeLast()</span><br><span class="line">        &#123;</span><br><span class="line">            return remove(size-1);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public String toString()</span><br><span class="line">        &#123;</span><br><span class="line">            StringBuilder res = new StringBuilder();</span><br><span class="line">            Node cur = dummyHead.next;</span><br><span class="line">            while(cur != null)</span><br><span class="line">            &#123;</span><br><span class="line">                res.append(cur+&quot;-&gt;&quot;);</span><br><span class="line">                cur = cur.next;</span><br><span class="line">            &#125;</span><br><span class="line">           /*for(Node cur = dummyHead.next;cur!=null;cur = cur.next)</span><br><span class="line">               res.append(cur+&quot;-&gt;&quot;);*/</span><br><span class="line">            res.append(&quot;NULL&quot;);</span><br><span class="line">            return res.toString();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="链表的时间复杂度"><a href="#链表的时间复杂度" class="headerlink" title="链表的时间复杂度"></a>链表的时间复杂度</h5><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>添加操作</td>
+<td>addLast  O(1)</td>
+<td>addFirst  O(1)</td>
+<td>add(index,e)  O(n/2)=O(n)</td>
+<td></td>
+</tr>
+<tr>
+<td>删除操作</td>
+<td>removeLast(e) O(n)</td>
+<td>removeFirst(e) O(1)</td>
+<td>remove(index) O(n/2)=O(n)</td>
+<td></td>
+</tr>
+<tr>
+<td>修改操作</td>
+<td>set(index,e) O(n)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>查找操作</td>
+<td>O(n)</td>
+<td>修改和查找都得遍历</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><img src="/2019/08/01/数据结构之链表/1.jpg" alt></p>
+<h5 id="链表与递归（删除链表元素）"><a href="#链表与递归（删除链表元素）" class="headerlink" title="链表与递归（删除链表元素）"></a>链表与递归（删除链表元素）</h5><p><img src="/2019/08/01/数据结构之链表/2.jpg" alt></p>
+<p>​                                                                        链表删除元素的过程</p>
+<hr>
+<p><strong>删除链表中等于给定值 val 的所有节点。</strong></p>
+<p><strong>输入:</strong> 1-&gt;2-&gt;6-&gt;3-&gt;4-&gt;5-&gt;6, <strong><em>val</em></strong> = 6<br><strong>输出:</strong> 1-&gt;2-&gt;3-&gt;4-&gt;5</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class Solution</span><br><span class="line">&#123;</span><br><span class="line">    public ListNode removeElements(ListNode head, int val)</span><br><span class="line">    &#123;</span><br><span class="line">        //如果是头节点</span><br><span class="line">        while(head != null &amp;&amp; head.val == val)//循环遍历当头节点不为null</span><br><span class="line">        &#123;</span><br><span class="line">            ListNode delNode = head;	//将头节点赋值给delNode（待删除的结点）</span><br><span class="line">            head = head.next;	//将头节点的下一个结点设为头节点</span><br><span class="line">            delNode.next = null; //将待删除的结点（也就是之前的头节点）的下一个结点设为null</span><br><span class="line">        &#125;</span><br><span class="line">        if(head == null)	//如果头结点为null</span><br><span class="line">            return null;	//返回null</span><br><span class="line">        ListNode prev = head;	//将头节点赋值给prev</span><br><span class="line">        while(prev.next != null)	//如果prev的下一个结点不为null,循环</span><br><span class="line">        &#123;</span><br><span class="line">            if(prev.next.val == val)	</span><br><span class="line">            &#123;</span><br><span class="line">                ListNode delNode = prev.next;	//将prev的下一个结点设为待删除的结点delNode</span><br><span class="line">                prev.next = delNode.next;	//将delNode的下一个结点赋值给prev的下一个结点</span><br><span class="line">                delNode.next=null;	//将delNode的下一个结点设为null</span><br><span class="line">                //prev.next=prev.next.next;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                prev = prev.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用虚拟头节点</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class Solution</span><br><span class="line">&#123;</span><br><span class="line">    public ListNode removeElements(ListNode head, int val)</span><br><span class="line">    &#123;</span><br><span class="line">        ListNode dummyHead = new ListNode(-1); //设置虚拟节点</span><br><span class="line">        dummyHead.next=head;	//将头节点赋值给虚拟头节点的next，设置虚拟头节点</span><br><span class="line">        ListNode prev = dummyHead;	//将虚拟有节点赋值给prev</span><br><span class="line">        while(prev.next != null)	//循环遍历，如果prev的next不为空</span><br><span class="line">        &#123;</span><br><span class="line">            if(prev.next.val == val)</span><br><span class="line">            &#123;</span><br><span class="line">                prev.next=prev.next.next;	//将prev的next的next赋值给prev的next</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                prev = prev.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return dummyHead.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Solution</span><br><span class="line">&#123;</span><br><span class="line">    public ListNode removeElements(ListNode head, int val)</span><br><span class="line">    &#123;</span><br><span class="line">        if(head == null)</span><br><span class="line">            return null;</span><br><span class="line">        head.next = removeElements(head.next,val);</span><br><span class="line">        if(head.val == val)</span><br><span class="line">            return head.next ;</span><br><span class="line">        else </span><br><span class="line">            return head;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class Solution</span><br><span class="line">&#123;</span><br><span class="line">    public ListNode removeElements(ListNode head, int val)</span><br><span class="line">    &#123;</span><br><span class="line">        if(head == null)</span><br><span class="line">            return null;</span><br><span class="line">        head.next = removeElements(head.next,val);</span><br><span class="line">        return head.val == val? head.next:head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/链表/" rel="tag"># 链表</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/01/数据结构之栈和队列/" rel="next" title="数据结构之栈和队列">
+                <i class="fa fa-chevron-left"></i> 数据结构之栈和队列
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/02/算法———递归算法/" rel="prev" title="算法———递归算法">
+                算法———递归算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="ZZQ">
+            
+              <p class="site-author-name" itemprop="name">ZZQ</p>
+              <p class="site-description motion-element" itemprop="description">坦坦荡荡 一身正气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#链表"><span class="nav-number">1.</span> <span class="nav-text">链表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#链表的增删改查"><span class="nav-number">1.1.</span> <span class="nav-text">链表的增删改查</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#链表的时间复杂度"><span class="nav-number">1.2.</span> <span class="nav-text">链表的时间复杂度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#链表与递归（删除链表元素）"><span class="nav-number">1.3.</span> <span class="nav-text">链表与递归（删除链表元素）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZZQ</span>
+
+  
+</div>
+
+
+ <!-- 
+ 
+ <div class="powered-by">世界是美好的</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">是值得我们去奋斗的 &mdash;  v</div>
+
+-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+	 
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv"></span>
+        </span>
+        <span class="post-meta-divider"></span>
+        <span id="busuanzi_container_site_uv" style="display:none">
+                <span id="busuanzi_value_site_uv"></span>
+        </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v="></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+		<link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: "<%=page.date%>", 
+            owner: 'zqnh',
+            repo: 'zqnh.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd9c922b4c4a7b4458ba55aa5673db78556aa9d1f',
+            
+                client_id: 'ca41c1f6c6585b630f16'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
