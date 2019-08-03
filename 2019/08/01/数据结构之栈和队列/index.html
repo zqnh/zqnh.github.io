@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="数据结构,栈,队列,">
+  <meta name="keywords" content="数据结构,栈,队列,leecode,">
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="栈 Stack 栈是一种后进先出的数据结构 Last In First Out(LIFO)  栈的实现 void push(E)    O（1） E pop()             O（1） E peek()           O（1） int getSize()     O（1） boolean isEmpty()  O（1）  12345678public interface Stack">
-<meta name="keywords" content="数据结构,栈,队列">
+<meta name="keywords" content="数据结构,栈,队列,leecode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据结构之栈和队列">
 <meta property="og:url" content="http://yoursite.com/2019/08/01/数据结构之栈和队列/index.html">
 <meta property="og:site_name" content="Aemon Zhu">
 <meta property="og:description" content="栈 Stack 栈是一种后进先出的数据结构 Last In First Out(LIFO)  栈的实现 void push(E)    O（1） E pop()             O（1） E peek()           O（1） int getSize()     O（1） boolean isEmpty()  O（1）  12345678public interface Stack">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-02T03:17:34.228Z">
+<meta property="og:updated_time" content="2019-08-03T14:34:05.499Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构之栈和队列">
 <meta name="twitter:description" content="栈 Stack 栈是一种后进先出的数据结构 Last In First Out(LIFO)  栈的实现 void push(E)    O（1） E pop()             O（1） E peek()           O（1） int getSize()     O（1） boolean isEmpty()  O（1）  12345678public interface Stack">
@@ -383,7 +383,7 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public interface Stack&lt;E&gt;</span><br><span class="line">&#123;</span><br><span class="line">	int getSize();</span><br><span class="line">	boolean isEmpty();</span><br><span class="line">	void push(E e);</span><br><span class="line">	E pop();</span><br><span class="line">	E peek();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">public class ArrayStack&lt;E&gt; implements Stack&lt;E&gt;</span><br><span class="line">&#123;</span><br><span class="line">	Array&lt;E&gt; array;</span><br><span class="line">	public ArrayStack(int capacity)</span><br><span class="line">	&#123;</span><br><span class="line">		array = new Array&lt;&gt;(capacity);</span><br><span class="line">	&#125;</span><br><span class="line">	public ArrayStack()</span><br><span class="line">	&#123;</span><br><span class="line">		array = new Array&lt;&gt;();</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public int getSize()</span><br><span class="line">	&#123;</span><br><span class="line">		return array.getSize();</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public boolean isEmpty()</span><br><span class="line">	&#123;</span><br><span class="line">		return array.isEmpty();</span><br><span class="line">	&#125;</span><br><span class="line">	public int getCapacity()</span><br><span class="line">	&#123;</span><br><span class="line">		return array.getCapacity();</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void push(E e)</span><br><span class="line">	&#123;</span><br><span class="line">		array.addLast(e);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public E pop()</span><br><span class="line">	&#123;</span><br><span class="line">		return array.removeLast();</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public E peek()</span><br><span class="line">	&#123;</span><br><span class="line">		return array.getLast();</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public String toString()</span><br><span class="line">	&#123;</span><br><span class="line">		StringBuilder res = new StringBuilder();</span><br><span class="line">		res.append(&quot;Stack: &quot;);</span><br><span class="line">		res.append(&apos;[&apos;);</span><br><span class="line">		for(int i=0;i&lt;array.getSize();i++)</span><br><span class="line">		&#123;</span><br><span class="line">			res.append(array.get(i));</span><br><span class="line">			if(i!=array.size()-1)</span><br><span class="line">				res.append(&quot;,&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		res.append(&quot;] top&quot;);</span><br><span class="line">		return res.toString();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="栈的应用（20-Valid-Parentheses）"><a href="#栈的应用（20-Valid-Parentheses）" class="headerlink" title="栈的应用（20.Valid Parentheses）"></a>栈的应用（20.Valid Parentheses）</h4><p>给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串，判断字符串是否有效。有效字符串需满足：左括号必须用相同类型的右括号闭合。左括号必须以正确的顺序闭合。注意空字符串可被认为是有效字符串。</p>
+<h4 id="栈的应用（20-Valid-Parentheses-leecode）"><a href="#栈的应用（20-Valid-Parentheses-leecode）" class="headerlink" title="栈的应用（20.Valid Parentheses leecode）"></a>栈的应用（20.Valid Parentheses leecode）</h4><p>给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串，判断字符串是否有效。有效字符串需满足：左括号必须用相同类型的右括号闭合。左括号必须以正确的顺序闭合。注意空字符串可被认为是有效字符串。</p>
 <p>思路：利用栈的后进先出特性，如果全是左括号，压入栈中，和外面右括号进行匹配。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import java.util.Stack;</span><br><span class="line">class Solution</span><br><span class="line">&#123;</span><br><span class="line">    public boolean isValid(String s)</span><br><span class="line">    &#123;</span><br><span class="line">        Stack&lt;Character&gt; stack = new Stack&lt;&gt;();//创建栈</span><br><span class="line">        for(int i=0;i&lt;s.length();i++)//建立循环</span><br><span class="line">        &#123;</span><br><span class="line">            char c = s.charAt(i);	//将下标为i的赋值到字符c</span><br><span class="line">            if(c == &apos;(&apos; || c ==&apos;[&apos; || c ==&apos;&#123;&apos;)//判断，如果c是（ [ &#123;，则push进栈</span><br><span class="line">            &#123;</span><br><span class="line">                stack.push(c);</span><br><span class="line">            &#125;</span><br><span class="line">            else//否则，这时c不是( [ &#123;</span><br><span class="line">            &#123;</span><br><span class="line">                if(stack.isEmpty())//如果为null，返回false</span><br><span class="line">                    return false;</span><br><span class="line"></span><br><span class="line">                char topChar = stack.pop();//另栈顶元素赋值给topChar</span><br><span class="line">                if(c == &apos;)&apos;&amp;&amp;topChar != &apos;(&apos;)//如果c是),栈顶不是(,不匹配，返回false</span><br><span class="line">                    return false;</span><br><span class="line">                if(c == &apos;]&apos;&amp;&amp;topChar != &apos;[&apos;)//如果c是],栈顶不是[,不匹配，返回false</span><br><span class="line">                    return false;</span><br><span class="line">                if(c == &apos;&#125;&apos;&amp;&amp;topChar != &apos;&#123;&apos;)//如果c是&#125;,栈顶不是&#123;,不匹配，返回false</span><br><span class="line">                    return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //如果栈里面的元素没有可匹配，只有isEmpty为true时匹配成功</span><br><span class="line">        return stack.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="队列-Queue"><a href="#队列-Queue" class="headerlink" title="队列 Queue"></a>队列 Queue</h3><ul>
@@ -425,6 +425,8 @@
             <a href="/tags/栈/" rel="tag"># 栈</a>
           
             <a href="/tags/队列/" rel="tag"># 队列</a>
+          
+            <a href="/tags/leecode/" rel="tag"># leecode</a>
           
         </div>
       
@@ -535,7 +537,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -557,7 +559,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -590,7 +592,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈-Stack"><span class="nav-number">1.</span> <span class="nav-text">栈 Stack</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的实现"><span class="nav-number">1.1.</span> <span class="nav-text">栈的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的应用（20-Valid-Parentheses）"><span class="nav-number">1.2.</span> <span class="nav-text">栈的应用（20.Valid Parentheses）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列-Queue"><span class="nav-number">2.</span> <span class="nav-text">队列 Queue</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的实现"><span class="nav-number">2.1.</span> <span class="nav-text">队列的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环队列的实现"><span class="nav-number">2.2.</span> <span class="nav-text">循环队列的实现</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈-Stack"><span class="nav-number">1.</span> <span class="nav-text">栈 Stack</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的实现"><span class="nav-number">1.1.</span> <span class="nav-text">栈的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的应用（20-Valid-Parentheses-leecode）"><span class="nav-number">1.2.</span> <span class="nav-text">栈的应用（20.Valid Parentheses leecode）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列-Queue"><span class="nav-number">2.</span> <span class="nav-text">队列 Queue</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的实现"><span class="nav-number">2.1.</span> <span class="nav-text">队列的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环队列的实现"><span class="nav-number">2.2.</span> <span class="nav-text">循环队列的实现</span></a></li></ol></li></ol></div>
             
 
           </div>
