@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构,Trie,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="什么是TrieTrie字典树，查询每个条目的时间复杂度和字典一共有多少个条目无关！时间复杂度为O(w)，w为查询单词的长度，每个节点有若干个指向下个节点的指针，考虑不同的语言，不同的情景。如下图，每个节点有26个指向下个节点的指针  Trie字典树的添加1234567891011121314151617181920212223242526272829303132333435363738394041">
+<meta name="keywords" content="数据结构,Trie">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构之Trie字典树">
+<meta property="og:url" content="http://yoursite.com/2019/08/04/数据结构之Trie字典树/index.html">
+<meta property="og:site_name" content="Aemon Zhu">
+<meta property="og:description" content="什么是TrieTrie字典树，查询每个条目的时间复杂度和字典一共有多少个条目无关！时间复杂度为O(w)，w为查询单词的长度，每个节点有若干个指向下个节点的指针，考虑不同的语言，不同的情景。如下图，每个节点有26个指向下个节点的指针  Trie字典树的添加1234567891011121314151617181920212223242526272829303132333435363738394041">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/08/04/数据结构之Trie字典树/1.jpg">
+<meta property="og:updated_time" content="2019-08-05T01:58:02.217Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构之Trie字典树">
+<meta name="twitter:description" content="什么是TrieTrie字典树，查询每个条目的时间复杂度和字典一共有多少个条目无关！时间复杂度为O(w)，w为查询单词的长度，每个节点有若干个指向下个节点的指针，考虑不同的语言，不同的情景。如下图，每个节点有26个指向下个节点的指针  Trie字典树的添加1234567891011121314151617181920212223242526272829303132333435363738394041">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/04/数据结构之Trie字典树/1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/04/数据结构之Trie字典树/">
+
+
+
+
+
+  <title>数据结构之Trie字典树 | Aemon Zhu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zqnh"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1" style="
+    margin-left: 1114px;
+    margin-right: 0px;
+"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aemon Zhu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习使我快乐 敲代码使我充实</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/04/数据结构之Trie字典树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZZQ">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aemon Zhu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构之Trie字典树</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-04T22:33:21+08:00">
+                2019-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/04/数据结构之Trie字典树/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/08/04/数据结构之Trie字典树/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="什么是Trie"><a href="#什么是Trie" class="headerlink" title="什么是Trie"></a>什么是Trie</h4><p>Trie字典树，查询每个条目的时间复杂度和字典一共有多少个条目无关！时间复杂度为O(w)，w为查询单词的长度，每个节点有若干个指向下个节点的指针，考虑不同的语言，不同的情景。如下图，每个节点有26个指向下个节点的指针</p>
+<p><img src="/2019/08/04/数据结构之Trie字典树/1.jpg" alt></p>
+<h5 id="Trie字典树的添加"><a href="#Trie字典树的添加" class="headerlink" title="Trie字典树的添加"></a>Trie字典树的添加</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">package trie;</span><br><span class="line">import java.util.TreeMap;</span><br><span class="line">public class Trie</span><br><span class="line">&#123;</span><br><span class="line">    private class Node</span><br><span class="line">    &#123;</span><br><span class="line">        public boolean isWord;</span><br><span class="line">        public TreeMap&lt;Character,Node&gt; next;</span><br><span class="line">        public Node(boolean isWord)</span><br><span class="line">        &#123;</span><br><span class="line">            this.isWord = isWord;</span><br><span class="line">            next = new TreeMap&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        public Node()</span><br><span class="line">        &#123;</span><br><span class="line">            this(false);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    private Node root;</span><br><span class="line">    private int size;</span><br><span class="line"></span><br><span class="line">    public Trie()</span><br><span class="line">    &#123;</span><br><span class="line">        root = new Node();</span><br><span class="line">        size=0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //获得Trie中存储的单词数量</span><br><span class="line">    public int getSize()</span><br><span class="line">    &#123;</span><br><span class="line">        return size;</span><br><span class="line">    &#125;</span><br><span class="line">    //向Trie中添加一个新的单词word</span><br><span class="line">    public void add(String word)</span><br><span class="line">    &#123;</span><br><span class="line">        Node cur = root;</span><br><span class="line">        for (int i = 0; i &lt; word.length(); i++) &#123;</span><br><span class="line">            char c = word.charAt(i);</span><br><span class="line">            if(cur.next.get(c) == null)	//如果cur.next不包含c</span><br><span class="line">                cur.next.put(c,new Node());	//就将cur.next里put进c</span><br><span class="line">            cur=cur.next.get(c);//反之，包含有c，那么直接走到cur.next.get(c)这个节点</span><br><span class="line">        &#125;</span><br><span class="line">        if(!cur.isWord)//判断，cur以前并不表示其他单词是false</span><br><span class="line">        &#123;</span><br><span class="line">            cur.isWord = true;//另cur为true</span><br><span class="line">            size++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//查询单词word是否在Trie中</span><br><span class="line">   public boolean contains(String word)</span><br><span class="line">   &#123;</span><br><span class="line">       Node cur = root;</span><br><span class="line">       for (int i = 0; i &lt; word.length();i++)</span><br><span class="line">       &#123;</span><br><span class="line">           char c = word.charAt(i);</span><br><span class="line">           if(cur.next.get(c) == null)</span><br><span class="line">               return false;</span><br><span class="line">           cur = cur.next.get(c);</span><br><span class="line">       &#125;</span><br><span class="line">       return cur.isWord;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="前缀查询"><a href="#前缀查询" class="headerlink" title="前缀查询"></a>前缀查询</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//查询是否在Trie中有单词以prefix为前缀</span><br><span class="line">    public boolean isPrefix(String prefix)</span><br><span class="line">    &#123;</span><br><span class="line">        Node cur = root;</span><br><span class="line">        for (int i = 0; i &lt; prefix.length();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            char c = prefix.charAt(i);</span><br><span class="line">            if(cur.next.get(c) == null)</span><br><span class="line">                return false;</span><br><span class="line">            cur = cur.next.get(c);</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="实现Trie（前缀树-leecode）"><a href="#实现Trie（前缀树-leecode）" class="headerlink" title="实现Trie（前缀树 leecode）"></a>实现Trie（前缀树 leecode）</h5><p>实现一个 Trie (前缀树)，包含 <code>insert</code>, <code>search</code>, 和 <code>startsWith</code> 这三个操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import java.util.TreeMap;</span><br><span class="line">public class Trie</span><br><span class="line">&#123;</span><br><span class="line">    private class Node</span><br><span class="line">    &#123;</span><br><span class="line">        public boolean isWord;</span><br><span class="line">        public TreeMap&lt;Character,Node&gt; next;</span><br><span class="line">        public Node(boolean isWord)</span><br><span class="line">        &#123;</span><br><span class="line">            this.isWord = isWord;</span><br><span class="line">            next = new TreeMap&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        public Node()</span><br><span class="line">        &#123;</span><br><span class="line">            this(false);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    private Node root;</span><br><span class="line"></span><br><span class="line">    public Trie()</span><br><span class="line">    &#123;</span><br><span class="line">        root = new Node();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //向Trie中添加一个新的单词word</span><br><span class="line">    public void insert(String word)</span><br><span class="line">    &#123;</span><br><span class="line">        Node cur = root;</span><br><span class="line">        for (int i = 0; i &lt; word.length(); i++) &#123;</span><br><span class="line">            char c = word.charAt(i);</span><br><span class="line">            if(cur.next.get(c) == null)</span><br><span class="line">                cur.next.put(c,new Node());</span><br><span class="line">            cur=cur.next.get(c);</span><br><span class="line">        &#125;</span><br><span class="line">        if(!cur.isWord)</span><br><span class="line">        &#123;</span><br><span class="line">            cur.isWord = true;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    //查询单词word是否在Trie中</span><br><span class="line">    public boolean search(String word)</span><br><span class="line">    &#123;</span><br><span class="line">        Node cur = root;</span><br><span class="line">        for (int i = 0; i &lt; word.length();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            char c = word.charAt(i);</span><br><span class="line">            if(cur.next.get(c) == null)</span><br><span class="line">                return false;</span><br><span class="line">            cur = cur.next.get(c);</span><br><span class="line">        &#125;</span><br><span class="line">        return cur.isWord;</span><br><span class="line">    &#125;</span><br><span class="line">    //查询是否在Trie中有单词以prefix为前缀</span><br><span class="line">    public boolean startsWith(String isprefix)</span><br><span class="line">    &#123;</span><br><span class="line">        Node cur = root;</span><br><span class="line">        for (int i = 0; i &lt; isprefix.length();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            char c = isprefix.charAt(i);</span><br><span class="line">            if(cur.next.get(c) == null)</span><br><span class="line">                return false;</span><br><span class="line">            cur = cur.next.get(c);</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="添加与搜索单词（leecode）"><a href="#添加与搜索单词（leecode）" class="headerlink" title="添加与搜索单词（leecode）"></a>添加与搜索单词（leecode）</h5><p>设计一个支持以下两种操作的数据结构：void addWord(word) bool search(word)，search(word) 可以搜索文字或正则表达式字符串，字符串只包含字母 <code>.</code> 或 <code>a-z</code> 。 <code>.</code> 可以表示任何一个字母。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import java.util.TreeMap;</span><br><span class="line"></span><br><span class="line">class WordDictionary &#123;</span><br><span class="line"></span><br><span class="line">    private class Node</span><br><span class="line">    &#123;</span><br><span class="line">        public boolean isWord;</span><br><span class="line">        public TreeMap&lt;Character,Node&gt; next;</span><br><span class="line">        public Node(boolean isWord)</span><br><span class="line">        &#123;</span><br><span class="line">            this.isWord = isWord;</span><br><span class="line">            next = new TreeMap&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        public Node()</span><br><span class="line">        &#123;</span><br><span class="line">            this(false);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    private Node root;</span><br><span class="line">    /** Initialize your data structure here. */</span><br><span class="line">    public WordDictionary() &#123;</span><br><span class="line">        root = new Node();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /** Adds a word into the data structure. */</span><br><span class="line">    public void addWord(String word) &#123;</span><br><span class="line">        Node cur = root;</span><br><span class="line">        for (int i = 0; i &lt; word.length(); i++) &#123;</span><br><span class="line">            char c = word.charAt(i);</span><br><span class="line">            if(cur.next.get(c) == null)</span><br><span class="line">                cur.next.put(c,new Node());</span><br><span class="line">            cur=cur.next.get(c);</span><br><span class="line">        &#125;</span><br><span class="line">        cur.isWord = true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /** Returns if the word is in the data structure. A word could contain the dot character &apos;.&apos; to represent any one letter. */</span><br><span class="line">    public boolean search(String word) &#123;</span><br><span class="line">        return match(root,word,0);</span><br><span class="line">    &#125;</span><br><span class="line">    private boolean match(Node node,String word,int index)</span><br><span class="line">    &#123;</span><br><span class="line">        if(index == word.length())</span><br><span class="line">            return node.isWord;</span><br><span class="line">        char c = word.charAt(index);</span><br><span class="line">        if(c != &apos;.&apos;)</span><br><span class="line">        &#123;</span><br><span class="line">            if(node.next.get(c) == null)</span><br><span class="line">                return false;</span><br><span class="line">            return match(node.next.get(c),word,index+1);</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            for(char nextChar:node.next.keySet())</span><br><span class="line">                if(match(node.next.get(nextChar),word,index+1))</span><br><span class="line">                    return true;</span><br><span class="line">                return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/Trie/" rel="tag"># Trie</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/04/数据结构之优先队列和堆/" rel="next" title="数据结构之优先队列和堆">
+                <i class="fa fa-chevron-left"></i> 数据结构之优先队列和堆
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="ZZQ">
+            
+              <p class="site-author-name" itemprop="name">ZZQ</p>
+              <p class="site-description motion-element" itemprop="description">坦坦荡荡 一身正气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是Trie"><span class="nav-number">1.</span> <span class="nav-text">什么是Trie</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Trie字典树的添加"><span class="nav-number">1.1.</span> <span class="nav-text">Trie字典树的添加</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询"><span class="nav-number">1.2.</span> <span class="nav-text">查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#前缀查询"><span class="nav-number">1.3.</span> <span class="nav-text">前缀查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实现Trie（前缀树-leecode）"><span class="nav-number">1.4.</span> <span class="nav-text">实现Trie（前缀树 leecode）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#添加与搜索单词（leecode）"><span class="nav-number">1.5.</span> <span class="nav-text">添加与搜索单词（leecode）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZZQ</span>
+
+  
+</div>
+
+
+ <!-- 
+ 
+ <div class="powered-by">世界是美好的</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">是值得我们去奋斗的 &mdash;  v</div>
+
+-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+	 
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv"></span>
+        </span>
+        <span class="post-meta-divider"></span>
+        <span id="busuanzi_container_site_uv" style="display:none">
+                <span id="busuanzi_value_site_uv"></span>
+        </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v="></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+		<link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: "<%=page.date%>", 
+            owner: 'zqnh',
+            repo: 'zqnh.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd9c922b4c4a7b4458ba55aa5673db78556aa9d1f',
+            
+                client_id: 'ca41c1f6c6585b630f16'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
