@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构,平衡二叉树,AVL,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="平衡二叉树由于二分搜索树顺序创建一个树时，会退化成链表，大大降低的效率，我们引出平衡二叉树——AVL树，G.M.Adelson-Velsky和E.M.Landis ，AVL，最早的自平衡二分搜索树结构。  平衡二叉树特点 对于任意一个节点，左子树和右子树的高度查不能为超过1 平衡二叉树的高度和节点数量之间的关系也是O（logn）的 节点高度 平衡因子   123456789101112131415">
+<meta name="keywords" content="数据结构,平衡二叉树,AVL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构之平衡二叉树与AVL树">
+<meta property="og:url" content="http://yoursite.com/2019/08/05/数据结构之平衡二叉树与AVL树/index.html">
+<meta property="og:site_name" content="Aemon Zhu">
+<meta property="og:description" content="平衡二叉树由于二分搜索树顺序创建一个树时，会退化成链表，大大降低的效率，我们引出平衡二叉树——AVL树，G.M.Adelson-Velsky和E.M.Landis ，AVL，最早的自平衡二分搜索树结构。  平衡二叉树特点 对于任意一个节点，左子树和右子树的高度查不能为超过1 平衡二叉树的高度和节点数量之间的关系也是O（logn）的 节点高度 平衡因子   123456789101112131415">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/08/05/数据结构之平衡二叉树与AVL树/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/05/数据结构之平衡二叉树与AVL树/2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/05/数据结构之平衡二叉树与AVL树/6.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/05/数据结构之平衡二叉树与AVL树/7.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/05/数据结构之平衡二叉树与AVL树/8.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/05/数据结构之平衡二叉树与AVL树/9.jpg">
+<meta property="og:updated_time" content="2019-08-05T11:16:41.211Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构之平衡二叉树与AVL树">
+<meta name="twitter:description" content="平衡二叉树由于二分搜索树顺序创建一个树时，会退化成链表，大大降低的效率，我们引出平衡二叉树——AVL树，G.M.Adelson-Velsky和E.M.Landis ，AVL，最早的自平衡二分搜索树结构。  平衡二叉树特点 对于任意一个节点，左子树和右子树的高度查不能为超过1 平衡二叉树的高度和节点数量之间的关系也是O（logn）的 节点高度 平衡因子   123456789101112131415">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/05/数据结构之平衡二叉树与AVL树/1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/05/数据结构之平衡二叉树与AVL树/">
+
+
+
+
+
+  <title>数据结构之平衡二叉树与AVL树 | Aemon Zhu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zqnh"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1" style="
+    margin-left: 1114px;
+    margin-right: 0px;
+"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aemon Zhu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习使我快乐 敲代码使我充实</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/05/数据结构之平衡二叉树与AVL树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZZQ">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aemon Zhu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构之平衡二叉树与AVL树</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-05T11:37:38+08:00">
+                2019-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/05/数据结构之平衡二叉树与AVL树/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/08/05/数据结构之平衡二叉树与AVL树/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h5 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h5><p>由于二分搜索树顺序创建一个树时，会退化成链表，大大降低的效率，我们引出平衡二叉树——AVL树，G.M.Adelson-Velsky和E.M.Landis ，AVL，最早的自平衡二分搜索树结构。</p>
+<p><img src="/2019/08/05/数据结构之平衡二叉树与AVL树/1.jpg" alt></p>
+<h5 id="平衡二叉树特点"><a href="#平衡二叉树特点" class="headerlink" title="平衡二叉树特点"></a>平衡二叉树特点</h5><ul>
+<li>对于任意一个节点，左子树和右子树的高度查不能为超过1</li>
+<li>平衡二叉树的高度和节点数量之间的关系也是O（logn）的</li>
+<li>节点高度</li>
+<li>平衡因子</li>
+</ul>
+<p><img src="/2019/08/05/数据结构之平衡二叉树与AVL树/2.jpg" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br></pre></td><td class="code"><pre><span class="line">package AVL;</span><br><span class="line"></span><br><span class="line">import java.lang.reflect.Array;</span><br><span class="line">import java.util.ArrayList;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author zqnh</span><br><span class="line"> * @date 2019/8/4 on 10:44.</span><br><span class="line"> */</span><br><span class="line">public class AVLTree&lt;K extends Comparable&lt;K&gt;,V&gt;</span><br><span class="line">&#123;</span><br><span class="line">    private class Node</span><br><span class="line">    &#123;</span><br><span class="line">        public K key;</span><br><span class="line">        public V value;</span><br><span class="line">        public Node left,right;</span><br><span class="line">        public int height;</span><br><span class="line">        public Node(K key,V value)</span><br><span class="line">        &#123;</span><br><span class="line">            this.key=key;</span><br><span class="line">            this.value = value;</span><br><span class="line">            left=null;</span><br><span class="line">            right=null;</span><br><span class="line">            height=1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private Node root;</span><br><span class="line">    private int size;</span><br><span class="line">    public AVLTree()</span><br><span class="line">    &#123;</span><br><span class="line">        root=null;</span><br><span class="line">        size=0;</span><br><span class="line">    &#125;</span><br><span class="line">    //获得节点node的高度</span><br><span class="line">    private int getHeight(Node node)</span><br><span class="line">    &#123;</span><br><span class="line">        if(node == null)</span><br><span class="line">            return 0;</span><br><span class="line">        return node.height;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //获得节点node的平衡因子</span><br><span class="line">    private int getBalanceFactor(Node node)</span><br><span class="line">    &#123;</span><br><span class="line">        if(node == null)</span><br><span class="line">            return 0;</span><br><span class="line">        return getHeight(node.left) - getHeight(node.right);</span><br><span class="line">    &#125;</span><br><span class="line">    public void add(K key, V value)</span><br><span class="line">    &#123;</span><br><span class="line">        root = add(root, key,value);</span><br><span class="line">    &#125;</span><br><span class="line">    private Node add(Node node,K key,V value)</span><br><span class="line">    &#123;</span><br><span class="line">        if(node == null)</span><br><span class="line">        &#123;</span><br><span class="line">            size++;</span><br><span class="line">            return new Node(key,value);</span><br><span class="line">        &#125;</span><br><span class="line">        if(key.compareTo(node.key)&lt;0)</span><br><span class="line"></span><br><span class="line">            node.left = add(node.left,key,value);</span><br><span class="line">        else if (key.compareTo(node.key) &gt; 0 )</span><br><span class="line">            node.right = add(node.right,key,value);</span><br><span class="line">        else</span><br><span class="line">            node.value = value;</span><br><span class="line">        //更新height</span><br><span class="line">        node.height = 1+Math.max(getHeight(node.left),getHeight(node.right));</span><br><span class="line">        //计算平衡因子</span><br><span class="line">        int balanceFactor = getBalanceFactor(node);</span><br><span class="line">        if(Math.abs(balanceFactor)&gt;1) System.out.println(balanceFactor);</span><br><span class="line">        return node;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public V remove(K key)</span><br><span class="line">    &#123;</span><br><span class="line">        Node node = getNode(root,key);</span><br><span class="line">        if(node!=null)</span><br><span class="line">        &#123;</span><br><span class="line">            root = remove(root,key);</span><br><span class="line">            return node.value;</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">    //删除掉以node为根的二分搜索树中键为key的结点，递归算法</span><br><span class="line">    //返回删除结点后新的二分搜索树的根</span><br><span class="line">    private Node remove(Node node, K key)</span><br><span class="line">    &#123;</span><br><span class="line">        if(node == null)</span><br><span class="line">            return null;</span><br><span class="line">        if(key.compareTo(node.key)&lt;0)</span><br><span class="line">        &#123;</span><br><span class="line">            node.left = remove(node.left,key);</span><br><span class="line">            return node;</span><br><span class="line">        &#125;</span><br><span class="line">        else if(key.compareTo(node.key)&gt;0)</span><br><span class="line">        &#123;</span><br><span class="line">            node.right = remove(node.right,key);</span><br><span class="line">            return node;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;//e == node.e</span><br><span class="line">            //待删除结点左子树为空的情况</span><br><span class="line">            if(node.left == null)</span><br><span class="line">            &#123;</span><br><span class="line">                Node rightNode = node.right;</span><br><span class="line">                node.right = null;</span><br><span class="line">                size--;</span><br><span class="line">                return rightNode;</span><br><span class="line">            &#125;</span><br><span class="line">            //待删除结点右子树为空的情况</span><br><span class="line">            if(node.right == null)</span><br><span class="line">            &#123;</span><br><span class="line">                Node leftNode = node.left;</span><br><span class="line">                node.left = null;</span><br><span class="line">                size--;</span><br><span class="line">                return leftNode;</span><br><span class="line">            &#125;</span><br><span class="line">            //待删除结点左右子树均不为空的情况</span><br><span class="line">            //找到比待删除结点大的最小结点，即待删除结点右子树的最小结点</span><br><span class="line">            //用这个结点顶替待删除结点的位置</span><br><span class="line">            Node successor = minimum(node.right);</span><br><span class="line">            successor.right = removeMin(node.right);</span><br><span class="line">            successor.left = node.left;</span><br><span class="line"></span><br><span class="line">            node.left = node.right = null;</span><br><span class="line"></span><br><span class="line">            return successor;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    private Node minimum(Node node)</span><br><span class="line">    &#123;</span><br><span class="line">        if(node.left == null)</span><br><span class="line">            return node;</span><br><span class="line">        return minimum(node.left);</span><br><span class="line">    &#125;</span><br><span class="line">    //删除掉以node为根的二分搜索树中的最小结点</span><br><span class="line">    //返回删除结点后新的二分搜索树的根</span><br><span class="line">    private Node removeMin(Node node)</span><br><span class="line">    &#123;</span><br><span class="line">        if(node.left == null)</span><br><span class="line">        &#123;</span><br><span class="line">            Node rightNode = node.right;</span><br><span class="line">            node.right = null;</span><br><span class="line">            size--;</span><br><span class="line">            return rightNode;</span><br><span class="line">        &#125;</span><br><span class="line">        node.left = removeMin(node.left);</span><br><span class="line">        return node;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public boolean contains(K key)</span><br><span class="line">    &#123;</span><br><span class="line">        return getNode(root,key)!=null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public V get(K key)</span><br><span class="line">    &#123;</span><br><span class="line">        Node node = getNode(root,key);</span><br><span class="line">        return node == null?null:node.value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public void set(K key, V newValue)</span><br><span class="line">    &#123;</span><br><span class="line">        Node node = getNode(root,key);</span><br><span class="line">        if(node == null)</span><br><span class="line">            throw new IllegalArgumentException(key+&quot;doesn&apos;t exist&quot;);</span><br><span class="line">        node.value= newValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getSize()</span><br><span class="line">    &#123;</span><br><span class="line">        return size;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public boolean isEmpty()</span><br><span class="line">    &#123;</span><br><span class="line">        return size==0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //判断该二叉树是否是一棵二分搜索树</span><br><span class="line">    public boolean isBST()</span><br><span class="line">    &#123;</span><br><span class="line">        ArrayList&lt;K&gt; keys = new ArrayList&lt;&gt;();</span><br><span class="line">        inOrder(root,keys);</span><br><span class="line">        for (int i = 0; i &lt; keys.size(); i++) &#123;</span><br><span class="line">            if(keys.get(i-1).compareTo(keys.get(i))&gt;0)</span><br><span class="line">                return false;</span><br><span class="line"></span><br><span class="line">        &#125;return true;</span><br><span class="line">    &#125;</span><br><span class="line">    //判断该二叉树是否是一颗平衡二叉树</span><br><span class="line">    public boolean isBalanced()</span><br><span class="line">    &#123;</span><br><span class="line">        return isBalanced(root);</span><br><span class="line">    &#125;</span><br><span class="line">    private boolean isBalanced(Node node)</span><br><span class="line">    &#123;</span><br><span class="line">        if(node ==null)</span><br><span class="line">            return true;</span><br><span class="line">        int balanceFactor = getBalanceFactor(node);</span><br><span class="line"></span><br><span class="line">        if(Math.abs(balanceFactor)&gt;1)</span><br><span class="line">            return false;</span><br><span class="line">        return isBalanced(node.left) &amp;&amp; isBalanced(node.right);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void inOrder(Node node, ArrayList&lt;K&gt; keys)</span><br><span class="line">    &#123;</span><br><span class="line">        if(node == null )</span><br><span class="line">        return;</span><br><span class="line">        inOrder(node.left,keys);</span><br><span class="line">        keys.add(node.key);</span><br><span class="line">        inOrder(node.right,keys);</span><br><span class="line">    &#125;</span><br><span class="line">    private Node getNode(Node node,K key)</span><br><span class="line">    &#123;</span><br><span class="line">        if(node == null)</span><br><span class="line">            return null;</span><br><span class="line">        if(key.compareTo(node.key) == 0)</span><br><span class="line">            return node;</span><br><span class="line">        else if(key.compareTo(node.key)&lt;0)</span><br><span class="line">            return getNode(node.left,key);</span><br><span class="line">        else</span><br><span class="line">            return getNode(node.right,key);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="AVL树的左旋和右旋"><a href="#AVL树的左旋和右旋" class="headerlink" title="AVL树的左旋和右旋"></a>AVL树的左旋和右旋</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//对节点进行右旋操作，返回旋转后新的根结点x</span><br><span class="line">  //          y                            x</span><br><span class="line">  //         / \                         /   \</span><br><span class="line">  //        x         向右旋转（y）      z      y</span><br><span class="line">  //       / \    ----------------&gt;   /   \   /   \</span><br><span class="line">  //      z   T3                     T1   T2  T3   T3</span><br><span class="line">  //     / \</span><br><span class="line">  //    T1  T2</span><br><span class="line">  private Node rightRotate(Node y)</span><br><span class="line">  &#123;</span><br><span class="line">      Node x = y.right;</span><br><span class="line">      Node T3 = x.right;</span><br><span class="line">      //向右旋转</span><br><span class="line">      x.right = y;</span><br><span class="line">      y.left = T3;</span><br><span class="line"></span><br><span class="line">      //更新height</span><br><span class="line">      y.height = Math.max(getHeight(y.left),getHeight((y.right)) + 1 );</span><br><span class="line">      x.height = Math.max(getHeight(x.left),getHeight((x.right)) + 1 );</span><br><span class="line"></span><br><span class="line">      return x;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">//对节点y进行左旋转操作，返回旋转后新的根结点x</span><br><span class="line">   //     y                                    X</span><br><span class="line">   //    / \                                 /   \</span><br><span class="line">   //  T1    x     向左旋转（y）             Y     z</span><br><span class="line">   //       / \ -----------------------&gt;  / \    / \</span><br><span class="line">   //      T2  z                         T1   T2 T3  T4</span><br><span class="line">   //          / \</span><br><span class="line">   //         T3  T4</span><br><span class="line">   private Node leftRotate(Node y)</span><br><span class="line">   &#123;</span><br><span class="line">       Node x = y.right;</span><br><span class="line">       Node T2 = x.left;</span><br><span class="line"></span><br><span class="line">       //向左旋转</span><br><span class="line">       x.left = y;</span><br><span class="line">       y.right = T2;</span><br><span class="line"></span><br><span class="line">       //更新height</span><br><span class="line">       y.height = Math.max(getHeight(y.left),getHeight((y.right)) + 1 );</span><br><span class="line">       x.height = Math.max(getHeight(x.left),getHeight((x.right)) + 1 );</span><br><span class="line"></span><br><span class="line">       return x;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="LL-RR-LR-RL"><a href="#LL-RR-LR-RL" class="headerlink" title="LL RR LR RL"></a>LL RR LR RL</h5><p>左左型，右右型，左右型，右左型</p>
+<p><strong>LR</strong></p>
+<p><img src="/2019/08/05/数据结构之平衡二叉树与AVL树/6.jpg" alt></p>
+<p><img src="/2019/08/05/数据结构之平衡二叉树与AVL树/7.jpg" alt></p>
+<p>然后再对树进行右旋</p>
+<hr>
+<p><strong>RL</strong></p>
+<p><img src="/2019/08/05/数据结构之平衡二叉树与AVL树/8.jpg" alt></p>
+<p>对x进行右旋转</p>
+<p><img src="/2019/08/05/数据结构之平衡二叉树与AVL树/9.jpg" alt></p>
+<p>成为RR情况，对y进行左旋转</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/平衡二叉树/" rel="tag"># 平衡二叉树</a>
+          
+            <a href="/tags/AVL/" rel="tag"># AVL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/04/数据结构之Trie字典树/" rel="next" title="数据结构之Trie字典树">
+                <i class="fa fa-chevron-left"></i> 数据结构之Trie字典树
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="ZZQ">
+            
+              <p class="site-author-name" itemprop="name">ZZQ</p>
+              <p class="site-description motion-element" itemprop="description">坦坦荡荡 一身正气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#平衡二叉树"><span class="nav-number">1.</span> <span class="nav-text">平衡二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#平衡二叉树特点"><span class="nav-number">2.</span> <span class="nav-text">平衡二叉树特点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AVL树的左旋和右旋"><span class="nav-number">3.</span> <span class="nav-text">AVL树的左旋和右旋</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#LL-RR-LR-RL"><span class="nav-number">4.</span> <span class="nav-text">LL RR LR RL</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZZQ</span>
+
+  
+</div>
+
+
+ <!-- 
+ 
+ <div class="powered-by">世界是美好的</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">是值得我们去奋斗的 &mdash;  v</div>
+
+-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+	 
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv"></span>
+        </span>
+        <span class="post-meta-divider"></span>
+        <span id="busuanzi_container_site_uv" style="display:none">
+                <span id="busuanzi_value_site_uv"></span>
+        </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v="></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+		<link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: "<%=page.date%>", 
+            owner: 'zqnh',
+            repo: 'zqnh.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd9c922b4c4a7b4458ba55aa5673db78556aa9d1f',
+            
+                client_id: 'ca41c1f6c6585b630f16'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
