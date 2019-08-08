@@ -83,19 +83,19 @@
 <meta name="keywords" content="Redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis系列三慢查询、pipeline">
-<meta property="og:url" content="http://yoursite.com/2019/08/07/Redis系列三慢查询pipeline/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/08/07/Redis系列三慢查询、pipeline/index.html">
 <meta property="og:site_name" content="Aemon Zhu">
 <meta property="og:description" content="慢查询 生命周期  慢查询发生在执行命令阶段  客户端超时不一定慢查询，但查询是客户端超时的一个可能因素   三个命令  slowlog get[n]:获取慢查询队列  slowlog len:获取慢查询队列长度  slowlog reset:清空慢查询队列  两个配置  config get slowlog-max-len = 128 config get slowlog -log-slower">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/08/07/Redis系列三慢查询pipeline/Redis系列三慢查询、pipeline/1.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/08/07/Redis系列三慢查询pipeline/Redis系列三慢查询、pipeline/2.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/08/07/Redis系列三慢查询pipeline/Redis系列三慢查询、pipeline/3.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/08/07/Redis系列三慢查询pipeline/Redis系列三慢查询、pipeline/4.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/07/Redis系列三慢查询、pipeline/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/07/Redis系列三慢查询、pipeline/2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/07/Redis系列三慢查询、pipeline/3.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/07/Redis系列三慢查询、pipeline/4.jpg">
 <meta property="og:updated_time" content="2019-08-07T10:19:36.151Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis系列三慢查询、pipeline">
 <meta name="twitter:description" content="慢查询 生命周期  慢查询发生在执行命令阶段  客户端超时不一定慢查询，但查询是客户端超时的一个可能因素   三个命令  slowlog get[n]:获取慢查询队列  slowlog len:获取慢查询队列长度  slowlog reset:清空慢查询队列  两个配置  config get slowlog-max-len = 128 config get slowlog -log-slower">
-<meta name="twitter:image" content="http://yoursite.com/2019/08/07/Redis系列三慢查询pipeline/Redis系列三慢查询、pipeline/1.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/07/Redis系列三慢查询、pipeline/1.jpg">
 
 
 
@@ -125,7 +125,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/08/07/Redis系列三慢查询pipeline/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/07/Redis系列三慢查询、pipeline/">
 
 
 
@@ -271,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/Redis系列三慢查询pipeline/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/Redis系列三慢查询、pipeline/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZZQ">
@@ -341,8 +341,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/08/07/Redis系列三慢查询pipeline/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/08/07/Redis系列三慢查询pipeline/" itemprop="commentsCount"></span>
+                <a href="/2019/08/07/Redis系列三慢查询、pipeline/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/08/07/Redis系列三慢查询、pipeline/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -375,7 +375,7 @@
       
 
       
-        <h5 id="慢查询"><a href="#慢查询" class="headerlink" title="慢查询"></a>慢查询</h5><p><img src="/2019/08/07/Redis系列三慢查询pipeline/Redis系列三慢查询、pipeline/1.jpg" alt></p>
+        <h5 id="慢查询"><a href="#慢查询" class="headerlink" title="慢查询"></a>慢查询</h5><p><img src="/2019/08/07/Redis系列三慢查询、pipeline/1.jpg" alt></p>
 <p><strong>生命周期</strong></p>
 <ul>
 <li><p>慢查询发生在执行命令阶段</p>
@@ -396,7 +396,7 @@
 <li>config get slowlog-max-len = 128</li>
 <li>config get slowlog -log-slower-than = 10000</li>
 </ul>
-<h5 id="pipeline（流水线）"><a href="#pipeline（流水线）" class="headerlink" title="pipeline（流水线）"></a>pipeline（流水线）</h5><p><img src="/2019/08/07/Redis系列三慢查询pipeline/Redis系列三慢查询、pipeline/2.jpg" alt></p>
+<h5 id="pipeline（流水线）"><a href="#pipeline（流水线）" class="headerlink" title="pipeline（流水线）"></a>pipeline（流水线）</h5><p><img src="/2019/08/07/Redis系列三慢查询、pipeline/2.jpg" alt></p>
 <table>
 <thead>
 <tr>
@@ -426,11 +426,11 @@
 <p><strong>pipeline实现</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">  public void test1()</span><br><span class="line">  &#123;</span><br><span class="line">      jedis = new Jedis(&quot;127.0.0.1&quot;, 6379);</span><br><span class="line">      Pipeline pipeline = jedis.pipelined();</span><br><span class="line">      long startTime = System.currentTimeMillis();</span><br><span class="line">      for(int i=0;i&lt;10000;i++)</span><br><span class="line">      &#123;</span><br><span class="line">          pipeline.hset(&quot;hashkey&quot;,&quot;field%d&quot; +i,&quot;value%d&quot; + i);</span><br><span class="line">      &#125;</span><br><span class="line">      pipeline.sync();</span><br><span class="line">      jedis.close();</span><br><span class="line">      long endTime = System.currentTimeMillis();</span><br><span class="line">      System.out.println(&quot;程序运行时间：&quot; + (endTime - startTime) + &quot;ms&quot;);    //输出程序运行时间</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">程序运行时间：56ms</span><br></pre></td></tr></table></figure>
-<h5 id="发布订阅"><a href="#发布订阅" class="headerlink" title="发布订阅"></a>发布订阅</h5><p><img src="/2019/08/07/Redis系列三慢查询pipeline/Redis系列三慢查询、pipeline/3.jpg" alt></p>
+<h5 id="发布订阅"><a href="#发布订阅" class="headerlink" title="发布订阅"></a>发布订阅</h5><p><img src="/2019/08/07/Redis系列三慢查询、pipeline/3.jpg" alt></p>
 <p>publish（发布命令）publish sohu:tv “hello world”</p>
 <p>subcirber(订阅) subcirber sohu:tv</p>
 <p><strong>消息队列</strong></p>
-<p><img src="/2019/08/07/Redis系列三慢查询pipeline/Redis系列三慢查询、pipeline/4.jpg" alt></p>
+<p><img src="/2019/08/07/Redis系列三慢查询、pipeline/4.jpg" alt></p>
 <h5 id="Bitmap（位图）"><a href="#Bitmap（位图）" class="headerlink" title="Bitmap（位图）"></a>Bitmap（位图）</h5><p>setbit key offset value 给位图指定索引设定值</p>
 <p>getbit key offset 获取位图指定索引值</p>
 <p>bitcount key [start end] 获取位图指定范围，单位为字节</p>
