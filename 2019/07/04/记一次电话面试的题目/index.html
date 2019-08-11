@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Aemon Zhu">
 <meta property="og:description" content="记一次电话面试的题目 前天进行了人生第一次面试，总体感觉良好，聊了差不多半个小时，一交谈才发现自己的水平还有待提高，下面整理下面试题，做个总结。 自我介绍这个就不多说了~~~ 了解Java类的加载过程吗？​        编译，将写好的后缀为.java的源文件，通过Javac命令编译成字节码文件，也就是后缀为.class文件，运行，就是将编译过后的.class文件交给JVM（Java virtua">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-09T11:15:41.309Z">
+<meta property="og:updated_time" content="2019-08-10T15:11:42.881Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次电话面试的题目">
 <meta name="twitter:description" content="记一次电话面试的题目 前天进行了人生第一次面试，总体感觉良好，聊了差不多半个小时，一交谈才发现自己的水平还有待提高，下面整理下面试题，做个总结。 自我介绍这个就不多说了~~~ 了解Java类的加载过程吗？​        编译，将写好的后缀为.java的源文件，通过Javac命令编译成字节码文件，也就是后缀为.class文件，运行，就是将编译过后的.class文件交给JVM（Java virtua">
@@ -365,6 +365,12 @@
 <h5 id="谈谈事务的理解"><a href="#谈谈事务的理解" class="headerlink" title="谈谈事务的理解"></a>谈谈事务的理解</h5><p>ACID（原子性、连续性、隔离性、持久性），事务的隔离等级；脏读，幻读，不可重复读</p>
 <h5 id="Spring的理解Aop-Ioc"><a href="#Spring的理解Aop-Ioc" class="headerlink" title="Spring的理解Aop Ioc"></a>Spring的理解Aop Ioc</h5><p><a href="http://www.zzqd.net/2019/06/01/Spring———Ioc和AOP/" target="_blank" rel="noopener">Spring</a></p>
 <h5 id="jsp页面如何控制访问权限"><a href="#jsp页面如何控制访问权限" class="headerlink" title="jsp页面如何控制访问权限"></a>jsp页面如何控制访问权限</h5><p>​        用session判断，当登陆后将用户信息储存在session中，设置一个过滤器，如果进行访问先进行判断session中是否有用户信息，如果没有的话跳转到登陆界面。</p>
+<p>2019/8/10 下午11:07:12</p>
+<p>jsp控制访问权限，也就如何控制直接访问web资源和其他jsp页面</p>
+<p>思路：通过Filter过滤器来过滤操作，判断session中是否存在用户信息，如果有，则能访问，如果没有直接跳转到登陆界面，代码实现，然后再web.xml中配置Filter</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd.filter;</span><br><span class="line"></span><br><span class="line">import lombok.extern.slf4j.Slf4j;</span><br><span class="line">import net.zzqd.common.RequestHolder;</span><br><span class="line">import net.zzqd.model.SysUser;</span><br><span class="line"></span><br><span class="line">import javax.servlet.*;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author zqnh</span><br><span class="line"> * @date 2019/8/10 on 22:59.</span><br><span class="line"> */</span><br><span class="line">@Slf4j</span><br><span class="line">public class LoginFilter implements Filter</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    public void init(FilterConfig filterConfig) throws ServletException &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException</span><br><span class="line">    &#123;</span><br><span class="line">        HttpServletRequest req = (HttpServletRequest) servletRequest;</span><br><span class="line">        HttpServletResponse resp = (HttpServletResponse) servletResponse;</span><br><span class="line"></span><br><span class="line">        SysUser sysUser = (SysUser)req.getSession().getAttribute(&quot;user&quot;);</span><br><span class="line">        if (sysUser == null) &#123;</span><br><span class="line">            String path = &quot;/signin.jsp&quot;;</span><br><span class="line">            resp.sendRedirect(path);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        RequestHolder.add(sysUser);</span><br><span class="line">        RequestHolder.add(req);</span><br><span class="line">        filterChain.doFilter(servletRequest, servletResponse);</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void destroy() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter&gt;</span><br><span class="line">    &lt;filter-name&gt;loginFilter&lt;/filter-name&gt;</span><br><span class="line">    &lt;filter-class&gt;net.zzqd.filter.LoginFilter&lt;/filter-class&gt;</span><br><span class="line">  &lt;/filter&gt;</span><br><span class="line">  &lt;filter-mapping&gt;</span><br><span class="line">    &lt;filter-name&gt;loginFilter&lt;/filter-name&gt;</span><br><span class="line">    &lt;url-pattern&gt;/sys/*&lt;/url-pattern&gt;</span><br><span class="line">    &lt;url-pattern&gt;/admin/*&lt;/url-pattern&gt;</span><br><span class="line">  &lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure>
+<p>这样，当其他用户未登录直接访问sys和admin的请求被过滤。</p>
 
       
     </div>
@@ -493,7 +499,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">76</span>
+                  <span class="site-state-item-count">77</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -504,7 +510,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -515,7 +521,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

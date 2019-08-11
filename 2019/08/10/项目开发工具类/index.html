@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="工具类,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在之前的 Java开发过程中，总结了许多的工具类，像类似的工具类其实有很多，这里总结一些自己常用到的。其中有些是借鉴别人的，有些是自己总结的，比如MD5工具类、Password工具类、BigDecimal工具类、DateTime工具类、Properties工具类、FTP服务器工具类、JWT工具类、 Http工具类、Cookie工具类、Json工具类、IP工具类、Redis工具类、下面这些工具类，另">
+<meta name="keywords" content="工具类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="项目开发工具类">
+<meta property="og:url" content="http://yoursite.com/2019/08/10/项目开发工具类/index.html">
+<meta property="og:site_name" content="Aemon Zhu">
+<meta property="og:description" content="在之前的 Java开发过程中，总结了许多的工具类，像类似的工具类其实有很多，这里总结一些自己常用到的。其中有些是借鉴别人的，有些是自己总结的，比如MD5工具类、Password工具类、BigDecimal工具类、DateTime工具类、Properties工具类、FTP服务器工具类、JWT工具类、 Http工具类、Cookie工具类、Json工具类、IP工具类、Redis工具类、下面这些工具类，另">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-10T12:04:49.118Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="项目开发工具类">
+<meta name="twitter:description" content="在之前的 Java开发过程中，总结了许多的工具类，像类似的工具类其实有很多，这里总结一些自己常用到的。其中有些是借鉴别人的，有些是自己总结的，比如MD5工具类、Password工具类、BigDecimal工具类、DateTime工具类、Properties工具类、FTP服务器工具类、JWT工具类、 Http工具类、Cookie工具类、Json工具类、IP工具类、Redis工具类、下面这些工具类，另">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/10/项目开发工具类/">
+
+
+
+
+
+  <title>项目开发工具类 | Aemon Zhu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zqnh"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1" style="
+    margin-left: 1114px;
+    margin-right: 0px;
+"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aemon Zhu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习使我快乐 敲代码使我充实</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/10/项目开发工具类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZZQ">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aemon Zhu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">项目开发工具类</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-10T18:53:34+08:00">
+                2019-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具类/" itemprop="url" rel="index">
+                    <span itemprop="name">工具类</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/10/项目开发工具类/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/08/10/项目开发工具类/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在之前的 Java开发过程中，总结了许多的工具类，像类似的工具类其实有很多，这里总结一些自己常用到的。其中有些是借鉴别人的，有些是自己总结的，比如MD5工具类、Password工具类、BigDecimal工具类、DateTime工具类、Properties工具类、FTP服务器工具类、JWT工具类、 Http工具类、Cookie工具类、Json工具类、IP工具类、Redis工具类、下面这些工具类，另外附加几个加密类，使用时直接稍做修改就可以使用了。</p>
+<h5 id="MD5"><a href="#MD5" class="headerlink" title="MD5"></a>MD5</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import lombok.extern.slf4j.Slf4j;</span><br><span class="line">import java.security.MessageDigest;</span><br><span class="line">@Slf4j</span><br><span class="line">public class MD5Util &#123;</span><br><span class="line"></span><br><span class="line">    public final static String encrypt(String s) &#123;</span><br><span class="line">        char hexDigits[] = &#123; &apos;0&apos;, &apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;, &apos;5&apos;, &apos;6&apos;, &apos;7&apos;, &apos;8&apos;, &apos;9&apos;, &apos;A&apos;, &apos;B&apos;, &apos;C&apos;, &apos;D&apos;, &apos;E&apos;, &apos;F&apos; &#125;;</span><br><span class="line">        try &#123;</span><br><span class="line">            byte[] btInput = s.getBytes();</span><br><span class="line">            // 获得MD5摘要算法的 MessageDigest 对象</span><br><span class="line">            MessageDigest mdInst = MessageDigest.getInstance(&quot;MD5&quot;);</span><br><span class="line">            // 使用指定的字节更新摘要</span><br><span class="line">            mdInst.update(btInput);</span><br><span class="line">            // 获得密文</span><br><span class="line">            byte[] md = mdInst.digest();</span><br><span class="line">            // 把密文转换成十六进制的字符串形式</span><br><span class="line">            int j = md.length;</span><br><span class="line">            char str[] = new char[j * 2];</span><br><span class="line">            int k = 0;</span><br><span class="line">            for (int i = 0; i &lt; j; i++) &#123;</span><br><span class="line">                byte byte0 = md[i];</span><br><span class="line">                str[k++] = hexDigits[byte0 &gt;&gt;&gt; 4 &amp; 0xf];</span><br><span class="line">                str[k++] = hexDigits[byte0 &amp; 0xf];</span><br><span class="line">            &#125;</span><br><span class="line">            return new String(str);</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            log.error(&quot;generate md5 error, &#123;&#125;&quot;, s, e);</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="PasswordUtil"><a href="#PasswordUtil" class="headerlink" title="PasswordUtil"></a>PasswordUtil</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Date;</span><br><span class="line">import java.util.Random;</span><br><span class="line"></span><br><span class="line">public class PasswordUtil &#123;</span><br><span class="line"></span><br><span class="line">    public final static String[] word = &#123;</span><br><span class="line">            &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;, &quot;g&quot;,</span><br><span class="line">            &quot;h&quot;, &quot;j&quot;, &quot;k&quot;, &quot;m&quot;, &quot;n&quot;,</span><br><span class="line">            &quot;p&quot;, &quot;q&quot;, &quot;r&quot;, &quot;s&quot;, &quot;t&quot;,</span><br><span class="line">            &quot;u&quot;, &quot;v&quot;, &quot;w&quot;, &quot;x&quot;, &quot;y&quot;, &quot;z&quot;,</span><br><span class="line">            &quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;, &quot;G&quot;,</span><br><span class="line">            &quot;H&quot;, &quot;J&quot;, &quot;K&quot;, &quot;M&quot;, &quot;N&quot;,</span><br><span class="line">            &quot;P&quot;, &quot;Q&quot;, &quot;R&quot;, &quot;S&quot;, &quot;T&quot;,</span><br><span class="line">            &quot;U&quot;, &quot;V&quot;, &quot;W&quot;, &quot;X&quot;, &quot;Y&quot;, &quot;Z&quot;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    public final static String[] num = &#123;</span><br><span class="line">            &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    public static String randomPassword() &#123;</span><br><span class="line">        StringBuffer stringBuffer = new StringBuffer();</span><br><span class="line">        Random random = new Random(new Date().getTime());</span><br><span class="line">        boolean flag = false;</span><br><span class="line">        int length = random.nextInt(3) + 8;</span><br><span class="line">        for (int i = 0; i &lt; length; i++) &#123;</span><br><span class="line">            if (flag) &#123;</span><br><span class="line">                stringBuffer.append(num[random.nextInt(num.length)]);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                stringBuffer.append(word[random.nextInt(word.length)]);</span><br><span class="line">            &#125;</span><br><span class="line">            flag = !flag;</span><br><span class="line">        &#125;</span><br><span class="line">        return stringBuffer.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        System.out.println(randomPassword());</span><br><span class="line">        Thread.sleep(100);</span><br><span class="line">        System.out.println(randomPassword());</span><br><span class="line">        Thread.sleep(100);</span><br><span class="line">        System.out.println(randomPassword());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="BigDecimalUtil"><a href="#BigDecimalUtil" class="headerlink" title="BigDecimalUtil"></a>BigDecimalUtil</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">import java.math.BigDecimal;</span><br><span class="line">public class BigDecimalUtil</span><br><span class="line">&#123;</span><br><span class="line">    private BigDecimalUtil()</span><br><span class="line">    &#123;</span><br><span class="line">        //私有构造器，不允许实例化</span><br><span class="line">    &#125;</span><br><span class="line">    //加法</span><br><span class="line">    public static BigDecimal add(double v1,double v2)</span><br><span class="line">    &#123;</span><br><span class="line">        BigDecimal b1 = new BigDecimal(Double.toString(v1));</span><br><span class="line">        BigDecimal b2 = new BigDecimal(Double.toString(v2));</span><br><span class="line">        return b1.add(b2);</span><br><span class="line">    &#125;</span><br><span class="line">    //减法</span><br><span class="line">    public static BigDecimal sub(double v1,double v2)</span><br><span class="line">    &#123;</span><br><span class="line">        BigDecimal b1 = new BigDecimal(Double.toString(v1));</span><br><span class="line">        BigDecimal b2 = new BigDecimal(Double.toString(v2));</span><br><span class="line">        return b1.subtract(b2);</span><br><span class="line">    &#125;</span><br><span class="line">    //乘法</span><br><span class="line">    public static BigDecimal mul(double v1,double v2)</span><br><span class="line">    &#123;</span><br><span class="line">        BigDecimal b1 = new BigDecimal(Double.toString(v1));</span><br><span class="line">        BigDecimal b2 = new BigDecimal(Double.toString(v2));</span><br><span class="line">        return b1.multiply(b2);</span><br><span class="line">    &#125;</span><br><span class="line">    //除法</span><br><span class="line">    public static BigDecimal div(double v1,double v2)</span><br><span class="line">    &#123;</span><br><span class="line">        BigDecimal b1 = new BigDecimal(Double.toString(v1));</span><br><span class="line">        BigDecimal b2 = new BigDecimal(Double.toString(v2));</span><br><span class="line">        return b1.divide(b2,2,BigDecimal.ROUND_HALF_UP);//四舍五入，保留两位小数</span><br><span class="line"></span><br><span class="line">        //除不尽的情况</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="DateTimeUtil"><a href="#DateTimeUtil" class="headerlink" title="DateTimeUtil"></a>DateTimeUtil</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.commons.lang3.StringUtils;</span><br><span class="line">import org.joda.time.DateTime;</span><br><span class="line">import org.joda.time.format.DateTimeFormat;</span><br><span class="line">import org.joda.time.format.DateTimeFormatter;</span><br><span class="line">import java.util.Date;</span><br><span class="line"></span><br><span class="line">public class DateTimeUtil</span><br><span class="line">&#123;</span><br><span class="line">    //str-&gt;Date</span><br><span class="line">    //Date-&gt;str</span><br><span class="line">    public static final String STANDARD_FDRMAT = &quot;yyyy-MM-dd HH:mm:ss&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public static Date strToDate(String dateTimeStr, String formatStr)</span><br><span class="line">    &#123;</span><br><span class="line">        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(formatStr);</span><br><span class="line">        DateTime dateTime = dateTimeFormatter.parseDateTime(dateTimeStr);</span><br><span class="line">        return dateTime.toDate();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String dateToStr(Date date,String formatStr)</span><br><span class="line">    &#123;</span><br><span class="line">        if(date == null)</span><br><span class="line">        &#123;</span><br><span class="line">            return StringUtils.EMPTY;</span><br><span class="line">        &#125;</span><br><span class="line">        DateTime dateTime = new DateTime(date);</span><br><span class="line">        return dateTime.toString(formatStr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args)</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(DateTimeUtil.dateToStr(new Date(),&quot;yyyy-MM-dd HH:mm:ss&quot;));</span><br><span class="line">        System.out.println(DateTimeUtil.strToDate(&quot;2010-01-01 11:11:11&quot;,&quot;yyyy-MM-dd HH:mm:ss&quot;));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static Date strToDate(String dateTimeStr)</span><br><span class="line">    &#123;</span><br><span class="line">        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(STANDARD_FDRMAT);</span><br><span class="line">        DateTime dateTime = dateTimeFormatter.parseDateTime(dateTimeStr);</span><br><span class="line">        return dateTime.toDate();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String dateToStr(Date date)</span><br><span class="line">    &#123;</span><br><span class="line">        if(date == null)</span><br><span class="line">        &#123;</span><br><span class="line">            return StringUtils.EMPTY;</span><br><span class="line">        &#125;</span><br><span class="line">        DateTime dateTime = new DateTime(date);</span><br><span class="line">        return dateTime.toString(STANDARD_FDRMAT);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="PropertiesUtil"><a href="#PropertiesUtil" class="headerlink" title="PropertiesUtil"></a>PropertiesUtil</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.commons.lang3.StringUtils;</span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line">import javax.imageio.IIOException;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStreamReader;</span><br><span class="line">import java.util.Properties;</span><br><span class="line"></span><br><span class="line">public class PropertiesUtil</span><br><span class="line">&#123;</span><br><span class="line">    private static Logger logger = LoggerFactory.getLogger(PropertiesUtil.class);</span><br><span class="line"></span><br><span class="line">    private static Properties props;</span><br><span class="line"></span><br><span class="line">    static &#123;</span><br><span class="line">        String fileName = &quot;mmall.properties&quot;;</span><br><span class="line">        props = new Properties();</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            props.load(new InputStreamReader(PropertiesUtil.class.getClassLoader().getResourceAsStream(fileName),&quot;UTF-8&quot;));</span><br><span class="line">        &#125;catch (IOException e)</span><br><span class="line">        &#123;</span><br><span class="line">            logger.error(&quot;配置文件读取异常&quot;,e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String getProperty(String key )</span><br><span class="line">    &#123;</span><br><span class="line">        String value = props.getProperty(key.trim());</span><br><span class="line">        if(StringUtils.isBlank(value))</span><br><span class="line">        &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        return value.trim();</span><br><span class="line">    &#125;</span><br><span class="line">    public static String getProperty(String key,String defaultValue)</span><br><span class="line">    &#123;</span><br><span class="line">        String value = props.getProperty(key.trim());</span><br><span class="line">        if(StringUtils.isBlank(value))</span><br><span class="line">        &#123;</span><br><span class="line">            value = defaultValue;</span><br><span class="line">        &#125;</span><br><span class="line">        return value.trim();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="FTPUtil"><a href="#FTPUtil" class="headerlink" title="FTPUtil"></a>FTPUtil</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.commons.net.ftp.FTPClient;</span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.FileInputStream;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author zqnh</span><br><span class="line"> * @date 2019/7/28 on 8:50.</span><br><span class="line"> */</span><br><span class="line">public class FTPUtil</span><br><span class="line">&#123;</span><br><span class="line">    private static String ftpIp = PropertiesUtil.getProperty(&quot;ftp.server.ip&quot;);</span><br><span class="line">    private static String ftpuser = PropertiesUtil.getProperty(&quot;ftp.user&quot;);</span><br><span class="line">    private static String ftpPass = PropertiesUtil.getProperty(&quot;ftp.pass&quot;);</span><br><span class="line"></span><br><span class="line">    private static final Logger logger = LoggerFactory.getLogger(FTPUtil.class);</span><br><span class="line"></span><br><span class="line">    public FTPUtil(String ip,int port,String user,String pwd)</span><br><span class="line">    &#123;</span><br><span class="line">        this.ip=ip;</span><br><span class="line">        this.port=port;</span><br><span class="line">        this.user=user;</span><br><span class="line">        this.pwd=pwd;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static boolean uploadFile(List&lt;File&gt; fileList) throws IOException</span><br><span class="line">    &#123;</span><br><span class="line">        FTPUtil ftpUtil = new FTPUtil(ftpIp,21,ftpuser,ftpPass);</span><br><span class="line">        logger.info(&quot;开始连接ftp服务器&quot;);</span><br><span class="line">        boolean result=ftpUtil.uploadFile(&quot;img&quot;,fileList);</span><br><span class="line"></span><br><span class="line">        logger.info(&quot;开始连接ftp服务器，结束上传，上传结果:&#123;&#125;&quot;);</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">    private boolean uploadFile(String remotePath,List&lt;File&gt; fileList) throws IOException</span><br><span class="line">    &#123;</span><br><span class="line">        boolean uploaded = true;</span><br><span class="line">        FileInputStream fis = null;</span><br><span class="line">        //连接FTP服务器</span><br><span class="line">        if(connectServer(this.ip,this.port,this.user,this.pwd))</span><br><span class="line">        &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                ftpClient.changeWorkingDirectory(remotePath);</span><br><span class="line">                ftpClient.setBufferSize(1024);</span><br><span class="line">                ftpClient.setControlEncoding(&quot;UTF-8&quot;);</span><br><span class="line">                ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);</span><br><span class="line">                ftpClient.enterLocalPassiveMode();</span><br><span class="line">                for (File fileItem : fileList)</span><br><span class="line">                &#123;</span><br><span class="line">                    fis = new FileInputStream(fileItem);</span><br><span class="line">                    ftpClient.storeFile(fileItem.getName(),fis);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            catch (IOException e) &#123;</span><br><span class="line">                logger.error(&quot;上传文件异常&quot;,e);</span><br><span class="line">                uploaded = false;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;finally &#123;</span><br><span class="line">                fis.close();</span><br><span class="line">                ftpClient.disconnect();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return uploaded;</span><br><span class="line">    &#125;</span><br><span class="line">    private boolean connectServer(String ip,int port,String user,String pwd)</span><br><span class="line">    &#123;</span><br><span class="line">        boolean isSuccess = false;</span><br><span class="line">        ftpClient = new FTPClient();</span><br><span class="line">        try &#123;</span><br><span class="line">            ftpClient.connect(ip);</span><br><span class="line">            isSuccess =  ftpClient.login(user,pwd);</span><br><span class="line">        &#125;</span><br><span class="line">        catch (IOException e) &#123;</span><br><span class="line">            logger.error(&quot;连接FTP服务器异常&quot;,e);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        return isSuccess;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private String ip;</span><br><span class="line">    private String user;</span><br><span class="line">    private int port;</span><br><span class="line">    private String pwd;</span><br><span class="line">    private FTPClient ftpClient;</span><br><span class="line"></span><br><span class="line">    public String getIp()</span><br><span class="line">    &#123;</span><br><span class="line">        return ip;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setIp(String ip)</span><br><span class="line">    &#123;</span><br><span class="line">        this.ip = ip;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getUser()</span><br><span class="line">    &#123;</span><br><span class="line">        return user;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUser(String user)</span><br><span class="line">    &#123;</span><br><span class="line">        this.user = user;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getPort()</span><br><span class="line">    &#123;</span><br><span class="line">        return port;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setPort(int port)</span><br><span class="line">    &#123;</span><br><span class="line">        this.port = port;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getPwd()</span><br><span class="line">    &#123;</span><br><span class="line">        return pwd;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setPwd(String pwd)</span><br><span class="line">    &#123;</span><br><span class="line">        this.pwd = pwd;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public FTPClient getFtpClient()</span><br><span class="line">    &#123;</span><br><span class="line">        return ftpClient;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setFtpClient(FTPClient ftpClient)</span><br><span class="line">    &#123;</span><br><span class="line">        this.ftpClient = ftpClient;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="JWT工具类"><a href="#JWT工具类" class="headerlink" title="JWT工具类"></a>JWT工具类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">import io.jsonwebtoken.Claims;</span><br><span class="line">import io.jsonwebtoken.Jwt;</span><br><span class="line">import io.jsonwebtoken.Jwts;</span><br><span class="line">import io.jsonwebtoken.SignatureAlgorithm;</span><br><span class="line">import net.zzqd.elearning.domain.User;</span><br><span class="line">import java.util.Date;</span><br><span class="line"></span><br><span class="line">public class JwtUtils</span><br><span class="line">&#123;</span><br><span class="line">    public static final String SUBJECT=&quot;elea&quot;;</span><br><span class="line">    public static final long EXPIRE = 1000 * 60 * 60 * 24 * 7;//过期时间，毫秒， 一周</span><br><span class="line"></span><br><span class="line">    //密钥</span><br><span class="line">    public static final String APPSECRE = &quot;elea64&quot;;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 生成jwt</span><br><span class="line">     * @param user</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static String geneJsonWebToken(User user)</span><br><span class="line">    &#123;</span><br><span class="line">        if(user == null || user.getId()==null || user.getName()==null || user.getHeadImg()==null)</span><br><span class="line">        &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">       String token =  Jwts.builder().setSubject(SUBJECT)</span><br><span class="line">                .claim(&quot;id&quot;,user.getId())</span><br><span class="line">                .claim(&quot;name&quot;,user.getName())</span><br><span class="line">                .claim(&quot;img&quot;,user.getHeadImg())</span><br><span class="line">                .setIssuedAt(new Date())</span><br><span class="line">                .setExpiration(new Date(System.currentTimeMillis()+EXPIRE))</span><br><span class="line">                .signWith(SignatureAlgorithm.HS256,APPSECRE).compact();</span><br><span class="line"></span><br><span class="line">        return token;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 校验token</span><br><span class="line">     * @param token</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static Claims checkJWT(String token)</span><br><span class="line">    &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            final Claims claims = Jwts.parser().setSigningKey(APPSECRE)</span><br><span class="line">                    .parseClaimsJws(token).getBody();</span><br><span class="line">            return claims;</span><br><span class="line">        &#125;catch (Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="HttpUtil"><a href="#HttpUtil" class="headerlink" title="HttpUtil"></a>HttpUtil</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import com.google.gson.Gson;</span><br><span class="line">import org.apache.http.HttpEntity;</span><br><span class="line">import org.apache.http.HttpResponse;</span><br><span class="line">import org.apache.http.client.config.RequestConfig;</span><br><span class="line">import org.apache.http.client.methods.CloseableHttpResponse;</span><br><span class="line">import org.apache.http.client.methods.HttpGet;</span><br><span class="line">import org.apache.http.client.methods.HttpPost;</span><br><span class="line">import org.apache.http.entity.StringEntity;</span><br><span class="line">import org.apache.http.impl.client.CloseableHttpClient;</span><br><span class="line">import org.apache.http.impl.client.HttpClients;</span><br><span class="line">import org.apache.http.util.EntityUtils;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author zqnh</span><br><span class="line"> * @date 2019/7/18 on 15:27.</span><br><span class="line"> * 封装Http get post 方法</span><br><span class="line"> */</span><br><span class="line">public class HttpUtils</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    private static final Gson gson = new Gson();</span><br><span class="line">    /**</span><br><span class="line">     * get方法</span><br><span class="line">     * @param url</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static Map&lt;String,Object&gt; doGet(String url)</span><br><span class="line">    &#123;</span><br><span class="line">        Map&lt;String,Object&gt; map = new HashMap&lt;&gt;();</span><br><span class="line">        CloseableHttpClient httpClient = HttpClients.createDefault();</span><br><span class="line"></span><br><span class="line">        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(5000)//超时时间</span><br><span class="line">                .setConnectionRequestTimeout(5000)//请求超时</span><br><span class="line">                .setSocketTimeout(5000)</span><br><span class="line">                .setRedirectsEnabled(true)//允许自动重定向</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        HttpGet httpGet = new HttpGet(url);</span><br><span class="line">        httpGet.setConfig(requestConfig);</span><br><span class="line"></span><br><span class="line">        try&#123;</span><br><span class="line">            HttpResponse httpResponse = httpClient.execute(httpGet);</span><br><span class="line">            if(httpResponse.getStatusLine().getStatusCode()==200)</span><br><span class="line">            &#123;</span><br><span class="line">               String jsonResult =  EntityUtils.toString(httpResponse.getEntity());</span><br><span class="line">               map =  gson.fromJson(jsonResult,map.getClass());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;catch (Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;finally &#123;</span><br><span class="line">            try&#123;</span><br><span class="line">                httpClient.close();</span><br><span class="line">            &#125;catch (Exception e)</span><br><span class="line">            &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return map;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 封装post</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static String doPost(String url,String data,int timeout)</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        CloseableHttpClient httpClient = HttpClients.createDefault();</span><br><span class="line">        //超时设置</span><br><span class="line">        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(timeout)//超时时间</span><br><span class="line">                .setConnectionRequestTimeout(timeout)//请求超时</span><br><span class="line">                .setSocketTimeout(timeout)</span><br><span class="line">                .setRedirectsEnabled(true)//允许自动重定向</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        HttpPost httpPost = new HttpPost(url);</span><br><span class="line">        httpPost.setConfig(requestConfig);</span><br><span class="line">        httpPost.addHeader(&quot;Content-Type&quot;,&quot;text/html;charset=UTF-8&quot;);</span><br><span class="line">        if(data!=null &amp;&amp; data instanceof String)//使用字符串传参</span><br><span class="line">        &#123;</span><br><span class="line">            StringEntity stringEntity = new StringEntity(data,&quot;UTF-8&quot;);</span><br><span class="line">            httpPost.setEntity(stringEntity);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        try&#123;</span><br><span class="line">            CloseableHttpResponse httpResponse = httpClient.execute(httpPost);</span><br><span class="line">            HttpEntity httpEntity = httpResponse.getEntity();</span><br><span class="line">            if(httpResponse.getStatusLine().getStatusCode()==200)</span><br><span class="line">            &#123;</span><br><span class="line">                String result = EntityUtils.toString(httpEntity);</span><br><span class="line">                return result;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;catch (Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            try&#123;</span><br><span class="line">                httpClient.close();</span><br><span class="line">            &#125;catch (Exception e1)</span><br><span class="line">            &#123;</span><br><span class="line">                e1.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="CookieUtil"><a href="#CookieUtil" class="headerlink" title="CookieUtil"></a>CookieUtil</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import lombok.extern.slf4j.Slf4j;</span><br><span class="line">import org.apache.commons.lang3.StringUtils;</span><br><span class="line">import javax.servlet.http.Cookie;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line">@Slf4j</span><br><span class="line">public class CookieUtil &#123;</span><br><span class="line">    private final static String COOKIE_DOMAIN = &quot;localhost&quot;;</span><br><span class="line">    private final static String COOKIE_NAME = &quot;seckill_login_token&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public static String readLoginToken(HttpServletRequest request)&#123;</span><br><span class="line">        Cookie[] cks = request.getCookies();</span><br><span class="line">        if(cks != null)&#123;</span><br><span class="line">            for(Cookie ck : cks)&#123;</span><br><span class="line">                log.info(&quot;read cookieName:&#123;&#125;,cookieValue:&#123;&#125;&quot;,ck.getName(),ck.getValue());</span><br><span class="line">                if(StringUtils.equals(ck.getName(),COOKIE_NAME))&#123;</span><br><span class="line">                    log.info(&quot;return cookieName:&#123;&#125;,cookieValue:&#123;&#125;&quot;,ck.getName(),ck.getValue());</span><br><span class="line">                    return ck.getValue();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //X:domain=&quot;.hfbin.cn&quot;</span><br><span class="line">    //a:A.hfbin.cn            cookie:domain=A.hfbin.cn;path=&quot;/&quot;</span><br><span class="line">    //b:B.hfbin.cn            cookie:domain=B.hfbin.cn;path=&quot;/&quot;</span><br><span class="line">    //c:A.hfbin.cn/test/cc    cookie:domain=A.hfbin.cn;path=&quot;/test/cc&quot;</span><br><span class="line">    //d:A.hfbin.cn/test/dd    cookie:domain=A.hfbin.cn;path=&quot;/test/dd&quot;</span><br><span class="line">    //e:A.hfbin.cn/test       cookie:domain=A.hfbin.cn;path=&quot;/test&quot;</span><br><span class="line"></span><br><span class="line">    public static void writeLoginToken(HttpServletResponse response, String token)&#123;</span><br><span class="line">        Cookie ck = new Cookie(COOKIE_NAME,token);</span><br><span class="line">        ck.setDomain(COOKIE_DOMAIN);</span><br><span class="line">        ck.setPath(&quot;/&quot;);//代表设置在根目录</span><br><span class="line">        ck.setHttpOnly(true);</span><br><span class="line">        //单位是秒。</span><br><span class="line">        //如果这个maxage不设置的话，cookie就不会写入硬盘，而是写在内存。只在当前页面有效。</span><br><span class="line">        ck.setMaxAge(60 * 60 * 24 * 365);//如果是-1，代表永久</span><br><span class="line">        log.info(&quot;write cookieName:&#123;&#125;,cookieValue:&#123;&#125;&quot;,ck.getName(),ck.getValue());</span><br><span class="line">        response.addCookie(ck);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void delLoginToken(HttpServletRequest request, HttpServletResponse response)&#123;</span><br><span class="line">        Cookie[] cks = request.getCookies();</span><br><span class="line">        if(cks != null)&#123;</span><br><span class="line">            for(Cookie ck : cks)&#123;</span><br><span class="line">                if(StringUtils.equals(ck.getName(),COOKIE_NAME))&#123;</span><br><span class="line">                    ck.setDomain(COOKIE_DOMAIN);</span><br><span class="line">                    ck.setPath(&quot;/&quot;);</span><br><span class="line">                    ck.setMaxAge(0);//设置成0，代表删除此cookie。</span><br><span class="line">                   // log.info(&quot;del cookieName:&#123;&#125;,cookieValue:&#123;&#125;&quot;,ck.getName(),ck.getValue());</span><br><span class="line">                    response.addCookie(ck);</span><br><span class="line">                    return;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="JsonUtil"><a href="#JsonUtil" class="headerlink" title="JsonUtil"></a>JsonUtil</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import lombok.extern.slf4j.Slf4j;</span><br><span class="line">import org.apache.commons.lang3.StringUtils;</span><br><span class="line">import org.codehaus.jackson.map.DeserializationConfig;</span><br><span class="line">import org.codehaus.jackson.map.ObjectMapper;</span><br><span class="line">import org.codehaus.jackson.map.SerializationConfig;</span><br><span class="line">import org.codehaus.jackson.map.annotate.JsonSerialize;</span><br><span class="line">import org.codehaus.jackson.type.JavaType;</span><br><span class="line">import org.codehaus.jackson.type.TypeReference;</span><br><span class="line"></span><br><span class="line">import java.text.SimpleDateFormat;</span><br><span class="line">import java.util.Date;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">@Slf4j</span><br><span class="line">public class JsonUtil &#123;</span><br><span class="line">    private static ObjectMapper objectMapper = new ObjectMapper();</span><br><span class="line"></span><br><span class="line">    static&#123;</span><br><span class="line">        //序列化需要配置的</span><br><span class="line"></span><br><span class="line">        //对象所有字段全部列入</span><br><span class="line">        objectMapper.setSerializationInclusion(JsonSerialize.Inclusion.ALWAYS);</span><br><span class="line"></span><br><span class="line">        //取消默认转换timestamps形式</span><br><span class="line">        objectMapper.configure(SerializationConfig.Feature.WRITE_DATE_KEYS_AS_TIMESTAMPS , false);</span><br><span class="line"></span><br><span class="line">        //忽略空Bean转换Json的错误</span><br><span class="line">        objectMapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS ,false);</span><br><span class="line"></span><br><span class="line">        //所有日期格式都是统一为以下样式，即yyyy-MM-dd HH:mm:ss</span><br><span class="line">        objectMapper.setDateFormat(new SimpleDateFormat(DateTimeUtil.STANDARD_FORMAT));</span><br><span class="line"></span><br><span class="line">        //反序列化需要配置的</span><br><span class="line"></span><br><span class="line">        //忽视在json字符串中存在，但是在java对象中不存在对应的情况，防止错误</span><br><span class="line">        objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false) ;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 未格式化好的string  显示成一行</span><br><span class="line">     * @param obj</span><br><span class="line">     * @param &lt;T&gt;</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static &lt;T&gt; String obj2String(T obj)&#123;</span><br><span class="line">        if(obj == null)&#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        try &#123;</span><br><span class="line">            return obj instanceof String ? (String)obj :  objectMapper.writeValueAsString(obj);</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            log.warn(&quot;Parse Object to String error&quot;,e);</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 格式化好的string  按属性分行  一般不用因为格式化好的占字节空间</span><br><span class="line">     * @param obj</span><br><span class="line">     * @param &lt;T&gt;</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static &lt;T&gt; String obj2StringPretty(T obj)&#123;</span><br><span class="line">        if(obj == null)&#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        try &#123;</span><br><span class="line">            return obj instanceof String ? (String)obj :  objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            log.warn(&quot;Parse Object to String error&quot;,e);</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * &lt;T&gt;将此方法声明为泛型方法   T返回值的类型</span><br><span class="line">     * @param str</span><br><span class="line">     * @param clazz</span><br><span class="line">     * @param &lt;T&gt;</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static &lt;T&gt; T string2Obj(String str,Class&lt;T&gt; clazz)&#123;</span><br><span class="line">        if(StringUtils.isEmpty(str) || clazz == null)&#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            return clazz.equals(String.class)? (T)str : objectMapper.readValue(str,clazz);</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            log.warn(&quot;Parse String to Object error&quot;,e);</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     *</span><br><span class="line">     * @param str</span><br><span class="line">     * @param typeReference</span><br><span class="line">     * @param &lt;T&gt;</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static &lt;T&gt; T string2Obj(String str, TypeReference&lt;T&gt; typeReference)&#123;</span><br><span class="line">        if(StringUtils.isEmpty(str) || typeReference == null)&#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        try &#123;</span><br><span class="line">            return (T)(typeReference.getType().equals(String.class)? str : objectMapper.readValue(str,typeReference));</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            log.warn(&quot;Parse String to Object error&quot;,e);</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Class  为什么使用  &lt;?&gt;  因为未确认集合类型与集合里面元素类型 （集合类型与集合里面元素类型是不一样的类型，所以不能用同一个T）</span><br><span class="line">     * @param str</span><br><span class="line">     * @param collectionClass  集合类型</span><br><span class="line">     * @param elementClasses   集合里面元素类型</span><br><span class="line">     * @param &lt;T&gt;</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static &lt;T&gt; T string2Obj(String str,Class&lt;?&gt; collectionClass,Class&lt;?&gt;... elementClasses)&#123;</span><br><span class="line">        JavaType javaType = objectMapper.getTypeFactory().constructParametricType(collectionClass,elementClasses);</span><br><span class="line">        try &#123;</span><br><span class="line">            return objectMapper.readValue(str,javaType);</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            log.warn(&quot;Parse String to Object error&quot;,e);</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="IPUtil"><a href="#IPUtil" class="headerlink" title="IPUtil"></a>IPUtil</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.commons.lang3.StringUtils;</span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line">import org.springframework.web.context.request.RequestContextHolder;</span><br><span class="line">import org.springframework.web.context.request.ServletRequestAttributes;</span><br><span class="line"></span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">/**</span><br><span class="line"> * IP地址</span><br><span class="line"> */</span><br><span class="line">public class IPUtils &#123;</span><br><span class="line"></span><br><span class="line">	private static Logger logger = LoggerFactory.getLogger(IPUtils.class);</span><br><span class="line"></span><br><span class="line">	/**</span><br><span class="line">	 * 获取IP地址</span><br><span class="line">	 * 使用Nginx等反向代理软件， 则不能通过request.getRemoteAddr()获取IP地址</span><br><span class="line">	 * 如果使用了多级反向代理的话，X-Forwarded-For的值并不止一个，而是一串IP地址，X-Forwarded-For中第一个非unknown的有效IP字符串，则为真实IP地址</span><br><span class="line">	 */</span><br><span class="line">	public static String getIpAddr() &#123;</span><br><span class="line">		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();</span><br><span class="line">		String ip = null;</span><br><span class="line">		try &#123;</span><br><span class="line">			ip = request.getHeader(&quot;x-forwarded-for&quot;);</span><br><span class="line">			if (StringUtils.isEmpty(ip) || &quot;unknown&quot;.equalsIgnoreCase(ip)) &#123;</span><br><span class="line">				ip = request.getHeader(&quot;Proxy-Client-IP&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			if (StringUtils.isEmpty(ip) || ip.length() == 0 || &quot;unknown&quot;.equalsIgnoreCase(ip)) &#123;</span><br><span class="line">				ip = request.getHeader(&quot;WL-Proxy-Client-IP&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			if (StringUtils.isEmpty(ip) || &quot;unknown&quot;.equalsIgnoreCase(ip)) &#123;</span><br><span class="line">				ip = request.getHeader(&quot;HTTP_CLIENT_IP&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			if (StringUtils.isEmpty(ip) || &quot;unknown&quot;.equalsIgnoreCase(ip)) &#123;</span><br><span class="line">				ip = request.getHeader(&quot;HTTP_X_FORWARDED_FOR&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			if (StringUtils.isEmpty(ip) || &quot;unknown&quot;.equalsIgnoreCase(ip)) &#123;</span><br><span class="line">				ip = request.getRemoteAddr();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; catch (Exception e) &#123;</span><br><span class="line">			logger.error(&quot;IPUtils ERROR &quot;, e);</span><br><span class="line">		&#125;</span><br><span class="line">		// 使用代理，则获取第一个IP地址</span><br><span class="line">		if (StringUtils.isNotEmpty(ip) &amp;&amp; ip.length() &gt; 15) &#123;</span><br><span class="line">			if (ip.indexOf(&quot;,&quot;) &gt; 0) &#123;</span><br><span class="line">				ip = ip.substring(0, ip.indexOf(&quot;,&quot;));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return ip;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="RedisUtil"><a href="#RedisUtil" class="headerlink" title="RedisUtil"></a>RedisUtil</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line">import java.io.Serializable;</span><br><span class="line">import java.util.concurrent.TimeUnit;</span><br><span class="line">import javax.annotation.Resource;</span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line">import org.springframework.data.redis.core.RedisTemplate;</span><br><span class="line">import org.springframework.data.redis.core.ValueOperations;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line">@Component</span><br><span class="line">public class RedisUtil &#123;</span><br><span class="line">	</span><br><span class="line">   private static final Logger logger = LoggerFactory.getLogger(RedisUtil.class);</span><br><span class="line">	</span><br><span class="line">    @Resource</span><br><span class="line">	private RedisTemplate&lt;Serializable, Serializable&gt; redisTemplate;</span><br><span class="line">	</span><br><span class="line">	/**</span><br><span class="line">     * 前缀</span><br><span class="line">     */</span><br><span class="line">    public static final String KEY_PREFIX_VALUE = &quot;itstyle:seckill:value:&quot;;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	/**</span><br><span class="line">     * 缓存value操作</span><br><span class="line">     * @param k</span><br><span class="line">     * @param v</span><br><span class="line">     * @param time</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public  boolean cacheValue(String k, Serializable v, long time) &#123;</span><br><span class="line">        String key = KEY_PREFIX_VALUE + k;</span><br><span class="line">        try &#123;</span><br><span class="line">            ValueOperations&lt;Serializable, Serializable&gt; valueOps =  redisTemplate.opsForValue();</span><br><span class="line">            valueOps.set(key, v);</span><br><span class="line">            if (time &gt; 0) redisTemplate.expire(key, time, TimeUnit.SECONDS);</span><br><span class="line">            return true;</span><br><span class="line">        &#125; catch (Throwable t) &#123;</span><br><span class="line">            logger.error(&quot;缓存[&#123;&#125;]失败, value[&#123;&#125;]&quot;,key,v,t);</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    public  boolean cacheValue(String k, Serializable v, long time,TimeUnit unit) &#123;</span><br><span class="line">        String key = KEY_PREFIX_VALUE + k;</span><br><span class="line">        try &#123;</span><br><span class="line">            ValueOperations&lt;Serializable, Serializable&gt; valueOps =  redisTemplate.opsForValue();</span><br><span class="line">            valueOps.set(key, v);</span><br><span class="line">            if (time &gt; 0) redisTemplate.expire(key, time, unit);</span><br><span class="line">            return true;</span><br><span class="line">        &#125; catch (Throwable t) &#123;</span><br><span class="line">            logger.error(&quot;缓存[&#123;&#125;]失败, value[&#123;&#125;]&quot;,key,v,t);</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 缓存value操作</span><br><span class="line">     * @param k</span><br><span class="line">     * @param v</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public  boolean cacheValue(String k, Serializable v) &#123;</span><br><span class="line">        return cacheValue(k, v, -1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 判断缓存是否存在</span><br><span class="line">     * @param k</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public  boolean containsValueKey(String k) &#123;</span><br><span class="line">        String key = KEY_PREFIX_VALUE + k;</span><br><span class="line">        try &#123;</span><br><span class="line">            return redisTemplate.hasKey(key);</span><br><span class="line">        &#125; catch (Throwable t) &#123;</span><br><span class="line">            logger.error(&quot;判断缓存存在失败key[&quot; + key + &quot;, error[&quot; + t + &quot;]&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 获取缓存</span><br><span class="line">     * @param k</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public  Serializable getValue(String k) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            ValueOperations&lt;Serializable, Serializable&gt; valueOps =  redisTemplate.opsForValue();</span><br><span class="line">            return valueOps.get(KEY_PREFIX_VALUE + k);</span><br><span class="line">        &#125; catch (Throwable t) &#123;</span><br><span class="line">            logger.error(&quot;获取缓存失败key[&quot; + KEY_PREFIX_VALUE + k + &quot;, error[&quot; + t + &quot;]&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 移除缓存</span><br><span class="line">     * @param k</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public  boolean removeValue(String k) &#123;</span><br><span class="line">    	String key = KEY_PREFIX_VALUE + k;</span><br><span class="line">    	try &#123;</span><br><span class="line">            redisTemplate.delete(key);</span><br><span class="line">            return true;</span><br><span class="line">        &#125; catch (Throwable t) &#123;</span><br><span class="line">            logger.error(&quot;获取缓存失败key[&quot; + key + &quot;, error[&quot; + t + &quot;]&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Base64Encoder"><a href="#Base64Encoder" class="headerlink" title="Base64Encoder"></a>Base64Encoder</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class Base64Encoder &#123;</span><br><span class="line">	public static String getBASE64(String s) &#123;  </span><br><span class="line">        if (s == null)  </span><br><span class="line">            return null;  </span><br><span class="line">        return (new sun.misc.BASE64Encoder()).encode(s.getBytes());  </span><br><span class="line">    &#125;  </span><br><span class="line">    // 将 BASE64 编码的字符串 s 进行解码   解密</span><br><span class="line">    public static String getFromBASE64(String s) &#123;  </span><br><span class="line">        if (s == null)  </span><br><span class="line">            return null;  </span><br><span class="line">        sun.misc.BASE64Decoder decoder = new sun.misc.BASE64Decoder();  </span><br><span class="line">        try &#123;  </span><br><span class="line">            byte[] b = decoder.decodeBuffer(s);  </span><br><span class="line">            return new String(b);  </span><br><span class="line">        &#125; catch (Exception e) &#123;  </span><br><span class="line">            return null;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public static String mTOa(Object ming)&#123;</span><br><span class="line">        return Base64Encoder.getBASE64(Base64Encoder.getBASE64(Base64Encoder.getBASE64((String)ming)));</span><br><span class="line">    &#125;</span><br><span class="line">    public static String aTOm(String an)&#123;</span><br><span class="line">        return Base64Encoder.getFromBASE64(Base64Encoder.getFromBASE64(Base64Encoder.getFromBASE64(an)));</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        String a = mTOa(&quot;123&quot;.toString());</span><br><span class="line">        System.out.println(a);//加密</span><br><span class="line">        System.out.println(aTOm(a));//解密</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="SecurityAES"><a href="#SecurityAES" class="headerlink" title="SecurityAES"></a>SecurityAES</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br></pre></td><td class="code"><pre><span class="line">import java.io.UnsupportedEncodingException;</span><br><span class="line">import java.security.InvalidKeyException;</span><br><span class="line">import java.security.NoSuchAlgorithmException;</span><br><span class="line">import java.security.SecureRandom;</span><br><span class="line"></span><br><span class="line">import javax.crypto.BadPaddingException;</span><br><span class="line">import javax.crypto.Cipher;</span><br><span class="line">import javax.crypto.IllegalBlockSizeException;</span><br><span class="line">import javax.crypto.KeyGenerator;</span><br><span class="line">import javax.crypto.NoSuchPaddingException;</span><br><span class="line">import javax.crypto.SecretKey;</span><br><span class="line">import javax.crypto.spec.SecretKeySpec;</span><br><span class="line"></span><br><span class="line">import org.apache.commons.codec.binary.Base64;</span><br><span class="line">/**</span><br><span class="line"> * AES对称加密</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">public class SecurityAES &#123;</span><br><span class="line">	private final static String encoding = &quot;UTF-8&quot;; </span><br><span class="line">	private static String PASSWORD = &quot;qwedcxza&quot;;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	/**</span><br><span class="line">	 * AES加密</span><br><span class="line">	 *</span><br><span class="line">	 */</span><br><span class="line">	public static String encryptAES(String content) &#123;</span><br><span class="line">		byte[] encryptResult = encrypt(content);</span><br><span class="line">		String encryptResultStr = parseByte2HexStr(encryptResult);</span><br><span class="line">		// BASE64位加密</span><br><span class="line">		encryptResultStr = ebotongEncrypto(encryptResultStr);</span><br><span class="line">		return encryptResultStr;</span><br><span class="line">	&#125;</span><br><span class="line">	/**</span><br><span class="line">	 * AES解密</span><br><span class="line">	 * @Author	张志朋</span><br><span class="line">	 *</span><br><span class="line">	 */</span><br><span class="line">	public static String decrypt(String encryptResultStr) &#123;</span><br><span class="line">		// BASE64位解密</span><br><span class="line">		String decrpt = ebotongDecrypto(encryptResultStr);</span><br><span class="line">		byte[] decryptFrom = parseHexStr2Byte(decrpt);</span><br><span class="line">		byte[] decryptResult = decrypt(decryptFrom);</span><br><span class="line">		return new String(decryptResult);</span><br><span class="line">	&#125;</span><br><span class="line">	/**</span><br><span class="line">	 * 加密字符串</span><br><span class="line">	 *</span><br><span class="line">	 */</span><br><span class="line">	public static String ebotongEncrypto(String str) &#123;</span><br><span class="line">		String result = str;</span><br><span class="line">		if (str != null &amp;&amp; str.length() &gt; 0) &#123;</span><br><span class="line">			try &#123;</span><br><span class="line">				byte[] encodeByte = str.getBytes(encoding);</span><br><span class="line">				//阿里巴巴</span><br><span class="line">				//result = Base64.byteArrayToBase64(encodeByte);</span><br><span class="line">				result  = new String(Base64.encodeBase64(encodeByte),&quot;Utf-8&quot;);</span><br><span class="line">			&#125; catch (Exception e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		//base64加密超过一定长度会自动换行 需要去除换行符</span><br><span class="line">		return result.replaceAll(&quot;\r\n&quot;, &quot;&quot;).replaceAll(&quot;\r&quot;, &quot;&quot;).replaceAll(&quot;\n&quot;, &quot;&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	/**</span><br><span class="line">	 * 解密字符串</span><br><span class="line">	 *</span><br><span class="line">	 */</span><br><span class="line">	public static String ebotongDecrypto(String str) &#123;</span><br><span class="line">		try &#123;</span><br><span class="line">			//byte[] encodeByte  = Base64.base64ToByteArray(str);//阿里巴巴</span><br><span class="line">			byte[] encodeByte  = Base64.decodeBase64(str.getBytes(&quot;Utf-8&quot;));</span><br><span class="line">			</span><br><span class="line">			return new String(encodeByte);</span><br><span class="line">		&#125; catch (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">			return str;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	/**</span><br><span class="line">	 * 加密  </span><br><span class="line">	 *</span><br><span class="line">	 */</span><br><span class="line">	private static byte[] encrypt(String content) &#123;   </span><br><span class="line">		try &#123;              </span><br><span class="line">			KeyGenerator kgen = KeyGenerator.getInstance(&quot;AES&quot;); </span><br><span class="line">			//防止linux下 随机生成key</span><br><span class="line">			SecureRandom secureRandom = SecureRandom.getInstance(&quot;SHA1PRNG&quot; );   </span><br><span class="line">			secureRandom.setSeed(PASSWORD.getBytes());   </span><br><span class="line">			kgen.init(128, secureRandom);</span><br><span class="line">			SecretKey secretKey = kgen.generateKey();   </span><br><span class="line">			byte[] enCodeFormat = secretKey.getEncoded();   </span><br><span class="line">			SecretKeySpec key = new SecretKeySpec(enCodeFormat, &quot;AES&quot;);   </span><br><span class="line">			Cipher cipher = Cipher.getInstance(&quot;AES&quot;);// 创建密码器   </span><br><span class="line">			byte[] byteContent = content.getBytes(&quot;utf-8&quot;);   </span><br><span class="line">			cipher.init(Cipher.ENCRYPT_MODE, key);// 初始化   </span><br><span class="line">			byte[] result = cipher.doFinal(byteContent);   </span><br><span class="line">			return result; // 加密   </span><br><span class="line">		&#125; catch (NoSuchAlgorithmException e) &#123;   </span><br><span class="line">			e.printStackTrace();   </span><br><span class="line">		&#125; catch (NoSuchPaddingException e) &#123;   </span><br><span class="line">			e.printStackTrace();   </span><br><span class="line">		&#125; catch (InvalidKeyException e) &#123;   </span><br><span class="line">			e.printStackTrace();   </span><br><span class="line">		&#125; catch (UnsupportedEncodingException e) &#123;   </span><br><span class="line">			e.printStackTrace();   </span><br><span class="line">		&#125; catch (IllegalBlockSizeException e) &#123;   </span><br><span class="line">			e.printStackTrace();   </span><br><span class="line">		&#125; catch (BadPaddingException e) &#123;   </span><br><span class="line">			e.printStackTrace();   </span><br><span class="line">		&#125;   </span><br><span class="line">		return null;   </span><br><span class="line">	&#125;  </span><br><span class="line">	/**</span><br><span class="line">	 * 解密</span><br><span class="line">	 *</span><br><span class="line">	 */</span><br><span class="line">	private static byte[] decrypt(byte[] content) &#123;   </span><br><span class="line">		try &#123;   </span><br><span class="line">			KeyGenerator kgen = KeyGenerator.getInstance(&quot;AES&quot;); </span><br><span class="line">			//防止linux下 随机生成key</span><br><span class="line">			SecureRandom secureRandom = SecureRandom.getInstance(&quot;SHA1PRNG&quot; );   </span><br><span class="line">			secureRandom.setSeed(PASSWORD.getBytes());   </span><br><span class="line">			kgen.init(128, secureRandom);</span><br><span class="line">			SecretKey secretKey = kgen.generateKey();   </span><br><span class="line">			byte[] enCodeFormat = secretKey.getEncoded();   </span><br><span class="line">			SecretKeySpec key = new SecretKeySpec(enCodeFormat, &quot;AES&quot;);               </span><br><span class="line">			Cipher cipher = Cipher.getInstance(&quot;AES&quot;);// 创建密码器   </span><br><span class="line">			cipher.init(Cipher.DECRYPT_MODE, key);// 初始化   </span><br><span class="line">			byte[] result = cipher.doFinal(content);   </span><br><span class="line">			return result; // 加密   </span><br><span class="line">		&#125; catch (NoSuchAlgorithmException e) &#123;   </span><br><span class="line">			e.printStackTrace();   </span><br><span class="line">		&#125; catch (NoSuchPaddingException e) &#123;   </span><br><span class="line">			e.printStackTrace();   </span><br><span class="line">		&#125; catch (InvalidKeyException e) &#123;   </span><br><span class="line">			e.printStackTrace();   </span><br><span class="line">		&#125; catch (IllegalBlockSizeException e) &#123;   </span><br><span class="line">			e.printStackTrace();   </span><br><span class="line">		&#125; catch (BadPaddingException e) &#123;   </span><br><span class="line">			e.printStackTrace();   </span><br><span class="line">		&#125;   </span><br><span class="line">		return null;   </span><br><span class="line">	&#125;  </span><br><span class="line">	/**</span><br><span class="line">	 * 将二进制转换成16进制  </span><br><span class="line">	 *</span><br><span class="line">	 */</span><br><span class="line">	public static String parseByte2HexStr(byte buf[]) &#123;   </span><br><span class="line">		StringBuffer sb = new StringBuffer();   </span><br><span class="line">		for (int i = 0; i &lt; buf.length; i++) &#123;   </span><br><span class="line">			String hex = Integer.toHexString(buf[i] &amp; 0xFF);   </span><br><span class="line">			if (hex.length() == 1) &#123;   </span><br><span class="line">				hex = &apos;0&apos; + hex;   </span><br><span class="line">			&#125;   </span><br><span class="line">			sb.append(hex.toUpperCase());   </span><br><span class="line">		&#125;   </span><br><span class="line">		return sb.toString();   </span><br><span class="line">	&#125;  </span><br><span class="line">	/**</span><br><span class="line">	 * 将16进制转换为二进制  </span><br><span class="line">	 *</span><br><span class="line">	 */</span><br><span class="line">	public static byte[] parseHexStr2Byte(String hexStr) &#123;   </span><br><span class="line">		if (hexStr.length() &lt; 1)   </span><br><span class="line">			return null;   </span><br><span class="line">		byte[] result = new byte[hexStr.length()/2];   </span><br><span class="line">		for (int i = 0;i&lt; hexStr.length()/2; i++) &#123;   </span><br><span class="line">			int high = Integer.parseInt(hexStr.substring(i*2, i*2+1), 16);   </span><br><span class="line">			int low = Integer.parseInt(hexStr.substring(i*2+1, i*2+2), 16);   </span><br><span class="line">			result[i] = (byte) (high * 16 + low);   </span><br><span class="line">		&#125;   </span><br><span class="line">		return result;   </span><br><span class="line">	&#125;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		String str = encryptAES(&quot;1234567890&quot;);</span><br><span class="line">		System.out.println(str);</span><br><span class="line">		str = decrypt(str);</span><br><span class="line">		System.out.println(str);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="SecurityBase64"><a href="#SecurityBase64" class="headerlink" title="SecurityBase64"></a>SecurityBase64</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">import java.io.UnsupportedEncodingException;</span><br><span class="line"></span><br><span class="line">import sun.misc.BASE64Decoder;</span><br><span class="line">import sun.misc.BASE64Encoder;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Base64 也会经常用作一个简单的“加密”来保护某些数据，而真正的加密通常都比较繁琐。</span><br><span class="line"> */</span><br><span class="line">public class SecurityBase64 &#123;</span><br><span class="line">	// 加密</span><br><span class="line">	public String getBase64(String str) &#123;</span><br><span class="line">		byte[] b = null;</span><br><span class="line">		String s = null;</span><br><span class="line">		try &#123;</span><br><span class="line">			b = str.getBytes(&quot;utf-8&quot;);</span><br><span class="line">		&#125; catch (UnsupportedEncodingException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		if (b != null) &#123;</span><br><span class="line">			s = new BASE64Encoder().encode(b);</span><br><span class="line">		&#125;</span><br><span class="line">		return s;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">	// 解密</span><br><span class="line">	public String getFromBase64(String s) &#123;</span><br><span class="line">		byte[] b = null;</span><br><span class="line">		String result = null;</span><br><span class="line">		if (s != null) &#123;</span><br><span class="line">			BASE64Decoder decoder = new BASE64Decoder();</span><br><span class="line">			try &#123;</span><br><span class="line">				b = decoder.decodeBuffer(s);</span><br><span class="line">				result = new String(b, &quot;utf-8&quot;);</span><br><span class="line">			&#125; catch (Exception e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return result;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public static void main(String args[])&#123;</span><br><span class="line">		SecurityBase64 b6 = new SecurityBase64();</span><br><span class="line">		System.out.println(b6.getBase64(&quot;ILoveYou&quot;));//加密</span><br><span class="line">		System.out.println(b6.getFromBase64(b6.getBase64(&quot;ILoveYou&quot;)));//解密</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="SecurityDES"><a href="#SecurityDES" class="headerlink" title="SecurityDES"></a>SecurityDES</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">import java.security.Key;</span><br><span class="line">import java.security.NoSuchAlgorithmException;</span><br><span class="line"> </span><br><span class="line">import javax.crypto.Cipher;</span><br><span class="line">import javax.crypto.KeyGenerator;</span><br><span class="line">import javax.crypto.spec.SecretKeySpec;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 对称加密</span><br><span class="line"> * 这里面的API里面有很多是调用getInstance方法，这个方法的参数有algorithm或者transformation</span><br><span class="line"> * 一：algorithm：算法</span><br><span class="line"> * </span><br><span class="line"> * 二：transformation：有两种格式</span><br><span class="line"> * 1：算法/模式/填充方式。如：DES/CBC/PKCS5Padding</span><br><span class="line"> * 2：算法。                              如：DES</span><br><span class="line"> * </span><br><span class="line"> * 其中，algorithm、transformation的值，不区分大小写</span><br><span class="line"> * </span><br><span class="line"> * Java加密解密官方参考文档：</span><br><span class="line"> * https://docs.oracle.com/javase/8/docs/technotes/guides/security/index.html</span><br><span class="line"> * https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html</span><br><span class="line"> */</span><br><span class="line">public class SecurityDES &#123;</span><br><span class="line">	/*</span><br><span class="line">	 * 使用KeyGenerator生成key</span><br><span class="line">	 * </span><br><span class="line">	 * 其中，algorithm支持的算法有：AES、DES、DESEDE、HMACMD5、HMACSHA1、HMACSHA256、RC2等</span><br><span class="line">	 * 全部支持的算法见官方文档</span><br><span class="line">	 * https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#KeyGenerator</span><br><span class="line">	 *  </span><br><span class="line">	 */</span><br><span class="line">	public static Key newKeyByKeyGenerator(String algorithm) throws NoSuchAlgorithmException &#123;</span><br><span class="line">		KeyGenerator kg = KeyGenerator.getInstance(algorithm);</span><br><span class="line">		Key key = kg.generateKey();</span><br><span class="line">		return key;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	/**</span><br><span class="line">	 * 使用SecretKeySpec生成key</span><br><span class="line">	 * 一般是从一个文件中读取出key的byte数组，然后根据文件key的算法，构建出key对象</span><br><span class="line">	 */</span><br><span class="line">	public static Key newKeyBySecretKeySpec(byte[] key, String algorithm) throws NoSuchAlgorithmException &#123;</span><br><span class="line">		return new SecretKeySpec(key, algorithm);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	/**</span><br><span class="line">	 * 加密，对字符串进行加密，返回结果为byte数组</span><br><span class="line">	 * 保存的时候，可以把byte数组进行base64编码成字符串，或者把byte数组转换成16进制的字符串</span><br><span class="line">	 * </span><br><span class="line">	 * 其中，transformation支持的全部算法见官方文档：</span><br><span class="line">	 * https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#Cipher</span><br><span class="line">	 */</span><br><span class="line">	public static byte[] encrypt(String transformation, Key key, String password) throws Exception &#123;</span><br><span class="line">		Cipher cipher = Cipher.getInstance(transformation);</span><br><span class="line">		//加密模式</span><br><span class="line">		cipher.init(Cipher.ENCRYPT_MODE, key);</span><br><span class="line">		return cipher.doFinal(password.getBytes());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	/**</span><br><span class="line">	 * 解密，返回结果为原始字符串</span><br><span class="line">	 * </span><br><span class="line">	 * 其中，transformation支持的全部算法见官方文档：</span><br><span class="line">	 * https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#Cipher</span><br><span class="line">	 */</span><br><span class="line">	public static String decrypt(String transformation, Key key, byte[] data) throws Exception &#123;</span><br><span class="line">		Cipher cipher = Cipher.getInstance(transformation);</span><br><span class="line">		//解密模式</span><br><span class="line">		cipher.init(Cipher.DECRYPT_MODE, key);</span><br><span class="line">		byte[] result = cipher.doFinal(data);</span><br><span class="line">		String password = new String(result);</span><br><span class="line">		return password;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) throws Exception &#123;</span><br><span class="line">		String password = &quot;123456&quot;;</span><br><span class="line">		</span><br><span class="line">		String algorithm = &quot;DES&quot;;</span><br><span class="line">		String transformation = algorithm;</span><br><span class="line">		</span><br><span class="line">		//加密解密使用的都是同一个秘钥key</span><br><span class="line">		Key key = newKeyByKeyGenerator(algorithm);</span><br><span class="line">		System.out.println(&quot; 秘钥: &quot; + key);</span><br><span class="line">		//加密</span><br><span class="line">		byte[] passData = encrypt(transformation, key, password);</span><br><span class="line">		//解密</span><br><span class="line">		String pass = decrypt(transformation, key, passData);</span><br><span class="line">		</span><br><span class="line">		System.out.println(&quot;解密后的密码 : &quot; + pass);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="SecurityRSA"><a href="#SecurityRSA" class="headerlink" title="SecurityRSA"></a>SecurityRSA</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line">import java.io.FileInputStream;</span><br><span class="line">import java.io.FileNotFoundException;</span><br><span class="line">import java.io.FileOutputStream;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.ObjectInputStream;</span><br><span class="line">import java.io.ObjectOutputStream;</span><br><span class="line">import java.security.Key;</span><br><span class="line">import java.security.KeyPair;</span><br><span class="line">import java.security.KeyPairGenerator;</span><br><span class="line">import java.security.NoSuchAlgorithmException;</span><br><span class="line">import java.security.interfaces.RSAPrivateKey;</span><br><span class="line">import java.security.interfaces.RSAPublicKey;</span><br><span class="line"> </span><br><span class="line">import javax.crypto.Cipher;</span><br><span class="line">import javax.crypto.NoSuchPaddingException;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * RSA公钥加密</span><br><span class="line"> */</span><br><span class="line">public class SecurityRSA &#123;</span><br><span class="line">	public static void makekeyfile(String pubkeyfile, String privatekeyfile)</span><br><span class="line">			throws NoSuchAlgorithmException, FileNotFoundException, IOException &#123;</span><br><span class="line">		// KeyPairGenerator类用于生成公钥和私钥对，基于RSA算法生成对象</span><br><span class="line">		KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(&quot;RSA&quot;);</span><br><span class="line">		// 初始化密钥对生成器，密钥大小为1024位</span><br><span class="line">		keyPairGen.initialize(1024);</span><br><span class="line">		// 生成一个密钥对，保存在keyPair中</span><br><span class="line">		KeyPair keyPair = keyPairGen.generateKeyPair();</span><br><span class="line"> </span><br><span class="line">		// 得到私钥</span><br><span class="line">		RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();</span><br><span class="line"> </span><br><span class="line">		// 得到公钥</span><br><span class="line">		RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();</span><br><span class="line"> </span><br><span class="line">		// 生成私钥</span><br><span class="line">		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(</span><br><span class="line">				privatekeyfile));</span><br><span class="line">		oos.writeObject(privateKey);</span><br><span class="line">		oos.flush();</span><br><span class="line">		oos.close();</span><br><span class="line"> </span><br><span class="line">		oos = new ObjectOutputStream(new FileOutputStream(pubkeyfile));</span><br><span class="line">		oos.writeObject(publicKey);</span><br><span class="line">		oos.flush();</span><br><span class="line">		oos.close();</span><br><span class="line"> </span><br><span class="line">		System.out.println(&quot;make file ok!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">	/**</span><br><span class="line">	 * </span><br><span class="line">	 * @param k</span><br><span class="line">	 * @param data</span><br><span class="line">	 * @param encrypt</span><br><span class="line">	 *            1 加密 0解密</span><br><span class="line">	 * @return</span><br><span class="line">	 * @throws NoSuchPaddingException</span><br><span class="line">	 * @throws Exception</span><br><span class="line">	 */</span><br><span class="line">	public static byte[] handleData(Key k, byte[] data, int encrypt)</span><br><span class="line">			throws Exception &#123;</span><br><span class="line"> </span><br><span class="line">		if (k != null) &#123;</span><br><span class="line"> </span><br><span class="line">			Cipher cipher = Cipher.getInstance(&quot;RSA&quot;);</span><br><span class="line"> </span><br><span class="line">			if (encrypt == 1) &#123;</span><br><span class="line">				cipher.init(Cipher.ENCRYPT_MODE, k);</span><br><span class="line">				byte[] resultBytes = cipher.doFinal(data);</span><br><span class="line">				return resultBytes;</span><br><span class="line">			&#125; else if (encrypt == 0) &#123;</span><br><span class="line">				cipher.init(Cipher.DECRYPT_MODE, k);</span><br><span class="line">				byte[] resultBytes = cipher.doFinal(data);</span><br><span class="line">				return resultBytes;</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				System.out.println(&quot;参数必须为: 1 加密 0解密&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return null;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">	public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        //创建目录</span><br><span class="line">		String pubfile = &quot;d:/temp/pub.key&quot;;</span><br><span class="line">		String prifile = &quot;d:/temp/pri.key&quot;;</span><br><span class="line"> </span><br><span class="line">		makekeyfile(pubfile, prifile);</span><br><span class="line"> </span><br><span class="line">		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(pubfile));</span><br><span class="line">		RSAPublicKey pubkey = (RSAPublicKey) ois.readObject();</span><br><span class="line">		ois.close();</span><br><span class="line"> </span><br><span class="line">		ois = new ObjectInputStream(new FileInputStream(prifile));</span><br><span class="line">		RSAPrivateKey prikey = (RSAPrivateKey) ois.readObject();</span><br><span class="line">		ois.close();</span><br><span class="line"> </span><br><span class="line">		// 使用公钥加密</span><br><span class="line">		String msg = &quot;爪哇笔记-秒杀项目&quot;;</span><br><span class="line">		String enc = &quot;UTF-8&quot;;</span><br><span class="line"> </span><br><span class="line">		// 使用公钥加密私钥解密</span><br><span class="line">		System.out.println(&quot;原文: &quot; + msg);</span><br><span class="line">		byte[] result = handleData(pubkey, msg.getBytes(enc), 1);</span><br><span class="line">		System.out.println(&quot;加密: &quot; + new String(result, enc));</span><br><span class="line">		byte[] deresult = handleData(prikey, result, 0);</span><br><span class="line">		System.out.println(&quot;解密: &quot; + new String(deresult, enc));</span><br><span class="line"> </span><br><span class="line">		msg = &quot;秒杀项目&quot;;</span><br><span class="line">		// 使用私钥加密公钥解密</span><br><span class="line">		System.out.println(&quot;原文: &quot; + msg);</span><br><span class="line">		byte[] result2 = handleData(prikey, msg.getBytes(enc), 1);</span><br><span class="line">		System.out.println(&quot;加密: &quot; + new String(result2, enc));</span><br><span class="line">		byte[] deresult2 = handleData(pubkey, result2, 0);</span><br><span class="line">		System.out.println(&quot;解密: &quot; + new String(deresult2, enc));</span><br><span class="line"> </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/工具类/" rel="tag"># 工具类</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/09/Mybatis三剑客/" rel="next" title="Mybatis三剑客">
+                <i class="fa fa-chevron-left"></i> Mybatis三剑客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="ZZQ">
+            
+              <p class="site-author-name" itemprop="name">ZZQ</p>
+              <p class="site-description motion-element" itemprop="description">坦坦荡荡 一身正气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#MD5"><span class="nav-number">1.</span> <span class="nav-text">MD5</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PasswordUtil"><span class="nav-number">2.</span> <span class="nav-text">PasswordUtil</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#BigDecimalUtil"><span class="nav-number">3.</span> <span class="nav-text">BigDecimalUtil</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DateTimeUtil"><span class="nav-number">4.</span> <span class="nav-text">DateTimeUtil</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PropertiesUtil"><span class="nav-number">5.</span> <span class="nav-text">PropertiesUtil</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#FTPUtil"><span class="nav-number">6.</span> <span class="nav-text">FTPUtil</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JWT工具类"><span class="nav-number">7.</span> <span class="nav-text">JWT工具类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HttpUtil"><span class="nav-number">8.</span> <span class="nav-text">HttpUtil</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CookieUtil"><span class="nav-number">9.</span> <span class="nav-text">CookieUtil</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JsonUtil"><span class="nav-number">10.</span> <span class="nav-text">JsonUtil</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#IPUtil"><span class="nav-number">11.</span> <span class="nav-text">IPUtil</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RedisUtil"><span class="nav-number">12.</span> <span class="nav-text">RedisUtil</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Base64Encoder"><span class="nav-number">13.</span> <span class="nav-text">Base64Encoder</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SecurityAES"><span class="nav-number">14.</span> <span class="nav-text">SecurityAES</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SecurityBase64"><span class="nav-number">15.</span> <span class="nav-text">SecurityBase64</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SecurityDES"><span class="nav-number">16.</span> <span class="nav-text">SecurityDES</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SecurityRSA"><span class="nav-number">17.</span> <span class="nav-text">SecurityRSA</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZZQ</span>
+
+  
+</div>
+
+
+
+ <!-- 
+ 
+ <div class="powered-by">世界是美好的</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">是值得我们去奋斗的 &mdash;  v</div>
+
+
+-->
+
+<div class="BbeiAn-info">
+豫ICP备 -
+<a target="_blank" href="http://www.beian.miit.gov.cn/">19028433号-1</a>
+
+</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+	 
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv"></span>
+        </span>
+        <span class="post-meta-divider"></span>
+        <span id="busuanzi_container_site_uv" style="display:none">
+                <span id="busuanzi_value_site_uv"></span>
+        </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v="></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+		<link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: "<%=page.date%>", 
+            owner: 'zqnh',
+            repo: 'zqnh.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd9c922b4c4a7b4458ba55aa5673db78556aa9d1f',
+            
+                client_id: 'ca41c1f6c6585b630f16'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
