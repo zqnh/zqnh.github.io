@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="坦坦荡荡 一身正气">
+<meta name="description" content="1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859@Configuration：该使用该注解的类等价 与XML中配置beans，相当于Ioc容器，它的某个方法头上如果注册了@Bean，就会作为这个Spring容器中的Bean，与xm">
 <meta name="keywords" content="注解">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringMVC、SpringBoot、SpringCloud常用注解">
 <meta property="og:url" content="http://yoursite.com/2019/08/18/SpringMVC、SpringBoot、SpringCloud常用注解/index.html">
 <meta property="og:site_name" content="Aemon Zhu">
-<meta property="og:description" content="坦坦荡荡 一身正气">
+<meta property="og:description" content="1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859@Configuration：该使用该注解的类等价 与XML中配置beans，相当于Ioc容器，它的某个方法头上如果注册了@Bean，就会作为这个Spring容器中的Bean，与xm">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-18T12:29:47.283Z">
+<meta property="og:updated_time" content="2019-08-21T07:04:18.770Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringMVC、SpringBoot、SpringCloud常用注解">
-<meta name="twitter:description" content="坦坦荡荡 一身正气">
+<meta name="twitter:description" content="1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859@Configuration：该使用该注解的类等价 与XML中配置beans，相当于Ioc容器，它的某个方法头上如果注册了@Bean，就会作为这个Spring容器中的Bean，与xm">
 
 
 
@@ -370,7 +370,8 @@
       
 
       
-        
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@Configuration：该使用该注解的类等价 与XML中配置beans，相当于Ioc容器，它的某个方法头上如果注册了@Bean，就会作为这个Spring容器中的Bean，与xml中配置的bean意思一样。  </span><br><span class="line"></span><br><span class="line">@Value：为了简化从properties里取配置，可以使用@Value, 可以properties文件中的配置值。</span><br><span class="line"></span><br><span class="line">@Controller, @Service, @Repository,@Component：目前4种注解意思是一样，并没有什么区别，区别只是名字不同</span><br><span class="line"></span><br><span class="line">@Primary：自动装配时当出现多个Bean候选者时，被注解为@Primary的Bean将作为首选者，否则将抛出异常。</span><br><span class="line"></span><br><span class="line">@Autowired：Autowired默认先按byType，如果发现找到多个bean，则，又按照byName方式比对，如果还有多个，则报出异常。</span><br><span class="line"></span><br><span class="line">@Qualifier：可以手动指定按byName方式注入</span><br><span class="line"></span><br><span class="line">@Resource：默认按 byName自动注入,如果找不到再按byType找bean,如果还是找不到则抛异常，无论按byName还是byType如果找到多个，则抛异常。</span><br><span class="line"></span><br><span class="line">@Async：基于@Async标注的方法，称之为异步方法,这个注解用于标注某个方法或某个类里面的所有方法都是需要异步处理的，需要与@EnableAsync配合使用。</span><br><span class="line"></span><br><span class="line">@Singleton：只要在类上加上这个注解，就可以实现一个单例类，不需要自己手动编写单例实现类。</span><br><span class="line"></span><br><span class="line">@NotBlank：检查约束字符串是不是Null还有被Trim的长度是否大于0,只对字符串,且会去掉前后空格.</span><br><span class="line"></span><br><span class="line">@Size(min=, max=)： 验证对象（Array,Collection,Map,String）长度是否在给定的范围之内 </span><br><span class="line"></span><br><span class="line">@Email：验证是否是邮件地址，如果为null,不进行验证，算通过验证。</span><br><span class="line"></span><br><span class="line">@RequestBody（required=true）：:有个默认属性required,默认是true,当body里没内容时抛异常。</span><br><span class="line"></span><br><span class="line">@CrossOrigin：是Cross-Origin ResourceSharing（跨域资源共享）的简写，作用是解决跨域访问的问题，在Spring4.2以上的版本可直接使用。在类上或方法上添加该注解</span><br><span class="line"></span><br><span class="line">@RequestParam：作用是提取和解析请求中的参数。@RequestParam支持类型转换，类型转换目前支持所有的基本Java类型</span><br><span class="line"></span><br><span class="line">@PathVariable：处理requet uri部分,当使用@RequestMapping URI template 样式映射时， 即someUrl/&#123;paramId&#125;, 这时的paramId可通过 @Pathvariable注解绑定它传过来的值到方法的参数上</span><br><span class="line"></span><br><span class="line">@RequestHeader，@CookieValue: 处理request header部分的注解将头部信息绑定到方法参数上</span><br><span class="line"></span><br><span class="line">@scope:默认是单例模式，即@Scope(“singleton”),singleton：单例，即容器里只有一个实例对象。prototype:多例，request:每有一个request请求，会创建一个实例。</span><br><span class="line"></span><br><span class="line">@RestController：@RestController = @Controller + @ResponseBody。是2个注解的合并效果，即指定了该controller是组件，又指定方法返回的是String或json类型数据</span><br><span class="line"></span><br><span class="line">@Bean：用于配：Java 8可以直接使用重复注解特性配置多个@ComponentScan）用于扫描包方式配置Bean；</span><br><span class="line"></span><br><span class="line">@Aspect切面配置支持，使用Spring Boot引入了AOP启动器的话不需要显式开启</span><br><span class="line"></span><br><span class="line">@Transactional （readOnly=true）：注解式事务</span><br><span class="line"></span><br><span class="line">@SringBootApplication相当于@configuration，@EnableAutoConfiguation @ComponentScan三个注解合用</span><br><span class="line"></span><br><span class="line">@EnableDiscoveryclient 自定义服务发现的客服端</span><br><span class="line"></span><br><span class="line">@EnableEurekaClient配置本应用将使用服务注册和服务发现，注意：注册和发现用这个注解。</span><br><span class="line"></span><br><span class="line">@EnableHystrix表示启动断路器，断路器依赖于服务注册和发现。</span><br><span class="line"></span><br><span class="line">@HystrixCommand注解方法失败后，系统将西东切换到fallbackMethod方法执行</span><br><span class="line"></span><br><span class="line">@EnableAutoConfiguration spring boot自动配置，尝试根据你添加的jar依赖自动配置你的spring应用。</span><br><span class="line"></span><br><span class="line">@FeignClient注解中的fallbank属性指定回调类</span><br><span class="line">都 ·1</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -489,7 +490,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-count">80</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

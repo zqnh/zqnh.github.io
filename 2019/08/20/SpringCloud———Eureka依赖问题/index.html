@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="最近在学习SpringCloud时，添加eureka依赖时，一直无法成功导入，@EnableEurekaServer一直导不进去，经过百度最终找到原因是springboot与springcloud的支持版本不一致，写篇博客记录下来。修改pom.xml文件如下。 123456789101112131415161718192021222324252627282930313233343536373839">
+<meta name="description" content="异常问题最近在学习SpringCloud时，添加eureka依赖时，一直无法成功导入，@EnableEurekaServer一直导不进去，经过百度最终找到原因是springboot与springcloud的支持版本不一致，写篇博客记录下来。修改pom.xml文件如下。 12345678910111213141516171819202122232425262728293031323334353637">
 <meta name="keywords" content="SpringCloud">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringCloud———Eureka依赖问题">
 <meta property="og:url" content="http://yoursite.com/2019/08/20/SpringCloud———Eureka依赖问题/index.html">
 <meta property="og:site_name" content="Aemon Zhu">
-<meta property="og:description" content="最近在学习SpringCloud时，添加eureka依赖时，一直无法成功导入，@EnableEurekaServer一直导不进去，经过百度最终找到原因是springboot与springcloud的支持版本不一致，写篇博客记录下来。修改pom.xml文件如下。 123456789101112131415161718192021222324252627282930313233343536373839">
+<meta property="og:description" content="异常问题最近在学习SpringCloud时，添加eureka依赖时，一直无法成功导入，@EnableEurekaServer一直导不进去，经过百度最终找到原因是springboot与springcloud的支持版本不一致，写篇博客记录下来。修改pom.xml文件如下。 12345678910111213141516171819202122232425262728293031323334353637">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-20T09:27:14.694Z">
+<meta property="og:updated_time" content="2019-08-20T13:00:07.542Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringCloud———Eureka依赖问题">
-<meta name="twitter:description" content="最近在学习SpringCloud时，添加eureka依赖时，一直无法成功导入，@EnableEurekaServer一直导不进去，经过百度最终找到原因是springboot与springcloud的支持版本不一致，写篇博客记录下来。修改pom.xml文件如下。 123456789101112131415161718192021222324252627282930313233343536373839">
+<meta name="twitter:description" content="异常问题最近在学习SpringCloud时，添加eureka依赖时，一直无法成功导入，@EnableEurekaServer一直导不进去，经过百度最终找到原因是springboot与springcloud的支持版本不一致，写篇博客记录下来。修改pom.xml文件如下。 12345678910111213141516171819202122232425262728293031323334353637">
 
 
 
@@ -381,7 +381,7 @@
       
 
       
-        <p>最近在学习SpringCloud时，添加eureka依赖时，一直无法成功导入，@EnableEurekaServer一直导不进去，经过百度最终找到原因是springboot与springcloud的支持版本不一致，写篇博客记录下来。修改pom.xml文件如下。</p>
+        <h5 id="异常问题"><a href="#异常问题" class="headerlink" title="异常问题"></a>异常问题</h5><p>最近在学习SpringCloud时，添加eureka依赖时，一直无法成功导入，@EnableEurekaServer一直导不进去，经过百度最终找到原因是springboot与springcloud的支持版本不一致，写篇博客记录下来。修改pom.xml文件如下。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;</span><br><span class="line">         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">    &lt;parent&gt;</span><br><span class="line">        &lt;artifactId&gt;micro&lt;/artifactId&gt;</span><br><span class="line">        &lt;groupId&gt;net.zzqd&lt;/groupId&gt;</span><br><span class="line">        &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;</span><br><span class="line">    &lt;/parent&gt;</span><br><span class="line">    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line">    &lt;properties&gt;</span><br><span class="line">        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span><br><span class="line">        &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;</span><br><span class="line">        &lt;java.version&gt;1.8&lt;/java.version&gt;</span><br><span class="line">        &lt;!--SpringCloud最新稳定版本--&gt;</span><br><span class="line">        &lt;spring-cloud.version&gt;Finchley.SR1&lt;/spring-cloud.version&gt;</span><br><span class="line">    &lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">    &lt;artifactId&gt;eurekaa&lt;/artifactId&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">    &lt;/dependencies&gt;</span><br><span class="line">    &lt;!--SpringCloud依赖版本管理--&gt;</span><br><span class="line">    &lt;dependencyManagement&gt;</span><br><span class="line">        &lt;dependencies&gt;</span><br><span class="line">            &lt;dependency&gt;</span><br><span class="line">                &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;</span><br><span class="line">                &lt;version&gt;$&#123;spring-cloud.version&#125;&lt;/version&gt;</span><br><span class="line">                &lt;type&gt;pom&lt;/type&gt;</span><br><span class="line">                &lt;scope&gt;import&lt;/scope&gt;</span><br><span class="line">            &lt;/dependency&gt;</span><br><span class="line">        &lt;/dependencies&gt;</span><br><span class="line">    &lt;/dependencyManagement&gt;</span><br><span class="line"></span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
 <p>SpringBoot与SpringCloud版本对应如下</p>
 <table>
@@ -469,24 +469,22 @@
 </tr>
 </tbody>
 </table>
-<p><strong>搭建Eureka服务注册中心</strong></p>
-<p><strong>添加以上依赖</strong></p>
+<h5 id="搭建Eureka服务注册中心"><a href="#搭建Eureka服务注册中心" class="headerlink" title="搭建Eureka服务注册中心"></a>搭建Eureka服务注册中心</h5><p><strong>添加以上依赖</strong></p>
 <p><strong>入口类</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableEurekaServer</span><br><span class="line">public class EurekaApp</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>application.yml</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 服务名称</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: hengboy-spring-cloud-eureka</span><br><span class="line"># 服务端口号</span><br><span class="line">server:</span><br><span class="line">  port: 10000</span><br><span class="line">#Eureka 相关配置</span><br><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http://localhost:$&#123;server.port&#125;/eureka/</span><br><span class="line">    # 是否从其他的服务中心同步服务列表</span><br><span class="line">    fetch-registry: false</span><br><span class="line">    # 是否把自己作为服务注册到其他服务注册中心</span><br><span class="line">    register-with-eureka: false</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 10000</span><br><span class="line"></span><br><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line">    register-with-eureka: false</span><br><span class="line">    fetch-registry: false</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http://localhost:10000/eureka</span><br><span class="line"></span><br><span class="line">#security:</span><br><span class="line">#  basic:</span><br><span class="line">#    enabled: true #开启 方法已过时</span><br><span class="line">http:</span><br><span class="line">  authorizeRequests():</span><br><span class="line">    antMatchers(&quot;/**&quot;):</span><br><span class="line">      permitAll();:</span><br><span class="line"></span><br><span class="line">spring:</span><br><span class="line">  security:</span><br><span class="line">    user:</span><br><span class="line">      name: admin</span><br><span class="line">      password:  admin</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p>spring.application.name：服务名称</p>
-</li>
-<li><p>server.port：服务端口号</p>
-</li>
-<li><p>eureka.client.service-url.defaultZone：Eureka默认的服务地址空间信息配置</p>
-</li>
-<li><p>eureka.client.fetch-registry：是否从其他Eureka注册中心同步服务列表（单节点无需配置启用）.</p>
-</li>
-<li><p>eureka.client.register-with-eureka：是否将自己作为服务注册到其他Eureka服务注册中心（单节点无需配置启用）.</p>
-</li>
+<li>spring.application.name：服务名称</li>
+<li>server.port：服务端口号</li>
+<li>eureka.client.service-url.defaultZone：Eureka默认的服务地址空间信息配置</li>
+<li>eureka.client.fetch-registry：是否从其他Eureka注册中心同步服务列表（单节点无需配置启用）.</li>
+<li>eureka.client.register-with-eureka：是否将自己作为服务注册到其他Eureka服务注册中心（单节点无需配置启用）</li>
 </ul>
+<h5 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h5><p>security.basic.enabled 配置过时或不可用解决：需要自己实现一个配置类继承自WebSecurityConfigurerAdapter，并重写configure(http)方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">package net.zzqd;</span><br><span class="line"></span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line">import org.springframework.security.config.annotation.web.builders.HttpSecurity;</span><br><span class="line">import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;</span><br><span class="line">import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;</span><br><span class="line">import org.springframework.security.core.userdetails.UserDetailsService;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author zqnh</span><br><span class="line"> * @date 2019/8/20 on 20:47.</span><br><span class="line"> */</span><br><span class="line">@Configuration</span><br><span class="line">@EnableWebSecurity</span><br><span class="line">class SecurityConfig extends WebSecurityConfigurerAdapter</span><br><span class="line">&#123;</span><br><span class="line">    @Override</span><br><span class="line">    protected void configure(HttpSecurity http) throws Exception</span><br><span class="line">    &#123;</span><br><span class="line">        http.authorizeRequests().antMatchers(&quot;/**&quot;).permitAll();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     *</span><br><span class="line">     * 配置一个userDetailsService Bean不在生成默认security.user用户</span><br><span class="line">     * * @return</span><br><span class="line">     * */</span><br><span class="line">    @Bean</span><br><span class="line">    @Override</span><br><span class="line">    protected UserDetailsService userDetailsService()</span><br><span class="line">    &#123;</span><br><span class="line">        return super.userDetailsService();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>并且在application.yml里添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">http:</span><br><span class="line">  authorizeRequests():</span><br><span class="line">    antMatchers(&quot;/**&quot;):</span><br><span class="line">      permitAll();:</span><br><span class="line"></span><br><span class="line">spring:</span><br><span class="line">  security:</span><br><span class="line">    user:</span><br><span class="line">      name: admin</span><br><span class="line">      password:  admin</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -526,6 +524,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/20/SpringCloud———eureka服务端和客户端/" rel="prev" title="SpringCloud———eureka服务端和客户端">
+                SpringCloud———eureka服务端和客户端 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -584,8 +586,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -602,7 +613,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-count">80</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -647,6 +658,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#异常问题"><span class="nav-number">1.</span> <span class="nav-text">异常问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#搭建Eureka服务注册中心"><span class="nav-number">2.</span> <span class="nav-text">搭建Eureka服务注册中心</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注意事项"><span class="nav-number">3.</span> <span class="nav-text">注意事项</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
