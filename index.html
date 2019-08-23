@@ -358,11 +358,11 @@
       
         
           
-          我们都了解HashMap，初始容量默认为16，jdk1.8上面说必须为2的幂，但是为什么容量总是为2的次幂呢。
+          我们都了解HashMap，初始容量默认为16，源码上面说必须为2的幂，但是为什么容量总是为2的次幂呢。
 
 
 为什么要保证 capacity 是2的次幂
-在get方法中tab[(n-1)&amp;hash]是计算key在tab中的索引位置，当key的hash没有冲突时，key在HashMap存
+在get方法中tab[(n-1)&amp;hash]是计算key在tab中的索引位置，当key的hash没有冲突时，key在HashMap存储的位置
           ...
           <!--noindex-->
           <div class="post-button text-center">

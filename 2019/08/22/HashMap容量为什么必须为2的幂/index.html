@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="我们都了解HashMap，初始容量默认为16，jdk1.8上面说必须为2的幂，但是为什么容量总是为2的次幂呢。   为什么要保证 capacity 是2的次幂 在get方法中tab[(n-1)&amp;amp;hash]是计算key在tab中的索引位置，当key的hash没有冲突时，key在HashMap存储的位置就是匹配的node中的第一个节点。如果hash有冲突，就会在node里面节点中查询，直至匹配">
+<meta name="description" content="我们都了解HashMap，初始容量默认为16，源码上面说必须为2的幂，但是为什么容量总是为2的次幂呢。   为什么要保证 capacity 是2的次幂 在get方法中tab[(n-1)&amp;amp;hash]是计算key在tab中的索引位置，当key的hash没有冲突时，key在HashMap存储的位置就是匹配的node中的第一个节点。如果hash有冲突，就会在node里面节点中查询，直至匹配到相等的">
 <meta name="keywords" content="HashMap">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HashMap容量为什么必须为2的幂">
 <meta property="og:url" content="http://yoursite.com/2019/08/22/HashMap容量为什么必须为2的幂/index.html">
 <meta property="og:site_name" content="Aemon Zhu">
-<meta property="og:description" content="我们都了解HashMap，初始容量默认为16，jdk1.8上面说必须为2的幂，但是为什么容量总是为2的次幂呢。   为什么要保证 capacity 是2的次幂 在get方法中tab[(n-1)&amp;amp;hash]是计算key在tab中的索引位置，当key的hash没有冲突时，key在HashMap存储的位置就是匹配的node中的第一个节点。如果hash有冲突，就会在node里面节点中查询，直至匹配">
+<meta property="og:description" content="我们都了解HashMap，初始容量默认为16，源码上面说必须为2的幂，但是为什么容量总是为2的次幂呢。   为什么要保证 capacity 是2的次幂 在get方法中tab[(n-1)&amp;amp;hash]是计算key在tab中的索引位置，当key的hash没有冲突时，key在HashMap存储的位置就是匹配的node中的第一个节点。如果hash有冲突，就会在node里面节点中查询，直至匹配到相等的">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/08/22/HashMap容量为什么必须为2的幂/1.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/08/22/HashMap容量为什么必须为2的幂/2.jpg">
@@ -93,10 +93,10 @@
 <meta property="og:image" content="http://yoursite.com/2019/08/22/HashMap容量为什么必须为2的幂/4.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/08/22/HashMap容量为什么必须为2的幂/5.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/08/22/HashMap容量为什么必须为2的幂/6.jpg">
-<meta property="og:updated_time" content="2019-08-22T15:36:28.361Z">
+<meta property="og:updated_time" content="2019-08-23T02:43:26.883Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HashMap容量为什么必须为2的幂">
-<meta name="twitter:description" content="我们都了解HashMap，初始容量默认为16，jdk1.8上面说必须为2的幂，但是为什么容量总是为2的次幂呢。   为什么要保证 capacity 是2的次幂 在get方法中tab[(n-1)&amp;amp;hash]是计算key在tab中的索引位置，当key的hash没有冲突时，key在HashMap存储的位置就是匹配的node中的第一个节点。如果hash有冲突，就会在node里面节点中查询，直至匹配">
+<meta name="twitter:description" content="我们都了解HashMap，初始容量默认为16，源码上面说必须为2的幂，但是为什么容量总是为2的次幂呢。   为什么要保证 capacity 是2的次幂 在get方法中tab[(n-1)&amp;amp;hash]是计算key在tab中的索引位置，当key的hash没有冲突时，key在HashMap存储的位置就是匹配的node中的第一个节点。如果hash有冲突，就会在node里面节点中查询，直至匹配到相等的">
 <meta name="twitter:image" content="http://yoursite.com/2019/08/22/HashMap容量为什么必须为2的幂/1.jpg">
 
 
@@ -377,7 +377,7 @@
       
 
       
-        <p>我们都了解HashMap，初始容量默认为16，jdk1.8上面说必须为2的幂，但是为什么容量总是为2的次幂呢。</p>
+        <p>我们都了解HashMap，初始容量默认为16，源码上面说必须为2的幂，但是为什么容量总是为2的次幂呢。</p>
 <p><img src="/2019/08/22/HashMap容量为什么必须为2的幂/1.jpg" alt></p>
 <hr>
 <p><strong>为什么要保证 capacity 是2的次幂</strong></p>
@@ -388,15 +388,17 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">16的二进制为：0001 0000</span><br><span class="line">15的二进制为：0000 1111</span><br><span class="line">当(n - 1) 和 hash 做与运算时，会保留hash中 后 x 位的 1，例如 00001111 &amp; 10000011 = 00000011，减少hash冲突。</span><br></pre></td></tr></table></figure>
 <hr>
 <p><strong>为什么要通过 (n - 1) &amp; hash 决定桶的索引</strong></p>
-<p>（1）key具体应该在哪个桶中，肯定要和key挂钩的，HashMap顾名思义就是通过hash算法高效的把存储的数据查询出来，所以HashMap的所有get 和 set 的操作都和hash相关。<br>（2）既然是通过hash的方式，那么不可避免的会出现hash冲突的场景。hash冲突就是指 2个key 通过hash算法得出的哈希值是相等的。hash冲突是不可避免的，所以如何尽量避免hash冲突，或者在hash冲突时如何高效定位到数据的真实存储位置就是HashMap中最核心的部分。<br>（3首先要提的一点是 HashMap 中 capacity 可以在构造函数中指定，如果不指定默认是2 的 (n = 4) 次方，即16。</p>
+<p>（1）key具体应该在哪个桶中，肯定要和key挂钩的，HashMap顾名思义就是通过hash算法高效的把存储的数据查询出来，所以HashMap的所有get 和 set 的操作都和hash相关。<br>（2）既然是通过hash的方式，那么不可避免的会出现hash冲突的场景。hash冲突就是指 2个key 通过hash算法得出的哈希值是相等的。hash冲突是不可避免的，所以如何尽量避免hash冲突，或者在hash冲突时如何高效定位到数据的真实存储位置就是HashMap中最核心的部分。<br>（3）首先要提的一点是 HashMap 中 capacity 可以在构造函数中指定，如果不指定默认是2 的 (n = 4) 次方，即16。</p>
 <p><img src="/2019/08/22/HashMap容量为什么必须为2的幂/4.jpg" alt></p>
 <p>HashMap中的hash也做了比较特别的处理，(h = key.hashCode()) ^ (h &gt;&gt;&gt; 16)。<br>先获得key的hashCode的值 h，然后 h 和 h右移16位 做异或运算。<br>实质上是把一个数的低16位与他的高16位做异或运算，因为在前面 (n - 1) &amp; hash 的计算中，hash变量只有末x位会参与到运算。使高16位也参与到hash的运算能减少冲突。</p>
-<p>例如1000000的二进制是 00000000 00001111 01000010 01000000<br>右移16位：                      00000000 00000000 00000000 00001111<br>异或                                 00000000 00001111 01000010 01001111</p>
+<p>例如1000000的二进制是 00000000 00001111 01000010 01000000<br>右移16位：                        00000000 00000000 00000000 00001111<br>异或                                    00000000 00001111 01000010 01001111</p>
 <p><img src="/2019/08/22/HashMap容量为什么必须为2的幂/5.jpg" alt></p>
 <hr>
 <p><strong>如果我们令初始容量不为2的幂，是不是就破坏机制了</strong></p>
 <p>源码中HashMap的tableSizeFor方法做了处理，能保证n永远都是2次幂。</p>
 <p><img src="/2019/08/22/HashMap容量为什么必须为2的幂/6.jpg" alt></p>
+<p>这个算法是返回<strong>大于输入参数且最近的2的整数次幂的数</strong>，比如10，返回16，详解如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">|=是位或符号</span><br><span class="line">假设n的二进制：01XX xxxx xxxx</span><br><span class="line">n右移1位：	  001X XXXX	xxxx		位或：011X xxxx xxxx	2个1</span><br><span class="line">n右移2位：	  0001 1XXX xxxx		位或：0111 1xxx xxxx	4个1</span><br><span class="line">n右移4位：	  0000 0111 1xxx 		位或：0111	1111 1xxx	8个1</span><br><span class="line">综上所得：该算法可以让最高位的1后面的位全变为1，最后结果加1就变成2的幂了，</span><br><span class="line">然后int n = cap-1；让cap-1再赋值给n是另外找到目标值大于或等于原值，比如</span><br><span class="line">二进制：1000</span><br><span class="line">十进制：8</span><br><span class="line">如果不进行减一而直接操作，将得到结果1111+1=10000，即16，减1后为111，在进行操作得到1000，即8。</span><br></pre></td></tr></table></figure>
 
       
     </div>
