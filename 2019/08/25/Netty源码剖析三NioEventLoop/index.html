@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Netty,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="NioEventLoop创建 我们在启动服务端时，会创建两个Group，一个bossGroup，一个workerGroup，两个对应的都是NioEventLoopGroup，一个传的参数1，一个默认0，我们进入NioEventLoopGroup  负责创建NioEventLoopGroup底层的线程  负责创建NioEventLoopGroup维护的selector  进入父类，这个在不传构造参数">
+<meta name="keywords" content="Netty">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Netty源码剖析三NioEventLoop">
+<meta property="og:url" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/index.html">
+<meta property="og:site_name" content="Aemon Zhu">
+<meta property="og:description" content="NioEventLoop创建 我们在启动服务端时，会创建两个Group，一个bossGroup，一个workerGroup，两个对应的都是NioEventLoopGroup，一个传的参数1，一个默认0，我们进入NioEventLoopGroup  负责创建NioEventLoopGroup底层的线程  负责创建NioEventLoopGroup维护的selector  进入父类，这个在不传构造参数">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/3.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/4.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/5.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/6.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/7.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/8.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/26.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/9.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/6.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/10.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/11.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/12.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/13.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/14.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/15.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/16.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/7.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/17.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/18.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/19.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/20.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/21.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/22.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/18.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/23.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/24.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/25.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/26.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/27.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/28.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/30.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/29.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/31.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/32.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/33.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/34.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/35.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/33.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/36.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/37.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/38.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/39.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/40.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/41.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/42.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/43.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/44.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/45.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/46.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/18.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/19.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/47.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/48.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/49.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/50.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/51.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/52.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/53.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/54.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/55.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/56.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/57.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/58.jpg">
+<meta property="og:updated_time" content="2019-08-25T13:49:51.556Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Netty源码剖析三NioEventLoop">
+<meta name="twitter:description" content="NioEventLoop创建 我们在启动服务端时，会创建两个Group，一个bossGroup，一个workerGroup，两个对应的都是NioEventLoopGroup，一个传的参数1，一个默认0，我们进入NioEventLoopGroup  负责创建NioEventLoopGroup底层的线程  负责创建NioEventLoopGroup维护的selector  进入父类，这个在不传构造参数">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/">
+
+
+
+
+
+  <title>Netty源码剖析三NioEventLoop | Aemon Zhu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zqnh"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1" style="
+    margin-left: 1114px;
+    margin-right: 0px;
+"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aemon Zhu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习使我快乐 敲代码使我充实</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/25/Netty源码剖析三NioEventLoop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZZQ">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aemon Zhu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Netty源码剖析三NioEventLoop</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-25T13:52:37+08:00">
+                2019-08-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Netty/" itemprop="url" rel="index">
+                    <span itemprop="name">Netty</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/25/Netty源码剖析三NioEventLoop/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/08/25/Netty源码剖析三NioEventLoop/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="NioEventLoop创建"><a href="#NioEventLoop创建" class="headerlink" title="NioEventLoop创建"></a>NioEventLoop创建</h4><p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/1.jpg" alt></p>
+<p>我们在启动服务端时，会创建两个Group，一个bossGroup，一个workerGroup，两个对应的都是NioEventLoopGroup，一个传的参数1，一个默认0，我们进入NioEventLoopGroup</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/2.jpg" alt></p>
+<p>负责创建NioEventLoopGroup底层的线程</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/3.jpg" alt></p>
+<p>负责创建NioEventLoopGroup维护的selector</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/4.jpg" alt></p>
+<p>进入父类，这个在不传构造参数时，默认穿进来与一个0，如果是0，给一个DEFAULT_EVENT_LOOP_THREADS，默认是2倍的cpu核数，在进入父类</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/5.jpg" alt></p>
+<p>以下就是如何创建NioEventLoopGroup，首先创建线程创建器，然后通过for循环创建newChild,最后创建线程选择器，接下来仔细分析这三个过程。</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/6.jpg" alt></p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/7.jpg" alt></p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/8.jpg" alt></p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/26.jpg" alt></p>
+<h5 id="ThreadPerTaskExecutor"><a href="#ThreadPerTaskExecutor" class="headerlink" title="ThreadPerTaskExecutor"></a>ThreadPerTaskExecutor</h5><p><strong>1.每次执行任务时都会创建一个线程实体</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">protected MultithreadEventExecutorGroup(int nThreads, Executor executor, EventExecutorChooserFactory chooserFactory, Object... args) &#123;</span><br><span class="line">        this.terminatedChildren = new AtomicInteger();</span><br><span class="line">        this.terminationFuture = new DefaultPromise(GlobalEventExecutor.INSTANCE);</span><br><span class="line">        if (nThreads &lt;= 0) &#123;</span><br><span class="line">            throw new IllegalArgumentException(String.format(&quot;nThreads: %d (expected: &gt; 0)&quot;, nThreads));</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            if (executor == null) &#123;</span><br><span class="line">            //传进入一个newDefaultThreadFactory，然后构造一个线程执行器，</span><br><span class="line">                executor = new ThreadPerTaskExecutor(this.newDefaultThreadFactory());</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            this.children = new EventExecutor[nThreads];</span><br></pre></td></tr></table></figure>
+<p><strong>ThreadPerTaskExecutor</strong></p>
+<p>每次把执行任务放入一个线程</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/9.jpg" alt></p>
+<hr>
+<p><strong>2.NioEventLoop线程命名规则nioEventLoop-1-xx</strong></p>
+<p>我们进入newDefaultThreadFactory</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/6.jpg" alt></p>
+<p>通过getClass获取到当前的一个类，这个类其实就是NioEventLoop，在进去</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/10.jpg" alt></p>
+<p>这里的poolType就是我们的NioEventLoop，这个toPoolName就是把NioEventLoop转换成线程池的一个名字以下是具体方法</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/11.jpg" alt></p>
+<p>首先先获取类名，接着如果首字母是大写且第一个字母是小写的话，就会把这个name的第一个转换成小写，然后把后面的字符拼接，最后返回，我们回到上图，进入DefaultThreadFactory方法</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/12.jpg" alt></p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/13.jpg" alt></p>
+<p>首先前面做了参数校验，最后prefix前缀=小写的NioEventLoop+‘—‘+poolId（自增）+’—‘，我们的线程执行器ThreadPerTaskExecutor的execute的newThread方法和DefaultThreadFactory的newThread是对应的</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/14.jpg" alt></p>
+<p>这里把Runnable传进来，然后名字就是prefix前缀+nextId（自增），就是小写的NioEventLoop+‘—‘+poolId（自增）+’—‘+nextId（自增）。我们就如newThread方法</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/15.jpg" alt></p>
+<p>这里new了一个FastThreadLocalThread，这里Netty最底层的Thread不是原生的线程，而是封装的一个Thread，FastThreadLocalThread也是继承jdk底层的Thread，它的作用就是把ThreadLocal</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/16.jpg" alt></p>
+<h5 id="newChild"><a href="#newChild" class="headerlink" title="newChild()"></a>newChild()</h5><p>我们进入newChild方法，进入NioEventLoop的newChild方法</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/7.jpg" alt></p>
+<p>在进入NioEventLoop的构造函数</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/17.jpg" alt></p>
+<p>这里会调用父类的构造函数，下面调用openSelector，这里可以看到一个selector和一个NioEventLoop绑定，openSelector也是创建一个openSelector，然后我们跟一下父类</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/18.jpg" alt></p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/19.jpg" alt></p>
+<p>继续进入父类</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/20.jpg" alt></p>
+<p><strong>1.保存线程执行器ThreadPerTaskExcetor</strong></p>
+<p>这里就把线程执行器保存起来，taskQueue是用在Web线程在执行Netty任务的时候，如果判断不是NioEventLoop对应的线程里，而直接塞到任务的一个队列里，然后又NioEventLoop一个线程去执行，我们进入newTaskQueue，是在NioEventLoop里的newTaskQueue</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/21.jpg" alt></p>
+<p><strong>2.创建一个MpsQueue</strong></p>
+<p>newMpsQueue的方式来创建queue来保存一个异步的队列，创建一个selector去轮询上面的连接</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/22.jpg" alt></p>
+<p><strong>3.创建一个selector</strong></p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/18.jpg" alt></p>
+<h5 id="newChooser"><a href="#newChooser" class="headerlink" title="newChooser()"></a>newChooser()</h5><p>创建线程选择器，newChooser对应的是MutilthreadEventExecutorGroup的next方法，通过chooser.next来返回一个NioEventLoop，实现chooser的原理如下。</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/23.jpg" alt></p>
+<p>第一个连接进来的时候，选择第一个NioEvcentLoop进行绑定，依此类推，当到N+1时，再循环开始，从0开始绑定。Netty将这样的过程做了优化</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/24.jpg" alt></p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/25.jpg" alt></p>
+<p>我们进入MutilthreadEventExecutorGroup的newChooser方法，</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/26.jpg" alt></p>
+<p>判断是否是2的幂，如果是2的幂就创建PowerOfTowEventExecutorChooser否则就创建GenericEventExecutorChooser</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/27.jpg" alt></p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/28.jpg" alt></p>
+<p><strong>PowerOfTowEventExecutorChooser</strong></p>
+<p>index每次自增后直接和NioEventLoop的长度-1相与，这样可以达到循环取数组下标的目的，这里和HashMap的2次幂类似。</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/30.jpg" alt></p>
+<p>具体过程如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">idx						111010</span><br><span class="line">							&amp;</span><br><span class="line">executors.length-1		  1111</span><br><span class="line">result					  1010</span><br><span class="line">下标和length-1相与后，每次idx自增，result就会跟着自增，当idx都是1时，和length-1相与后，就得到全1，然后再自增，得到0000，循环往复。</span><br></pre></td></tr></table></figure>
+<p><strong>GenericEventExecutorChooser</strong></p>
+<p>对index自增和NioEventLoop的长度取模，然后总体取绝对值，这样可以达到从0开始到最后，再循环的目的</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/29.jpg" alt></p>
+<h4 id="NioEventLoop启动"><a href="#NioEventLoop启动" class="headerlink" title="NioEventLoop启动"></a>NioEventLoop启动</h4><h5 id="服务端启动绑定端口"><a href="#服务端启动绑定端口" class="headerlink" title="服务端启动绑定端口"></a>服务端启动绑定端口</h5><p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/31.jpg" alt></p>
+<p>进入AbstractBootstrap里的doBind0方法，调用channel的eventLoop,eventLoop实际上是Netty启动过程中通过register方法绑定上去的，然后通过调用NioEventLoop的execute方法。进入SingleThreadEventExecuted的execute方法</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/32.jpg" alt></p>
+<p>这个inEventLoop是判断当前线程是否是NioEventLoop的线程，进入inEventLoop方法</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/33.jpg" alt></p>
+<p>然后再进去</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/34.jpg" alt></p>
+<p>这里就是判断线程是否相等，这里还没有创建，不等，返回false，然后再进入execute方法</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/35.jpg" alt></p>
+<p>这里inEventLoop返回false，所以进入else流程，启动一个线程startThread</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/33.jpg" alt></p>
+<p>首先判断当前线程是否是未启动的，如果未启动，则通过一个compareAndSett方法启动。</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/36.jpg" alt></p>
+<p>execute创建一个，这个Runnable的run方法就是创建一个NioEventLoop底层的Thread，首先把当前线程保存，接下来调用NioEventLoop的run方法，总结就是，主线程再启动过程中，先调用bind方法，最终会把实际绑定的一个流程绑定task，然后调用服务端Channel的方法去具体执行，ThreadPerTaskExcetor来创建一个线程，对应的就是NioEventLoop创建的一个线程，创建这个线程的具体逻辑就是首先NioEventLoop会把当前创建成的一个线程进行保存，最后调用run方法，进行NioEventLoop的启动</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/37.jpg" alt></p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/38.jpg" alt></p>
+<h5 id="新连接接入"><a href="#新连接接入" class="headerlink" title="新连接接入"></a>新连接接入</h5><h4 id="NioEventLoop执行逻辑"><a href="#NioEventLoop执行逻辑" class="headerlink" title="NioEventLoop执行逻辑"></a>NioEventLoop执行逻辑</h4><p>进入到NioEventLoop的run方法</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/39.jpg" alt></p>
+<p>select方法就是轮询当前事件，由于一个NioEventLoop对应一个selector，这个select就是轮询注册到selector上的事件，ioRatio是控制processSelectedKeys和runAllTasks函数的执行时间，processSelectedKeys主要处理io相关的逻辑，runAllTasks是处理web线程到taskQueue的任务，ioRatio默认情况下是50，就是处理io事件和运行任务是1:1。</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/40.jpg" alt></p>
+<h5 id="select方法执行逻辑"><a href="#select方法执行逻辑" class="headerlink" title="select方法执行逻辑"></a>select方法执行逻辑</h5><p><strong>1.deadline以及任务穿插逻辑处理</strong></p>
+<p>上面的wakenUp是为了标识当前select操作是否是唤醒状态，当每次进行select操作时候，都会把wakenUp设置false，未唤醒状态，我们进入select方法.用nanoTime计算下当前时间，当前时间加上一个定时任务队列：定时任务队列是按照截止时间顺序排列的队列</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/41.jpg" alt></p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/42.jpg" alt></p>
+<p><strong>2.阻塞式select</strong></p>
+<p>如果上面截止时间未到，并且当前任务序列为空的话，就进行一个阻塞式的select操作，timeoutMillis就是每次阻塞最大的时间，默认情况下是1，</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/43.jpg" alt></p>
+<p><strong>3.避免jdk空轮询的BUG</strong></p>
+<p>每次进行到这个地方，就进行了一次阻塞式select操作，这里会记一下当前时间，如果selectCnt空轮询次数大于SELECTOR_AUTO_REBUILD_THRESHOLD（512），接下来Netty会调用rebuildSelector方法，来避免下一次空轮询发生，进入rebuildSelector方法</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/44.jpg" alt></p>
+<p>通过openSelector重新创建一个selector，然后将旧的key取消，创建到新的selector上去，并且和事件以及Netty封装的Channel绑定上去，</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/45.jpg" alt></p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/46.jpg" alt></p>
+<h5 id="processSelectedKey执行逻辑"><a href="#processSelectedKey执行逻辑" class="headerlink" title="processSelectedKey执行逻辑"></a>processSelectedKey执行逻辑</h5><p><strong>1.selected keySet优化</strong></p>
+<p>在创建NioEventLoop时会调用一个openSelector方法去创建底层的一一对应的selector，也就是io事件的运行器，</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/18.jpg" alt></p>
+<p>openSelector首先会调用jdk的一个api，provider去创建一个selector，接下来判断</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/19.jpg" alt></p>
+<p>我们进入SelectedSelectionKeySet</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/47.jpg" alt></p>
+<p>SelectedSelectionKeySet继承AbstractSet</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/48.jpg" alt></p>
+<p>Netty对selected keySet优化就是用数组替换selector，hashSet做到add方法时间复杂度O(1),</p>
+<p><strong>2.processSelectedKeysOptimized</strong></p>
+<p>进入NioEventLoop的run方法，进去processSelectedKeys方法</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/49.jpg" alt></p>
+<p>这里的selectedKeys就是经过优化的selectedKeys，flip方法把数组返回过去</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/50.jpg" alt></p>
+<p>返回一个数组，接下来进入processSelectedKeysOptimized</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/51.jpg" alt></p>
+<p>每次通过for循环遍历这个SelectionKey[]数组，拿到selectedKeys ，拿到后把数组里的引用设置null，接下来拿到key的attachment，就是一个channel，然后调用processSelectedKey方法</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/52.jpg" alt></p>
+<p>首先拿到channel的unsafe，这个unsafe是和channel绑定的一个对象，</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/53.jpg" alt></p>
+<p>Netty默认情况下会通过反射将Select底层的一个HashSet转化成一个数组方式进行优化，然后在处理每一个key的时候，都会拿到对应的一个attachment，这个attachment就是再向select注册NioEventChannel事件的时候绑定的经过Netty封装后的channel。</p>
+<h5 id="runAllTask执行逻辑"><a href="#runAllTask执行逻辑" class="headerlink" title="runAllTask执行逻辑"></a>runAllTask执行逻辑</h5><p>我们进入SingleThreadEventExecutor的execute方法，addTask方法</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/54.jpg" alt></p>
+<p>进入offerTask方法</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/55.jpg" alt></p>
+<p>向taskQueue添加task，这是普通任务的创建和任务的添加，除了这普通任务队列，还有定时任务队列</p>
+<p>我们进入AbstractScheduledEventExecutor的schedule方法</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/56.jpg" alt></p>
+<p>就是把你的任务包装成ScheduledFutureTask，然后调用schedule方法，我们进入schedule方法</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/57.jpg" alt></p>
+<p>看这个schedule方法是inEventLoop发起的schedule，还是在外部线程发起的schedule，如果是外部线程发起的schedule，就把添加操作变成线程安全的操作，如果是在inEventLoop发起的那么直接进行添加，为什么这样做，因为scheduledTaskQueue是个普通的PriorityQueue，</p>
+<p><img src="/2019/08/25/Netty源码剖析三NioEventLoop/58.jpg" alt></p>
+<p><strong>task的分类和添加</strong></p>
+<p><strong>任务的聚合</strong></p>
+<p><strong>三个问题</strong></p>
+<ol>
+<li><p>默认情况下，Netty服务端起多少线程？何时启动？</p>
+<p>不传参数时，默认两倍CPU核数的线程，在调用execute方法的时候判断是否在本线程，如果在本线程说明线程已启动，如果是在外部线程调用execute方法，首先调用startThread方法，这个方法首先会判断当前线程是否有启动，如果没有启动，则启动这个线程。</p>
+</li>
+<li><p>Netty是如何解决jdk空轮询BUG的？</p>
+<p>通过计数的方式去判断，如果当前阻塞的select操作，实际上并没有花这么长时间，那么旧可能触发空轮询，默认条件下，这种情况达到512次，就重建一个select，把之前select所有的key重新移交到新的select的key上，通过这种方式来巧妙的避免了jdk空轮询BUG。</p>
+</li>
+<li><p>Netty如何保证异步串行无锁化</p>
+<p>在所有Web线程去调用EventLoop或Channel方法时，通过inEventLoop方法来判断得出是否是外部线程，在这种情况下就把所有外部操作封装成task，塞到MpsQueue中，然后再NioEventLoop执行逻辑的第三个过程，这一task会被挨个执行。</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Netty/" rel="tag"># Netty</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/24/Netty源码剖析二服务端启动/" rel="next" title="Netty源码剖析二服务端启动">
+                <i class="fa fa-chevron-left"></i> Netty源码剖析二服务端启动
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="ZZQ">
+            
+              <p class="site-author-name" itemprop="name">ZZQ</p>
+              <p class="site-description motion-element" itemprop="description">坦坦荡荡 一身正气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">84</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#NioEventLoop创建"><span class="nav-number">1.</span> <span class="nav-text">NioEventLoop创建</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ThreadPerTaskExecutor"><span class="nav-number">1.1.</span> <span class="nav-text">ThreadPerTaskExecutor</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#newChild"><span class="nav-number">1.2.</span> <span class="nav-text">newChild()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#newChooser"><span class="nav-number">1.3.</span> <span class="nav-text">newChooser()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NioEventLoop启动"><span class="nav-number">2.</span> <span class="nav-text">NioEventLoop启动</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#服务端启动绑定端口"><span class="nav-number">2.1.</span> <span class="nav-text">服务端启动绑定端口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#新连接接入"><span class="nav-number">2.2.</span> <span class="nav-text">新连接接入</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NioEventLoop执行逻辑"><span class="nav-number">3.</span> <span class="nav-text">NioEventLoop执行逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#select方法执行逻辑"><span class="nav-number">3.1.</span> <span class="nav-text">select方法执行逻辑</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#processSelectedKey执行逻辑"><span class="nav-number">3.2.</span> <span class="nav-text">processSelectedKey执行逻辑</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#runAllTask执行逻辑"><span class="nav-number">3.3.</span> <span class="nav-text">runAllTask执行逻辑</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZZQ</span>
+
+  
+</div>
+
+
+
+ <!-- 
+ 
+ <div class="powered-by">世界是美好的</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">是值得我们去奋斗的 &mdash;  v</div>
+
+
+-->
+
+<div class="BbeiAn-info">
+豫ICP备 -
+<a target="_blank" href="http://www.beian.miit.gov.cn/">19028433号-1</a>
+
+</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+	 
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv"></span>
+        </span>
+        <span class="post-meta-divider"></span>
+        <span id="busuanzi_container_site_uv" style="display:none">
+                <span id="busuanzi_value_site_uv"></span>
+        </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v="></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+		<link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: "<%=page.date%>", 
+            owner: 'zqnh',
+            repo: 'zqnh.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd9c922b4c4a7b4458ba55aa5673db78556aa9d1f',
+            
+                client_id: 'ca41c1f6c6585b630f16'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
