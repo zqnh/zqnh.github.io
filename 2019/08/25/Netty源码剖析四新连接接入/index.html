@@ -79,19 +79,39 @@
 
 
 
-<meta name="description" content="Netty新连接接入处理逻辑分为：检测新连接，创建NioSocketChannel，分配线程及注册selector，最后向selector注册读事件。  检测新连接创建NioSocketChannel分配线程及注册selector向selector注册读事件 Netty是在哪里检测有新连接接入的 新连接是怎样注册到NioEventLoop线程的">
+<meta name="description" content="Netty新连接接入处理逻辑分为：检测新连接，创建NioSocketChannel，分配线程及注册selector，最后向selector注册读事件。  检测新连接 进入NioEventLoop的 processSelectedKey方法，执行read方法，进入read方法   这里会用dowhile循环，这里会调用doReadMessage方法，进入NioServerSocketChannel的">
 <meta name="keywords" content="Netty">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Netty源码剖析四新连接接入">
 <meta property="og:url" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/index.html">
 <meta property="og:site_name" content="Aemon Zhu">
-<meta property="og:description" content="Netty新连接接入处理逻辑分为：检测新连接，创建NioSocketChannel，分配线程及注册selector，最后向selector注册读事件。  检测新连接创建NioSocketChannel分配线程及注册selector向selector注册读事件 Netty是在哪里检测有新连接接入的 新连接是怎样注册到NioEventLoop线程的">
+<meta property="og:description" content="Netty新连接接入处理逻辑分为：检测新连接，创建NioSocketChannel，分配线程及注册selector，最后向selector注册读事件。  检测新连接 进入NioEventLoop的 processSelectedKey方法，执行read方法，进入read方法   这里会用dowhile循环，这里会调用doReadMessage方法，进入NioServerSocketChannel的">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/1.jpg">
-<meta property="og:updated_time" content="2019-08-25T14:35:41.612Z">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/3.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/5.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/4.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/6.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/7.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/8.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/6.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/9.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/10.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/11.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/12.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/13.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/14.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/15.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/16.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/17.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/18.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/19.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/20.jpg">
+<meta property="og:updated_time" content="2019-08-27T12:30:01.786Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Netty源码剖析四新连接接入">
-<meta name="twitter:description" content="Netty新连接接入处理逻辑分为：检测新连接，创建NioSocketChannel，分配线程及注册selector，最后向selector注册读事件。  检测新连接创建NioSocketChannel分配线程及注册selector向selector注册读事件 Netty是在哪里检测有新连接接入的 新连接是怎样注册到NioEventLoop线程的">
+<meta name="twitter:description" content="Netty新连接接入处理逻辑分为：检测新连接，创建NioSocketChannel，分配线程及注册selector，最后向selector注册读事件。  检测新连接 进入NioEventLoop的 processSelectedKey方法，执行read方法，进入read方法   这里会用dowhile循环，这里会调用doReadMessage方法，进入NioServerSocketChannel的">
 <meta name="twitter:image" content="http://yoursite.com/2019/08/25/Netty源码剖析四新连接接入/1.jpg">
 
 
@@ -374,9 +394,50 @@
       
         <p>Netty新连接接入处理逻辑分为：检测新连接，创建NioSocketChannel，分配线程及注册selector，最后向selector注册读事件。</p>
 <p><img src="/2019/08/25/Netty源码剖析四新连接接入/1.jpg" alt></p>
-<h4 id="检测新连接"><a href="#检测新连接" class="headerlink" title="检测新连接"></a>检测新连接</h4><h4 id="创建NioSocketChannel"><a href="#创建NioSocketChannel" class="headerlink" title="创建NioSocketChannel"></a>创建NioSocketChannel</h4><h4 id="分配线程及注册selector"><a href="#分配线程及注册selector" class="headerlink" title="分配线程及注册selector"></a>分配线程及注册selector</h4><h4 id="向selector注册读事件"><a href="#向selector注册读事件" class="headerlink" title="向selector注册读事件"></a>向selector注册读事件</h4><ol>
-<li>Netty是在哪里检测有新连接接入的</li>
-<li>新连接是怎样注册到NioEventLoop线程的</li>
+<h4 id="检测新连接"><a href="#检测新连接" class="headerlink" title="检测新连接"></a>检测新连接</h4><p><img src="/2019/08/25/Netty源码剖析四新连接接入/2.jpg" alt></p>
+<p>进入NioEventLoop的 processSelectedKey方法，执行read方法，进入read方法</p>
+<p><img src="/2019/08/25/Netty源码剖析四新连接接入/3.jpg" alt></p>
+<p><img src="/2019/08/25/Netty源码剖析四新连接接入/5.jpg" alt></p>
+<p>这里会用dowhile循环，这里会调用doReadMessage方法，进入NioServerSocketChannel的doReadMessages方法</p>
+<p><img src="/2019/08/25/Netty源码剖析四新连接接入/4.jpg" alt></p>
+<p>获取服务端启动过程中创建的jdk的channel，调用accept方法后拿到jdk底层java.nio.channels.socketChannel，接下来封装成NioSocketChannel，放到buf里，返回1，说明读到channel了。再进入read方法</p>
+<p><img src="/2019/08/25/Netty源码剖析四新连接接入/6.jpg" alt></p>
+<p>我们做个总结就是，在服务端Channel的NioEventLoop,processSelectedKey检测到accept事件后，通过jdk的accept方法去创建jdk底层的channel包装成Netty自定义的channel，然后通过handle控制连接的速率。默认情况下读取16个连接。</p>
+<p><img src="/2019/08/25/Netty源码剖析四新连接接入/7.jpg" alt></p>
+<h4 id="创建NioSocketChannel"><a href="#创建NioSocketChannel" class="headerlink" title="创建NioSocketChannel"></a>创建NioSocketChannel</h4><p><img src="/2019/08/25/Netty源码剖析四新连接接入/8.jpg" alt></p>
+<p>进入doReadMessages方法，通过new NioSocketChannel(this, ch)方法，创建Netty自己客户端的channel，并且把this（服务端的channel），ch（客户端的channel），进入NioSocketChannel的构造函数的父类，然后做了三件事情。</p>
+<p><img src="/2019/08/25/Netty源码剖析四新连接接入/6.jpg" alt></p>
+<p>在进入super类</p>
+<p><img src="/2019/08/25/Netty源码剖析四新连接接入/9.jpg" alt></p>
+<p>第一件事情：这里首先把channel保存，readInterestOp就是传来的读事件，然后设置此channel为非阻塞模式，</p>
+<p><img src="/2019/08/25/Netty源码剖析四新连接接入/10.jpg" alt></p>
+<p>继续进入super，这里首先把parent，这个parent就是创建此客户端channel的服务端channel，也就是服务端启动过程中通过反射创建的channel，这是第二件事。我们再进入NioSocketChannel的构造方法</p>
+<p><img src="/2019/08/25/Netty源码剖析四新连接接入/11.jpg" alt></p>
+<p>进入config里</p>
+<p><img src="/2019/08/25/Netty源码剖析四新连接接入/12.jpg" alt></p>
+<p>继续向上</p>
+<p><img src="/2019/08/25/Netty源码剖析四新连接接入/13.jpg" alt></p>
+<p>这里首先把javaSocket进行保存，接下来判断默认情况下canEnableTcpNoDelayByDefault为true，我们进入tcpNoDelay</p>
+<p><img src="/2019/08/25/Netty源码剖析四新连接接入/14.jpg" alt></p>
+<p>这里通过刚刚保存的javaSocket来设置tcpNoDelay，再进入</p>
+<p><img src="/2019/08/25/Netty源码剖析四新连接接入/15.jpg" alt></p>
+<p>这里就是jdk底层的java.net方法，这里设置禁止Nagle算法，创建NioSocketChannel可以分为两个部分，第一，逐层调用父类构造函数，设置该channel的阻塞方式为false，然后把对应的读事件进行保存，接下来创建一系列组件，包括id unsafe pipeline，然后第二，创建和channel相关的config，这个config就是把这个channel默认情况下设置tcpDelay为true，也就是小的数据包可以尽快的发送出去，降低延迟。</p>
+<p><img src="/2019/08/25/Netty源码剖析四新连接接入/16.jpg" alt></p>
+<h4 id="分配线程及注册selector"><a href="#分配线程及注册selector" class="headerlink" title="分配线程及注册selector"></a>分配线程及注册selector</h4><p>进入NioMessageUnsafe的read方法,while循环后开始for循环每条客户端的连接，调用pipeline的fireChannelRead方法，我们知道当服务端启动时，会初始化Channel，初始化时，pipeline会默认添加一个ServerBootstrapAcceptor，服务端Channel的pipeline的构成：（Head—&gt;ServerBootstrapAcceptor—&gt;Tail）</p>
+<p><img src="/2019/08/25/Netty源码剖析四新连接接入/17.jpg" alt></p>
+<p>ServerBootstrapAcceptor，</p>
+<p><img src="/2019/08/25/Netty源码剖析四新连接接入/18.jpg" alt></p>
+<p>channelRead主要做了三件事情1：添加childHandle，2：设置options和attrs，3：选择NioEventLoop并注册到selector</p>
+<p><img src="/2019/08/25/Netty源码剖析四新连接接入/19.jpg" alt></p>
+<h4 id="向selector注册读事件"><a href="#向selector注册读事件" class="headerlink" title="向selector注册读事件"></a>向selector注册读事件</h4><p> 进入AbstractChannel的register0方法</p>
+<p><img src="/2019/08/25/Netty源码剖析四新连接接入/20.jpg" alt></p>
+<ol>
+<li><p>Netty是在哪里检测有新连接接入的</p>
+<p>boss线程的第一个过程，轮询出accept事件，第二个 过程通过jdk底层的channel，acceptor方法去创建这条连接。</p>
+</li>
+<li><p>新连接是怎样注册到NioEventLoop线程的</p>
+<p>boss线程调用chooser的next方法，拿到一个NioEventLoop，然后将这条连接注册到NioEventLoop上。</p>
+</li>
 </ol>
 
       
@@ -417,6 +478,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/27/Netty中的Channel的分类/" rel="prev" title="Netty中的Channel的分类">
+                Netty中的Channel的分类 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -502,7 +567,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-count">87</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -524,7 +589,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
