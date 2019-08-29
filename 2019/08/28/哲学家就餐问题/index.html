@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="死锁,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="学习多线程时，一个对象可以有syschronized方法或其他形式的加锁来防止别的任务再互斥还没有释放的时候就访问这个对象。就可能出现这种情况：某个任务再等待另一个任务，而后者又等待别的任务，这样一直下去，直到这个链条上的任务又再等待第一个任务释放锁，这就得到了一个任务之间相互等待的连续循环，没有哪个线程能继续。被称为“死锁”。 ​    著名的哲学家就餐问题就是一个经典的死锁例证：有五个哲学家，">
+<meta name="keywords" content="死锁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="哲学家就餐问题">
+<meta property="og:url" content="http://yoursite.com/2019/08/28/哲学家就餐问题/index.html">
+<meta property="og:site_name" content="Aemon Zhu">
+<meta property="og:description" content="学习多线程时，一个对象可以有syschronized方法或其他形式的加锁来防止别的任务再互斥还没有释放的时候就访问这个对象。就可能出现这种情况：某个任务再等待另一个任务，而后者又等待别的任务，这样一直下去，直到这个链条上的任务又再等待第一个任务释放锁，这就得到了一个任务之间相互等待的连续循环，没有哪个线程能继续。被称为“死锁”。 ​    著名的哲学家就餐问题就是一个经典的死锁例证：有五个哲学家，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-28T06:08:51.234Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="哲学家就餐问题">
+<meta name="twitter:description" content="学习多线程时，一个对象可以有syschronized方法或其他形式的加锁来防止别的任务再互斥还没有释放的时候就访问这个对象。就可能出现这种情况：某个任务再等待另一个任务，而后者又等待别的任务，这样一直下去，直到这个链条上的任务又再等待第一个任务释放锁，这就得到了一个任务之间相互等待的连续循环，没有哪个线程能继续。被称为“死锁”。 ​    著名的哲学家就餐问题就是一个经典的死锁例证：有五个哲学家，">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/28/哲学家就餐问题/">
+
+
+
+
+
+  <title>哲学家就餐问题 | Aemon Zhu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zqnh"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1" style="
+    margin-left: 1114px;
+    margin-right: 0px;
+"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aemon Zhu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习使我快乐 敲代码使我充实</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/28/哲学家就餐问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZZQ">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aemon Zhu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">哲学家就餐问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-28T12:43:13+08:00">
+                2019-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/并发/" itemprop="url" rel="index">
+                    <span itemprop="name">并发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/28/哲学家就餐问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/08/28/哲学家就餐问题/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>学习多线程时，一个对象可以有syschronized方法或其他形式的加锁来防止别的任务再互斥还没有释放的时候就访问这个对象。就可能出现这种情况：某个任务再等待另一个任务，而后者又等待别的任务，这样一直下去，直到这个链条上的任务又再等待第一个任务释放锁，这就得到了一个任务之间相互等待的连续循环，没有哪个线程能继续。被称为“死锁”。</p>
+<p>​    著名的哲学家就餐问题就是一个经典的死锁例证：有五个哲学家，这些哲学家将花部分时间思考，花部分时间就餐。当他们思考时，不需要任何共享资源；但当他们就餐时，将使用有限数量的餐具。问题引入的难点是，他们只有五根筷子，他们围坐再桌子周围，没人之间放一根筷子，当一个哲学家要就餐时，这个哲学家必须同时得到左边和右边的筷子。如果一个哲学家左边或右边已经有人在使用筷子了，那么这个哲学家就必须等待，直至可得到必需的筷子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Chopstick</span><br><span class="line">&#123;</span><br><span class="line">	private boolean taken = false;</span><br><span class="line">	public synchronized void take() throws InterruptedException</span><br><span class="line">	&#123;</span><br><span class="line">		while(taken)</span><br><span class="line">			wait();</span><br><span class="line">		taken = true;</span><br><span class="line">	&#125;</span><br><span class="line">	public synchronized void drop()</span><br><span class="line">	&#123;</span><br><span class="line">		taken = false;</span><br><span class="line">		notifyAll();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    任何两个Philosopher都不能成功take（）同一根筷子。另外一根Chopstick已经被某个Philosopher获得，那么另一个Philosopher可以wait（），直至这跟Chopstick的当前持有者调用drop使其可用为止。</p>
+<p>​    当一个Philosopher任务调用take（）时，这个Philosopher将等待，直至taken标志变为false（直至当前持有Chopstick的Philosopher释放它）。然后这个线程会将taken标志设置为true，以表示现在由新来的Philosopher持有这跟Chopstick。当这个Philosopher使用完这跟Chopstick时，它会调用drop（）来修改标志的状态，并notifyAll（）所有其他的Philosopher，这些Philosopher中有些可能就在wait（）这根Chopstick</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">public class Philosopher implements Runnable</span><br><span class="line">&#123;</span><br><span class="line">	private Chopsttick left;</span><br><span class="line">	private Chopsttick right;</span><br><span class="line">	private final intt id;</span><br><span class="line">	private final intt ponderFactor;</span><br><span class="line">	private Random rand = new Random(47);</span><br><span class="line">	private void pause() throws InterruptttedException</span><br><span class="line">	&#123;</span><br><span class="line">		if(ponderFacttor == 0) return;</span><br><span class="line">		TimeUnit.MILLISECONDS.sleep</span><br><span class="line">		&#123;</span><br><span class="line">			rand.nextInt(ponderFactor * 250)</span><br><span class="line">		&#125;</span><br><span class="line">		public Philosopher(Chopstick left,Chopstick right,int ident,int ponder)</span><br><span class="line">		&#123;</span><br><span class="line">			this.left = left;</span><br><span class="line">			this.right = right;</span><br><span class="line">			id = ident;</span><br><span class="line">			ponderFactor = ponder;</span><br><span class="line">		&#125;</span><br><span class="line">		public void run()</span><br><span class="line">		&#123;</span><br><span class="line">			try&#123;</span><br><span class="line">				while(!Thread.intterrupted())</span><br><span class="line">				&#123;</span><br><span class="line">					Sysout.out.pringln(this+&quot;&quot;+&quot;thinking&quot;);</span><br><span class="line">					pause();</span><br><span class="line">					//Philosopher becomes hungry</span><br><span class="line">					Sysout.out.pringln(this+&quot; &quot;+&quot;grabbing right&quot;);</span><br><span class="line">					right.take();</span><br><span class="line">					Sysout.out.pringln(this+&quot; &quot;+&quot;grabbing left&quot;);</span><br><span class="line">					left.take();</span><br><span class="line">					Sysout.out.pringln(this+&quot; &quot;+&quot;eating&quot;);</span><br><span class="line">					pause();</span><br><span class="line">					right.drop();</span><br><span class="line">					left.drop();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;catch(InterrupterException e)</span><br><span class="line">			&#123;</span><br><span class="line">				Sysout.out.pringln(this+&quot; &quot;+&quot;exiting via interrupt&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		public String toString()</span><br><span class="line">		&#123;</span><br><span class="line">			return &quot;Philosopher&quot;+id;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    在Philosopher,run中，每个Philosopher只是不断的思考和吃饭。如果Philosopher不为0，则pause()方法会休眠一段随机时间，然后尝试获取（take（））右边和左边的Chopstick，随后在吃饭上再花掉一段随机时间，之后重复。</p>
+<p>现在我们可以建立这个程序的将会产生死锁的版本了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class DeadlockingDiningPhilosophers</span><br><span class="line">&#123;</span><br><span class="line">	public static void main(String[] args) throws Exception</span><br><span class="line">	&#123;</span><br><span class="line">		int ponder = 5;</span><br><span class="line">		if(args.length&gt;0)</span><br><span class="line">			ponder = Integer.parseIntt(args[0]);</span><br><span class="line">		int size = 5;</span><br><span class="line">		if(args.length&gt;1)</span><br><span class="line">			size = Integer.parseInt(args[1]);</span><br><span class="line">		ExecutorService exec = Executors.new CachedThreadPool();</span><br><span class="line">		Chopstick[] sticks = new Chopstick[size];</span><br><span class="line">		for(int i = 0;i&lt;size;i++)</span><br><span class="line">			sticks[i] = new Chopstick();</span><br><span class="line">		for(int i = 0;i&lt;size;i++)</span><br><span class="line">		exec.executtte(new Philosopher(sticks[i].sticks[(i+1)%size],i,ponder));</span><br><span class="line">		if(args.lengtth == 3 &amp;&amp; args[2].equals(&quot;timeout&quot;))</span><br><span class="line">			TimeUnitt.SECONDS.sleep(5);</span><br><span class="line">		else&#123;</span><br><span class="line">			System.out.pringln(&quot;Press &apos;Enter&apos; ttto quit&quot;);</span><br><span class="line">			System.in.read();</span><br><span class="line">		&#125;</span><br><span class="line">		exec.shutdownNow();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你会发现，如果Philosopher花在思考上的时间非常少，那么当他们想要进餐时，全都会在Chopstick上产生竞争，而死锁也就会更快地发生。</p>
+<p>当一下四个条件同时满足时，就会发生死锁：</p>
+<ol>
+<li>互斥条件。任务使用的资源中至少有一个是不能共享的，这里一根Chopsticks一次只能被一个Philosopher使用。</li>
+<li>至少有一个任务它必须持有一个资源且正在等待获取一个当前被别的任务持有的资源。也就是说，要发生死锁，Philosopher必须拿着一根Chopstick并且等待另一根。</li>
+<li>资源不能被任务抢占，任务必须把资源释放当作普通事件，Philosopher很有礼貌，他们不会从从其他Philosopher抢Chopsticks。</li>
+<li>必须有循环等待，这时，一个任务等待其他任务所持有的资源，后者又在等待另一个任务所持有的资源，这样一直下去，直到有一个任务，在等待第一个任务所持有的资源，使得大家都被锁住。在DeadlockingDiningPhilosophers里，因为每个Philosopher都试图先得到右边的Chopstick，然后得到左边的Chopstick，所以发生了循环等待。</li>
+</ol>
+<p>因为要发生死锁，所有这些条件都必须全部满足，所以要防止死锁的话，只需破坏其中一个即可.在程序中,防止死锁最容易的是第四个条件,有这个条件的原因是每个Philosopher都试图用特定的顺序拿Chopsticks:先右后左.正因为如此,就可能会发生每个人都拿着右边的Chopstick,等待着左边的Chopstick,这就是循环等待条件.然而,如果最后一个Philosopher被初始化称先拿左边的Chopstick,后拿右边的Chopstick,那么这个Philosopher将不会阻止其右边的Philosopher拿起他们的Chopstick.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public class FixedDingingPhilophers</span><br><span class="line">&#123;</span><br><span class="line">	public static void main(String[] args) throws Exception</span><br><span class="line">	&#123;</span><br><span class="line">		int ponder = 5;</span><br><span class="line">		if(args.length&gt;0)</span><br><span class="line">			ponder = Integer.parseIntt(args[0]);</span><br><span class="line">		int size = 5;</span><br><span class="line">		if(args.length&gt;1)</span><br><span class="line">			size = Integer.parseInt(args[1]);</span><br><span class="line">		ExecutorService exec = Executors.new CachedThreadPool();</span><br><span class="line">		Chopstick[] sticks = new Chopstick[size];</span><br><span class="line">		for(int i = 0;i&lt;size;i++)</span><br><span class="line">			sticks[i] = new Chopstick();</span><br><span class="line">		for(int i = 0;i&lt;size;i++)</span><br><span class="line">			if(i&lt;(size-1))</span><br><span class="line">				exec.executtte(new Philosopher(sticks[0].sticks[i],i,ponder));</span><br><span class="line">		if(args.lengtth == 3 &amp;&amp; args[2].equals(&quot;timeout&quot;))</span><br><span class="line">			TimeUnitt.SECONDS.sleep(5);</span><br><span class="line">		else&#123;</span><br><span class="line">			System.out.pringln(&quot;Press &apos;Enter&apos; ttto quit&quot;);</span><br><span class="line">			System.in.read();</span><br><span class="line">		&#125;</span><br><span class="line">		exec.shutdownNow();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样确保最后一个Philosopher先拿起和放下左边的Chopstick,我们可以移除死锁,从而使这个程序平滑地运行.</p>
+<p>参考:    《Java编程思想》</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/死锁/" rel="tag"># 死锁</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/28/生产者和消费者问题/" rel="next" title="生产者和消费者问题">
+                <i class="fa fa-chevron-left"></i> 生产者和消费者问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/29/RabbitMQ系列二work模式/" rel="prev" title="RabbitMQ系列二work模式">
+                RabbitMQ系列二work模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="ZZQ">
+            
+              <p class="site-author-name" itemprop="name">ZZQ</p>
+              <p class="site-description motion-element" itemprop="description">坦坦荡荡 一身正气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">94</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZZQ</span>
+
+  
+</div>
+
+
+
+ <!-- 
+ 
+ <div class="powered-by">世界是美好的</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">是值得我们去奋斗的 &mdash;  v</div>
+
+
+-->
+
+<div style="width:300px;margin:0 auto; padding:20px 0;">
+<div class="BbeiAn-info">
+豫ICP备 -
+<a target="_blank" href="http://www.beian.miit.gov.cn/">19028433号-1</a>
+
+</div>
+<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41082302410986" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beian.png" style="float:left;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">豫公网安备 41082302410986号</p></a>
+</div>
+		 
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+	 
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv"></span>
+        </span>
+        <span class="post-meta-divider"></span>
+        <span id="busuanzi_container_site_uv" style="display:none">
+                <span id="busuanzi_value_site_uv"></span>
+        </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v="></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+		<link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: "<%=page.date%>", 
+            owner: 'zqnh',
+            repo: 'zqnh.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd9c922b4c4a7b4458ba55aa5673db78556aa9d1f',
+            
+                client_id: 'ca41c1f6c6585b630f16'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
