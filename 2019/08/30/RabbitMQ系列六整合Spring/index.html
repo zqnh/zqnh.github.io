@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Redis,">
+  <meta name="keywords" content="RabbitMQ,">
 
 
 
@@ -79,20 +79,18 @@
 
 
 
-<meta name="description" content="Redis持久化redis所有数据保持在内存中，对数据的更新将异步保存到磁盘上。   RDBRDB是Redis用来进行持久化的一种方式，是把当前内存中的数据集快照写入磁盘，也就是 Snapshot 快照（数据库中所有键值对数据）。恢复时是将快照文件直接读到内存里。 触发机制  save 同步 bgsave 异步 自动  1.RDB是Redis内存到硬盘的快照，用于持久化 2.save通常会阻塞Re">
-<meta name="keywords" content="Redis">
+<meta name="description" content="Rabbit整合Spring方式一 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;lt;beans xml">
+<meta name="keywords" content="RabbitMQ">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis系列四持久化">
-<meta property="og:url" content="http://yoursite.com/2019/08/07/Redis系列四持久化/index.html">
+<meta property="og:title" content="RabbitMQ系列六整合Spring">
+<meta property="og:url" content="http://yoursite.com/2019/08/30/RabbitMQ系列六整合Spring/index.html">
 <meta property="og:site_name" content="Aemon Zhu">
-<meta property="og:description" content="Redis持久化redis所有数据保持在内存中，对数据的更新将异步保存到磁盘上。   RDBRDB是Redis用来进行持久化的一种方式，是把当前内存中的数据集快照写入磁盘，也就是 Snapshot 快照（数据库中所有键值对数据）。恢复时是将快照文件直接读到内存里。 触发机制  save 同步 bgsave 异步 自动  1.RDB是Redis内存到硬盘的快照，用于持久化 2.save通常会阻塞Re">
+<meta property="og:description" content="Rabbit整合Spring方式一 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;lt;beans xml">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/08/07/Redis系列四持久化/1.jpg">
-<meta property="og:updated_time" content="2019-08-07T14:16:30.880Z">
+<meta property="og:updated_time" content="2019-08-30T07:57:59.727Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis系列四持久化">
-<meta name="twitter:description" content="Redis持久化redis所有数据保持在内存中，对数据的更新将异步保存到磁盘上。   RDBRDB是Redis用来进行持久化的一种方式，是把当前内存中的数据集快照写入磁盘，也就是 Snapshot 快照（数据库中所有键值对数据）。恢复时是将快照文件直接读到内存里。 触发机制  save 同步 bgsave 异步 自动  1.RDB是Redis内存到硬盘的快照，用于持久化 2.save通常会阻塞Re">
-<meta name="twitter:image" content="http://yoursite.com/2019/08/07/Redis系列四持久化/1.jpg">
+<meta name="twitter:title" content="RabbitMQ系列六整合Spring">
+<meta name="twitter:description" content="Rabbit整合Spring方式一 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;lt;beans xml">
 
 
 
@@ -122,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/08/07/Redis系列四持久化/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/30/RabbitMQ系列六整合Spring/">
 
 
 
 
 
-  <title>Redis系列四持久化 | Aemon Zhu</title>
+  <title>RabbitMQ系列六整合Spring | Aemon Zhu</title>
   
 
 
@@ -268,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/Redis系列四持久化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/30/RabbitMQ系列六整合Spring/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZZQ">
@@ -285,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Redis系列四持久化</h1>
+          <h1 class="post-title" itemprop="name headline">RabbitMQ系列六整合Spring</h1>
         
 
         <div class="post-meta">
@@ -297,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-07T17:41:29+08:00">
-                2019-08-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-30T12:21:28+08:00">
+                2019-08-30
               </time>
             
 
@@ -320,8 +318,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/RabbitMQ/" itemprop="url" rel="index">
+                    <span itemprop="name">RabbitMQ</span>
                   </a>
                 </span>
 
@@ -338,8 +336,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/08/07/Redis系列四持久化/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/08/07/Redis系列四持久化/" itemprop="commentsCount"></span>
+                <a href="/2019/08/30/RabbitMQ系列六整合Spring/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/08/30/RabbitMQ系列六整合Spring/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -372,86 +370,8 @@
       
 
       
-        <h5 id="Redis持久化"><a href="#Redis持久化" class="headerlink" title="Redis持久化"></a>Redis持久化</h5><p>redis所有数据保持在内存中，对数据的更新将异步保存到磁盘上。 </p>
-<p><img src="/2019/08/07/Redis系列四持久化/1.jpg" alt></p>
-<h5 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h5><p>RDB是Redis用来进行持久化的一种方式，是把当前内存中的数据集快照写入磁盘，也就是 Snapshot 快照（数据库中所有键值对数据）。恢复时是将快照文件直接读到内存里。</p>
-<p><strong>触发机制</strong></p>
-<ul>
-<li>save 同步</li>
-<li>bgsave 异步</li>
-<li>自动</li>
-</ul>
-<p>1.RDB是Redis内存到硬盘的快照，用于持久化</p>
-<p>2.save通常会阻塞Redis</p>
-<p>3.bgsave不会阻塞Redis，但是会fork新进程</p>
-<p>4.save自动配置满足任一就会被执行</p>
-<p>5.有些触发机制不容忽视</p>
-<h5 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h5><p><strong>三种策略</strong></p>
-<ul>
-<li>always</li>
-<li>everysec</li>
-<li>no</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>always</th>
-<th>everysec</th>
-<th>no</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>优点</td>
-<td>不丢失数据</td>
-<td>每秒一次fsync丢一秒数据</td>
-<td>不用管</td>
-</tr>
-<tr>
-<td>缺点</td>
-<td>IO开销较大，一般的sata盘只有几百TPS</td>
-<td>丢一秒数据</td>
-<td>不可控</td>
-</tr>
-</tbody>
-</table>
-<h5 id="RDB与AOF"><a href="#RDB与AOF" class="headerlink" title="RDB与AOF"></a>RDB与AOF</h5><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>RDB</th>
-<th>AOF</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>启动优先级</td>
-<td>低</td>
-<td>高</td>
-</tr>
-<tr>
-<td>体积</td>
-<td>小</td>
-<td>大</td>
-</tr>
-<tr>
-<td>恢复速度</td>
-<td>快</td>
-<td>慢</td>
-</tr>
-<tr>
-<td>数据安全性</td>
-<td>丢数据</td>
-<td>根据策略决定</td>
-</tr>
-<tr>
-<td>轻重</td>
-<td>重</td>
-<td>轻</td>
-</tr>
-</tbody>
-</table>
+        <p>Rabbit整合Spring方式一</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">       xmlns:rabbit=&quot;http://www.springframework.org/schema/rabbit&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">     http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">            http://www.springframework.org/schema/rabbit</span><br><span class="line">            http://www.springframework.org/schema/rabbit/spring-rabbit-2.0.xsd&quot;&gt;</span><br><span class="line">&lt;!--    定义连接工厂--&gt;</span><br><span class="line">        &lt;rabbit:connection-factory id=&quot;connectionFactory&quot; host=&quot;127.0.0.1&quot; port=&quot;5672&quot; username=&quot;test&quot; password=&quot;test&quot; virtual-host=&quot;/test&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--    消息是发送到交换机还是队列--&gt;</span><br><span class="line">&lt;!--    定义rammitmq的模板 queue=&quot;&quot;如果发送到队列 exchange=&quot;&quot;如果发送到交换机 routing-key=&quot;&quot;定义路由的关键字--&gt;</span><br><span class="line">        &lt;rabbit:template id=&quot;template&quot; connection-factory=&quot;connectionFactory&quot;  exchange=&quot;&quot; /&gt;</span><br><span class="line">        &lt;rabbit:admin connection-factory=&quot;connectionFactory&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--    定义队列--&gt;</span><br><span class="line">        &lt;rabbit:queue name=&quot;myQueue&quot; auto-declare=&quot;true&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--    定义交换机--&gt;</span><br><span class="line">        &lt;rabbit:fanout-exchange name=&quot;fanoutExchange&quot; auto-declare=&quot;true&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--            将队列绑定到交换机--&gt;</span><br><span class="line">            &lt;rabbit:bindings&gt;</span><br><span class="line">                &lt;rabbit:binding queue=&quot;myQueue&quot;&gt;</span><br><span class="line"></span><br><span class="line">                &lt;/rabbit:binding&gt;</span><br><span class="line">            &lt;/rabbit:bindings&gt;</span><br><span class="line">        &lt;/rabbit:fanout-exchange&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--    定义监听容器，当收到消息的时候会执行内部的配置--&gt;</span><br><span class="line">        &lt;rabbit:listener-container connection-factory=&quot;connectionFactory&quot;&gt;</span><br><span class="line">&lt;!--    定义到底哪个类里面的方法用于处理收到的消息--&gt;</span><br><span class="line">            &lt;rabbit:listener ref=&quot;consumer&quot; method=&quot;test&quot; queues=&quot;myQueue&quot;/&gt;</span><br><span class="line">        &lt;/rabbit:listener-container&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--    定义消费者--&gt;</span><br><span class="line">        &lt;bean id=&quot;consumer&quot; class=&quot;net.zzqd.mq.spring.MyConsumer&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--    路由模式--&gt;</span><br><span class="line">&lt;!--    &lt;rabbit:direct-exchange name=&quot;directExchange&quot; auto-declare=&quot;false&quot; durable=&quot;true&quot;&gt;--&gt;</span><br><span class="line">&lt;!--        &lt;rabbit:bindings&gt;--&gt;</span><br><span class="line">&lt;!--            &lt;rabbit:binding queue=&quot;myQueue&quot; key=&quot;key1&quot;&gt;--&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--            &lt;/rabbit:binding&gt;--&gt;</span><br><span class="line">&lt;!--        &lt;/rabbit:bindings&gt;--&gt;</span><br><span class="line">&lt;!--    &lt;/rabbit:direct-exchange&gt;--&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--    适配器模式--&gt;</span><br><span class="line">&lt;!--    &lt;rabbit:topic-exchange name=&quot;topicExchange&quot; auto-declare=&quot;false&quot; durable=&quot;true&quot;&gt;--&gt;</span><br><span class="line">&lt;!--        &lt;rabbit:bindings&gt;--&gt;</span><br><span class="line">&lt;!--            &lt;rabbit:binding pattern=&quot;fafda.*&quot; queue=&quot;myQueue&quot;&gt;--&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--            &lt;/rabbit:binding&gt;--&gt;</span><br><span class="line">&lt;!--        &lt;/rabbit:bindings&gt;--&gt;</span><br><span class="line">&lt;!--    &lt;/rabbit:topic-exchange&gt;--&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -469,7 +389,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Redis/" rel="tag"># Redis</a>
+            <a href="/tags/RabbitMQ/" rel="tag"># RabbitMQ</a>
           
         </div>
       
@@ -482,8 +402,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/07/Redis系列三慢查询、pipeline/" rel="next" title="Redis系列三慢查询、pipeline">
-                <i class="fa fa-chevron-left"></i> Redis系列三慢查询、pipeline
+              <a href="/2019/08/29/RabbitMQ系列五topic模式/" rel="next" title="RabbitMQ系列五topic模式">
+                <i class="fa fa-chevron-left"></i> RabbitMQ系列五topic模式
               </a>
             
           </div>
@@ -491,10 +411,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/07/Redis系列五主从复制/" rel="prev" title="Redis系列五主从复制">
-                Redis系列五主从复制 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -553,17 +469,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -625,22 +532,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#Redis持久化"><span class="nav-number">1.</span> <span class="nav-text">Redis持久化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RDB"><span class="nav-number">2.</span> <span class="nav-text">RDB</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AOF"><span class="nav-number">3.</span> <span class="nav-text">AOF</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RDB与AOF"><span class="nav-number">4.</span> <span class="nav-text">RDB与AOF</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
