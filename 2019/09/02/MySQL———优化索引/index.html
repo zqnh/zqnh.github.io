@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MySQL,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="由于二叉查找树最坏情况下会变成线性的二叉树，时间复杂度由O(logn)变为O(n)，故一般数据库索引的结构是B+Tree、Hash，我们先来介绍下B树。 B-Tree索引定义  根结点至少包括两个孩子 树中每个节点最多含有m个孩子（m&amp;gt;=2） 除根结点和叶节点外，其他每个节点至少有ceil取上限（m/2）个孩子  所有叶子节点都在同一层  假设每个非终端节点中包含n个关键字信息，其中  Ki">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL———优化索引">
+<meta property="og:url" content="http://yoursite.com/2019/09/02/MySQL———优化索引/index.html">
+<meta property="og:site_name" content="Aemon Zhu">
+<meta property="og:description" content="由于二叉查找树最坏情况下会变成线性的二叉树，时间复杂度由O(logn)变为O(n)，故一般数据库索引的结构是B+Tree、Hash，我们先来介绍下B树。 B-Tree索引定义  根结点至少包括两个孩子 树中每个节点最多含有m个孩子（m&amp;gt;=2） 除根结点和叶节点外，其他每个节点至少有ceil取上限（m/2）个孩子  所有叶子节点都在同一层  假设每个非终端节点中包含n个关键字信息，其中  Ki">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/09/02/MySQL———优化索引/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/09/02/MySQL———优化索引/2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/09/02/MySQL———优化索引/3.jpg">
+<meta property="og:updated_time" content="2019-09-02T12:51:06.220Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL———优化索引">
+<meta name="twitter:description" content="由于二叉查找树最坏情况下会变成线性的二叉树，时间复杂度由O(logn)变为O(n)，故一般数据库索引的结构是B+Tree、Hash，我们先来介绍下B树。 B-Tree索引定义  根结点至少包括两个孩子 树中每个节点最多含有m个孩子（m&amp;gt;=2） 除根结点和叶节点外，其他每个节点至少有ceil取上限（m/2）个孩子  所有叶子节点都在同一层  假设每个非终端节点中包含n个关键字信息，其中  Ki">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/02/MySQL———优化索引/1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/02/MySQL———优化索引/">
+
+
+
+
+
+  <title>MySQL———优化索引 | Aemon Zhu</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zqnh"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1" style="
+    margin-left: 1114px;
+    margin-right: 0px;
+"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aemon Zhu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习使我快乐 敲代码使我充实</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/02/MySQL———优化索引/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZZQ">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aemon Zhu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL———优化索引</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-02T17:51:58+08:00">
+                2019-09-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/02/MySQL———优化索引/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/09/02/MySQL———优化索引/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>由于二叉查找树最坏情况下会变成线性的二叉树，时间复杂度由O(logn)变为O(n)，故一般数据库索引的结构是B+Tree、Hash，我们先来介绍下B树。</p>
+<h5 id="B-Tree索引"><a href="#B-Tree索引" class="headerlink" title="B-Tree索引"></a>B-Tree索引</h5><p><strong>定义</strong></p>
+<ol>
+<li>根结点至少包括两个孩子</li>
+<li>树中每个节点最多含有m个孩子（m&gt;=2）</li>
+<li>除根结点和叶节点外，其他每个节点至少有ceil取上限（m/2）个孩子 </li>
+<li>所有叶子节点都在同一层</li>
+</ol>
+<p>假设每个非终端节点中包含n个关键字信息，其中</p>
+<ol>
+<li>Ki（i=1..n）为关键字，且关键字按顺序升序排序K（i-1）&lt;Ki</li>
+<li>关键字的个数必须满足：[ceil(m/2)-1]&lt;=n&lt;=m-1</li>
+<li>非叶子节点的指针：P[1],P[2]…P[M];其中P[1]指向关键字小于K[1]的子树，P[M]指向关键字大于K[M-1]的子树，其他P[i]指向关键字属于(K[i-1],K[i])的子树</li>
+</ol>
+<p><img src="/2019/09/02/MySQL———优化索引/1.jpg" alt></p>
+<h5 id="B-Tree索引-1"><a href="#B-Tree索引-1" class="headerlink" title="B+-Tree索引"></a>B+-Tree索引</h5><p>B+树是B树的变体，其定义基本与B树相同，除了</p>
+<ol>
+<li>非叶子节点的子树指针与关键字个数相同</li>
+<li>非叶子节点的子树指针P[i]，指向关键字[K[i],K[i+1]]的子树</li>
+<li>非叶子节点仅用来索引，数据都保存在叶子节点中</li>
+<li>所有叶子节点均有一个链指针指向下一个叶子节点</li>
+</ol>
+<p><img src="/2019/09/02/MySQL———优化索引/2.jpg" alt></p>
+<p>B+Tree更适合用来做存数索引</p>
+<ol>
+<li>B+树的磁盘读写代价更低</li>
+<li>B+树的查询效率更加稳定</li>
+<li>B+树更有利于对数据库的扫描</li>
+</ol>
+<h5 id="Hash索引"><a href="#Hash索引" class="headerlink" title="Hash索引"></a>Hash索引</h5><p>Hash结构可以直接根据key取到value，查询效率高，但是Hash索引也有一下缺点</p>
+<ol>
+<li>仅仅能满足 = IN，不能使用范围查询</li>
+<li>无法被用来避免数据的排序操作</li>
+<li>不能利用部分索引键查询</li>
+<li>不能避免表扫描</li>
+<li>遇到大量Hash值相等的情况后性能并不一定就会比B-Tree索引高</li>
+</ol>
+<h5 id="索引模块（T）"><a href="#索引模块（T）" class="headerlink" title="索引模块（T）"></a>索引模块（T）</h5><p>:memo: 为什么要使用索引</p>
+<p>使用索引可以避免全表扫描，提高检索效率。</p>
+<p>:memo:什么样的信息能成为索引</p>
+<p>主键唯一键等，能让数据具备一定区分性的字段。</p>
+<p>:memo:索引的数据结构​  </p>
+<p>B+树，Hash，BigMap，MySQL不支持BigMap，Innodb和MyISAM不显式支持Hash。</p>
+<p>:memo: 密集索引和稀疏索引的区别</p>
+<ol>
+<li>密集索引文件中的每个搜索码值都对应一个索引值</li>
+<li>稀疏索引文件只为索引码的某些值建立索引项</li>
+</ol>
+<p>MyISAM不管是主键索引、唯一键索引或者普通索引，其索引均属于稀疏索引，而InnoDB有且只有一个密集索引</p>
+<ol>
+<li>若一个主键被定义，该主键则作为密集索引</li>
+<li>若没有主键被定义，该表的第一个唯一非空索引则作为密集所以</li>
+<li>若不满足以上条件，innodb内部会生成一个隐藏主键(密集索引)</li>
+<li>非主键索引存储相关键位和其对应的主键值，包含两次查找</li>
+</ol>
+<p><img src="/2019/09/02/MySQL———优化索引/3.jpg" alt></p>
+<h5 id="索引衍生问题，MySQL为例-T"><a href="#索引衍生问题，MySQL为例-T" class="headerlink" title="索引衍生问题，MySQL为例(T)"></a>索引衍生问题，MySQL为例(T)</h5><p><strong>:memo:如何定位并优化慢查询Sql</strong></p>
+<p>1.根据慢日志定位慢查询sql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">show variables like &apos;%quer%&apos;;	#1.查询变量</span><br><span class="line">show status like &apos;%slow_queries%&apos;	#2.查询慢查询数量</span><br><span class="line"></span><br><span class="line">set global slow_query_log = on;`	#打开查询日志</span><br><span class="line">set global long_query_time=1;	#设置慢查询时间为1s</span><br><span class="line"></span><br><span class="line">#3.extra是Using filesort，此时查询时间为0.003s</span><br><span class="line">EXPLAIN SELECT shop_price FROM product ORDER BY shop_price DESC;</span><br></pre></td></tr></table></figure>
+<p>2.使用explain等工具分析sql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">explain关键字段 </span><br><span class="line"></span><br><span class="line">type:</span><br><span class="line">system&gt;const&gt;eq_ref&gt;ref&gt;fulltext&gt;ref_or_null&gt;index_merge&gt;unique_subquery&gt;index_subquery&gt;range&gt;index&gt;all(all代表全表查询)</span><br><span class="line"></span><br><span class="line">extra:</span><br><span class="line">Using filesort:表示MySQL会对结果使用一个外部索引排序，而不是从表里按索引次序读到相关内容。可能在内存或者磁盘上进行排序。MySQL中无法利用索引完成排序操作称为“文件排序”</span><br><span class="line">Using temporary：表示MySQL在对查询结果排序时使用临时表，常见于排序order by和分组查询group by。</span><br></pre></td></tr></table></figure>
+<p>3.修改sql或者尽量让sql走索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT shop_price FROM product ORDER BY shop_price DESC;	#extra是Using filesort</span><br><span class="line"></span><br><span class="line">EXPLAIN SELECT cid FROM product ORDER BY cid DESC;	#4.cid使用了索引，用cid代替shop_price</span><br><span class="line"></span><br><span class="line">alter table product add index idx_name(shop_price)	#5.给shop_price加索引</span><br><span class="line"></span><br><span class="line">SELECT shop_price FROM product ORDER BY shop_price DESC;	#使用索引后查询时间为0.000s</span><br><span class="line"></span><br><span class="line">EXPLAIN SELECT shop_price FROM product ORDER BY shop_price DESC;</span><br><span class="line"></span><br><span class="line">SELECT COUNT(*) from product;	#耗时0.001s,运用主键idx_name，是sql优化器选择的</span><br><span class="line">SELECT COUNT(*) from product force index(PRIMARY);	#将索引变为主键 耗时0.005s</span><br></pre></td></tr></table></figure>
+<p><strong>:memo:联合索引的最左匹配原则的成因</strong></p>
+<ol>
+<li>最左前缀匹配原则，mysql会一直向右匹配直到遇到范围查询(&gt;,&lt;,between,like)就停止匹配，比如a=3 and b=4 and c&gt;5 and d=6 如果建立(a,b,c,d)顺序的索引，d是用不到索引的，如果建立(a,b,d,c)的索引则都可以用到，a,b,d的顺序可以任意调整。</li>
+<li>=和in可以乱序，比如a=1 and b=2 and c=3建立(a,b,c)索引可以任意顺序，mysql的查询优化器会帮你优化成索引可以识别的形式</li>
+<li>联合索引的最左匹配原则的成因:mysql创建复合索引的规则是首先会对复合索引的最左边，也就是索引中的第一个字段进行排序，在第一个字段排序的基础上，在对索引上第二个字段进行排序，其实就像是实现类似order by 字段1，字段2这样的排序规则，那么第一个字段是绝对有序的，而第二个字段就是无序的了，因此一般情况下直接只用第二个字段判断是用不到索引的，这就是为什么mysql要强调联合索引最左匹配原则的原因。</li>
+</ol>
+<p><strong>:memo:索引是建立得越多越好吗</strong></p>
+<ol>
+<li>数据量小的表不需要建立索引，建立会增加额外的索引开销</li>
+<li>数据变更需要维护索引，意味着更多的索引意味着更多的维护成本</li>
+<li>更多的索引也需要跟多的存储空间</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/01/TCP与UDP协议/" rel="next" title="TCP与UDP协议">
+                <i class="fa fa-chevron-left"></i> TCP与UDP协议
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/02/MySQL———索引/" rel="prev" title="MySQL———索引">
+                MySQL———索引 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="ZZQ">
+            
+              <p class="site-author-name" itemprop="name">ZZQ</p>
+              <p class="site-description motion-element" itemprop="description">坦坦荡荡 一身正气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#B-Tree索引"><span class="nav-number">1.</span> <span class="nav-text">B-Tree索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#B-Tree索引-1"><span class="nav-number">2.</span> <span class="nav-text">B+-Tree索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Hash索引"><span class="nav-number">3.</span> <span class="nav-text">Hash索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#索引模块（T）"><span class="nav-number">4.</span> <span class="nav-text">索引模块（T）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#索引衍生问题，MySQL为例-T"><span class="nav-number">5.</span> <span class="nav-text">索引衍生问题，MySQL为例(T)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZZQ</span>
+
+  
+</div>
+
+
+
+ <!-- 
+ 
+ <div class="powered-by">世界是美好的</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">是值得我们去奋斗的 &mdash;  v</div>
+
+
+-->
+
+<div style="width:300px;margin:0 auto; padding:20px 0;">
+<div class="BbeiAn-info">
+豫ICP备 -
+<a target="_blank" href="http://www.beian.miit.gov.cn/">19028433号-1</a>
+
+</div>
+<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41082302410986" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/images/beian.png" style="float:left;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">豫公网安备 41082302410986号</p></a>
+</div>
+		 
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+	 
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv"></span>
+        </span>
+        <span class="post-meta-divider"></span>
+        <span id="busuanzi_container_site_uv" style="display:none">
+                <span id="busuanzi_value_site_uv"></span>
+        </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v="></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+		<link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: "<%=page.date%>", 
+            owner: 'zqnh',
+            repo: 'zqnh.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'd9c922b4c4a7b4458ba55aa5673db78556aa9d1f',
+            
+                client_id: 'ca41c1f6c6585b630f16'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
